@@ -1,0 +1,13 @@
+mat-card {
+  width: 800px;
+  height: 300px;
+  display: table;
+  margin: 100px auto;
+  .card-content {
+    display: flex;
+    flex-direction: column;
+    * {
+      width: 100%;
+    }
+  }
+}
