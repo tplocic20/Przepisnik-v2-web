@@ -1,12 +1,109 @@
-/* You can add global styles to this file, and also import other style files */
-@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+$md-checkbox-margin: 16px 0;
+$md-checkbox-checked-color: #2BBBAD;
+$md-checkbox-border-color: rgba(0, 0, 0, 0.54);
 
-.fill-remaining-space {
-  flex: 1 1 auto;
+$md-checkbox-size: 20px;
+$md-checkbox-padding: 4px;
+
+$md-checkmark-width: 2px;
+$md-checkmark-color: #fff;
+body {
+  overflow: hidden;
+  max-height: 100vh;
+  padding: 0 15px;
 }
-.button-row {
+
+.main-content {
+  position: relative;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -moz-flex;
+  display: -ms-flexbox;
   display: flex;
-  button {
-    margin: 2px;
+  padding: 5px;
+  width: 100%;
+}
+
+.content {
+  padding-top: 55px;
+}
+
+.md-checkbox {
+  position: relative;
+  //margin: $md-checkbox-margin;
+  width: 35%;
+  margin: 0 auto;
+  label {
+    cursor: pointer;
+    &:before, &:after {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+
+    &:before {
+      // box
+      width: $md-checkbox-size;
+      height: $md-checkbox-size;
+      background: #fff;
+      border: 2px solid $md-checkbox-border-color;
+      border-radius: 2px;
+      cursor: pointer;
+      transition: background .3s;
+    }
+
+    &:after {
+      // checkmark
+    }
   }
+
+  input[type="checkbox"] {
+    outline: 0;
+    margin-right: $md-checkbox-size - 10px;
+
+    &:checked {
+      + label:before {
+        background: $md-checkbox-checked-color;
+        border: none;
+      }
+      + label:after {
+
+        $md-checkmark-size: $md-checkbox-size - 2*$md-checkbox-padding;
+
+        transform: rotate(-45deg);
+
+        top: ($md-checkbox-size / 2) - ($md-checkmark-size / 4) - $md-checkbox-size/10;
+        left: $md-checkbox-padding;
+        width: $md-checkmark-size;
+        height: $md-checkmark-size / 2;
+
+        border: $md-checkmark-width solid $md-checkmark-color;
+        border-top-style: none;
+        border-right-style: none;
+      }
+    }
+  }
+}
+
+.left-panel {
+  -webkit-box-flex: 0;
+  -ms-flex: 0 1 320px;
+  flex: 0 1 320px;
+}
+
+.right-panel {
+  -webkit-box-ordinal-group: 2;
+  -ms-flex-order: 1;
+  order: 1;
+}
+
+.div-column {
+  max-height: calc(100vh - 55px);
+  overflow-y: scroll;
+}
+
+.flex-nowrap {
+  flex-wrap: nowrap !important;
 }

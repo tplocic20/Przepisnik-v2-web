@@ -1,11 +1,23 @@
-<mat-toolbar color="primary">
-<h1>
-  Przepiśnik
-</h1>
-  <span class="fill-remaining-space"></span>
-  <div class="button-row">
-    <button mat-button routerLink="login" routerLinkActive="true">Logowanie</button>
-    <button mat-button routerLink="register" routerLinkActive="true">Rejestracja</button>
+  <mdb-navbar SideClass="navbar navbar-expand-xl navbar-dark teal justify-content-between fixed-top"
+              [containerInside]="false">
+
+    <logo><a class="navbar-brand">Przepiśnik</a></logo>
+
+    <links>    <!-- Links -->
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item" routerLinkActive="active">
+          <a class="nav-link waves-light" routerLink="recipes" mdbRippleRadius>Przepisy</a>
+        </li>
+        <li class="nav-item" routerLinkActive="active">
+          <a class="nav-link waves-light" routerLink="notes" mdbRippleRadius>Notatki</a>
+        </li>
+      </ul>
+      <form class="form-inline  waves-light" mdbRippleRadius>
+        <input class="form-control mr-sm-2" type="text" placeholder="Search">
+      </form>
+    </links>
+
+  </mdb-navbar>
+  <div class="content">
+    <router-outlet></router-outlet>
   </div>
-</mat-toolbar>
-<router-outlet></router-outlet>
