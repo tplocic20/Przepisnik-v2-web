@@ -6,14 +6,15 @@ import {NotescontainerComponent} from "../notes/components/notescontainer/notesc
 
 const routes: Routes = [
   {path: 'home', component: LoginComponent},
-  {path: 'recipes', component: RecipescontainerComponent},
+ // {path: 'recipes', component: RecipescontainerComponent},
   {path: 'notes', component: NotescontainerComponent},
   { path: '', redirectTo: '/home', pathMatch: 'full'}
 ];
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes,
+      { enableTracing: true })
   ],
   exports: [RouterModule]
 })

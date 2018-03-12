@@ -1,0 +1,9 @@
+table {
+  margin-top: 60px;
+  tr {
+    cursor: pointer;
+  }
+  tr:focus {
+    outline: none;
+  }
+}

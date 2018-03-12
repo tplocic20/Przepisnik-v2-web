@@ -1,5 +1,8 @@
 
-  <p *ngFor="let rec of recipes | async">
-    {{rec.Name}}
-  </p>
-
+<table class="table table-hover table-sm">
+  <tbody>
+    <tr *ngFor="let rec of recipes | async" [routerLink]="['/recipes', rec.$key]" routerLinkActive="table-info">
+      <td>{{rec.Name}}</td>
+    </tr>
+  </tbody>
+</table>

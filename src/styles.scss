@@ -7,6 +7,17 @@ $md-checkbox-padding: 4px;
 
 $md-checkmark-width: 2px;
 $md-checkmark-color: #fff;
+
+$color-black: "0,0,0";
+$select-background-color: transparent;
+$select-border-color: unquote("rgba(#{$color-black}, 0.12)") !default;
+$select-font-size: 16px;
+$select-color: $color-black !default;
+$select-padding: 4px;
+
+
+
+
 body {
   overflow: hidden;
   max-height: 100vh;
@@ -106,4 +117,42 @@ body {
 
 .flex-nowrap {
   flex-wrap: nowrap !important;
+}
+
+select {
+  font-family: inherit;
+  background-color: transparent;
+  width: 100%;
+  padding: $select-padding 0;
+  font-size: $select-font-size;
+  color: $select-color;
+  border: none;
+  border-bottom: 1px solid $select-border-color;
+}
+
+/* Remove focus */
+select:focus {
+  outline: none}
+
+/* Hide label */
+.select-container label {display: none;}
+/* Use custom arrow */
+.elect-container select {appearance: none}
+.elect-container {
+  font-family: 'Roboto','Helvetica','Arial',sans-serif;
+  position: relative;
+  &:after {
+    position: absolute;
+    top: 0.75em;
+    right: 0.5em;
+    /* Styling the down arrow */
+    width: 0;
+    height: 0;
+    padding: 0;
+    content: '';
+    border-left: .25em solid transparent;
+    border-right: .25em solid transparent;
+    border-top: .375em solid $select-border-color;
+    pointer-events: none;
+  }
 }

@@ -6,7 +6,7 @@ import {FireService} from "../../../services/fire.service";
 @Component({
   selector: 'app-recipes-list',
   templateUrl: './recipes-list.component.html',
-  styleUrls: ['./recipes-list.component.css']
+  styleUrls: ['./recipes-list.component.scss']
 })
 export class RecipesListComponent implements OnInit, OnChanges {
 

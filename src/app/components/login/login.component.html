@@ -16,7 +16,7 @@
         <label for="defaultForm-pass">Hasło</label>
       </div>
       <div class="md-checkbox">
-        <input id="i2" type="checkbox" [(ngModel)]="rememberMe">
+        <input id="i2" type="checkbox" [(ngModel)]="rememberMe" [ngModelOptions]="{standalone: true}">
         <label for="i2">Zapamiętaj mnie</label>
       </div>
       <div class="text-center">

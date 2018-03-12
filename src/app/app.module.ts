@@ -29,7 +29,7 @@ const fireBaseConfig = {
   declarations: [
     AppComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
   ],
   imports: [
     BrowserModule,
@@ -37,11 +37,12 @@ const fireBaseConfig = {
     AngularFireModule.initializeApp(fireBaseConfig),
     AngularFireAuthModule,
     AngularFireDatabaseModule,
-    RoutingModule,
     FormsModule,
     BrowserAnimationsModule,
     NotesModule,
-    RecipesModule
+    RecipesModule,
+
+    RoutingModule,
   ],
   providers: [FireService],
   bootstrap: [AppComponent],
