@@ -1,3 +1,13 @@
+.navbar {
+  top: 2px;
+}
 .recipe-details {
-  margin: 20px;
+  height: 100%;
+  padding: 20px 10px;
+  .card-offset{
+    top: 60px;
+  }
+  .intend >td {
+    padding-left: 20px;
+  }
 }

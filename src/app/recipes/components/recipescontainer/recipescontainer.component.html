@@ -1,12 +1,14 @@
 <div class="row " style="height: 100%">
-  <div class="col-md-2 div-column">
-    <div class="bg-white" sticky sticky-offset-top="60">
+  <div class="col-md-2 col-sm-4 col-xs-12 div-column padding-o">
+    <div class="sticky-top">
       <app-categories (categorySelected)="test($event)"></app-categories>
     </div>
-    <app-recipes-list [category]="selectedCategory"></app-recipes-list>
+    <div>
+      <app-recipes-list [category]="selectedCategory"></app-recipes-list>
+    </div>
 
   </div>
-  <div class="col-md-10 div-column">
+  <div class="col-md-10 col-sm-8 col-xs-12 div-column">
 
     <router-outlet></router-outlet>
   </div>

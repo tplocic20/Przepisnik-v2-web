@@ -1,8 +1,10 @@
-<div class="select-container">
-  <select (change)="selectionChanged()" [(value)]="selectedCategory">
-    <option value="-">Wszystkie</option>
-      <option *ngFor="let cat of categories | async" [value]="cat.$key">
+<div class="navbar bg-default">
+  <div class="select-container">
+    <select (change)="selectionChanged()" [(ngModel)]="selectedCategory">
+      <option value="-">Wszystkie</option>
+      <option *ngFor="let cat of categories | async" [ngValue]="cat.$key">
         {{cat.Name}}
       </option>
-  </select>
+    </select>
+  </div>
 </div>

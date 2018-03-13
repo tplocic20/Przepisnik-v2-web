@@ -6,13 +6,13 @@ import { CategoriesComponent } from './components/categories/categories.componen
 import { RecipeDetailsComponent } from './components/recipe-details/recipe-details.component';
 import {FormsModule} from "@angular/forms";
 import {RecipesRoutingModule} from "./routing/recipes-routing.module";
-import {StickyModule} from "ng2-sticky-kit";
+import {MDBBootstrapModule} from "angular-bootstrap-md/index";
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
-    StickyModule,
+    MDBBootstrapModule.forRoot(),
     RecipesRoutingModule
   ],
   declarations: [RecipesListComponent, RecipescontainerComponent, CategoriesComponent, RecipeDetailsComponent],
