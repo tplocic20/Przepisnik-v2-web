@@ -15,6 +15,8 @@ import {AngularFireDatabaseModule} from "angularfire2/database";
 import {NotesModule} from "./notes/notes.module";
 import {RecipesModule} from "./recipes/recipes.module";
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
+import {SearchService} from "./services/search.service";
+import { SearchComponent } from './components/search/search.component';
 
 const fireBaseConfig = {
   apiKey: "AIzaSyDlCSFFdJ2kdm8-2ZkKPZasVWHqc0bfotg",
@@ -30,6 +32,8 @@ const fireBaseConfig = {
     AppComponent,
     LoginComponent,
     RegisterComponent,
+    SearchComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -44,7 +48,7 @@ const fireBaseConfig = {
 
     RoutingModule,
   ],
-  providers: [FireService],
+  providers: [FireService, SearchService],
   bootstrap: [AppComponent],
 })
 export class AppModule {

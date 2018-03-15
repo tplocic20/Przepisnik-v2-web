@@ -7,11 +7,13 @@ import { RecipeDetailsComponent } from './components/recipe-details/recipe-detai
 import {FormsModule} from "@angular/forms";
 import {RecipesRoutingModule} from "./routing/recipes-routing.module";
 import {MDBBootstrapModule} from "angular-bootstrap-md/index";
+import {PipesModule} from "../pipes/pipes.module";
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
+    PipesModule,
     MDBBootstrapModule.forRoot(),
     RecipesRoutingModule
   ],

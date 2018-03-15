@@ -5,28 +5,30 @@
   <div class="recipe-details">
     <div class="row">
       <div class="col-md-6 col-sm-6">
-        <table *ngFor="let grp of recipe?.Engredients" class="table table-sm">
-          <thead>
-          <tr>
-            <td>
-              <strong>{{grp.Name}}</strong>
+        <div class="sticky-offset sticky-top">
+          <table *ngFor="let grp of recipe?.Engredients" class="table table-sm">
+            <thead>
+            <tr>
+              <td>
+                <strong>{{grp.Name}}</strong>
                 <button class="btn btn-link btn-sm pull-right" mdbRippleRadius><i class="fa fa-magic"></i></button>
-            </td>
-          </tr>
-          </thead>
-          <tbody>
-          <tr class="intend" *ngFor="let eng of grp?.Positions">
-            <td>{{eng.Name}}</td>
-          </tr>
-          </tbody>
-        </table>
+              </td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="intend" *ngFor="let eng of grp?.Positions">
+              <td>{{eng.Name}}</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
       <div class="col-md-6 col-sm-6">
-        <div class="card card-offset sticky-top">
+        <div class="card sticky-offset sticky-top">
           <div class="card-header ">
             <h4 class="card-title ">Przepis</h4>
           </div>
-          <div class="card-body">
+          <div class="card-body pre-line">
             {{recipe?.Recipe}}
           </div>
         </div>

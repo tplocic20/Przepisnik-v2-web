@@ -20,6 +20,9 @@ body {
   overflow: hidden;
 }
 
+.navbar-toggler-icon > .fa {
+  display: none;
+}
 ::-webkit-scrollbar {
   width: 7px;
   height: 8px;
@@ -157,4 +160,9 @@ select:focus {
 
 .padding-o {
   padding: 0;
+}
+
+.pre-line {
+  white-space: pre-line;
+  text-align: left;
 }
