@@ -1,0 +1,22 @@
+<div class="row">
+  <div class="col-md-3" *ngFor="let fav of favourites | async">
+    <div class="card">
+      <div class="view overlay">
+
+        <div *ngIf="fav.Gallery">
+          <img [src]="fav.Gallery[0].url" class="img-fluid img-center img-max-256" alt="Ładowanie obrazu"/>
+        </div>
+        <div *ngIf="!fav.Gallery">
+          <img src="../../../../assets/ico.png"  class="img-fluid img-center img-max-256" alt=""/>
+        </div>
+        <a [routerLink]="['/recipes', fav.$key]">
+          <div class="mask rgba-white-slight"></div>
+        </a>
+      </div>
+      <div class="card-body">
+        <h4 class="card-title">{{fav.Name}}</h4>
+      </div>
+    </div>
+  </div>
+</div>
+

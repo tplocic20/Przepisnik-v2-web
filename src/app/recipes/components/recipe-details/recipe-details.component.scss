@@ -1,13 +1,26 @@
 .navbar {
   top: 2px;
 }
+.recipe-tittle {
+  z-index:9999;
+}
 .recipe-details {
   height: 100%;
   padding: 20px 10px;
   .sticky-offset{
     top: 60px;
   }
+  .sticky-offsets > div:first-child {
+    top: 60px;
+  }
+  .sticky-offsets > div:nth-child(2){
+    top: 180px;
+
+  }
   .intend >td {
     padding-left: 20px;
   }
+}
+.margin-divs > div {
+    margin-bottom: 15px;
 }

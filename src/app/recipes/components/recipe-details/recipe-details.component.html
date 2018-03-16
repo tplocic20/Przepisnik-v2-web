@@ -1,5 +1,5 @@
 <div *ngIf="recipe">
-  <div class="navbar bg-white sticky-top">
+  <div class="navbar bg-white sticky-top recipe-tittle">
     <h4>{{recipe?.Name}}</h4>
   </div>
   <div class="recipe-details">
@@ -23,8 +23,14 @@
           </table>
         </div>
       </div>
-      <div class="col-md-6 col-sm-6">
-        <div class="card sticky-offset sticky-top">
+      <div class="col-md-6 col-sm-6 margin-divs">
+        <div class="card card-body sticky-offset sticky-top card-padding-bottom-0"
+             *ngIf="recipe.Temperature || recipe.Time">
+          <p><strong>Temperatura: </strong>{{recipe?.Temperature}} &#x2103;</p>
+          <p><strong>Czas: </strong>{{recipe?.Time}}</p>
+        </div>
+
+        <div class="card">
           <div class="card-header ">
             <h4 class="card-title ">Przepis</h4>
           </div>
@@ -32,10 +38,30 @@
             {{recipe?.Recipe}}
           </div>
         </div>
+        <div class="card" *ngIf="recipe.Gallery">
+          <div class="card-header ">
+            <h4 class="card-title ">Galeria</h4>
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-6" *ngFor="let image of recipe.Gallery">
+                <div class="card">
+
+                  <div class="view overlay">
+                    <img [src]="image.url" class="img-fluid img-center img-max-256" alt="Obraz niedostępny"/>
+                    <a>
+                      <div class="mask rgba-white-slight"></div>
+                    </a>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
-</div>
-<div *ngIf="!recipe">
-  dupa
-</div>
+  <div *ngIf="!recipe">
+    dupa
+  </div>

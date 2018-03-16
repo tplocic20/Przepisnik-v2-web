@@ -8,6 +8,7 @@ import {FormsModule} from "@angular/forms";
 import {RecipesRoutingModule} from "./routing/recipes-routing.module";
 import {MDBBootstrapModule} from "angular-bootstrap-md/index";
 import {PipesModule} from "../pipes/pipes.module";
+import { RecipesDashboardComponent } from './components/recipes-dashboard/recipes-dashboard.component';
 
 @NgModule({
   imports: [
@@ -17,7 +18,7 @@ import {PipesModule} from "../pipes/pipes.module";
     MDBBootstrapModule.forRoot(),
     RecipesRoutingModule
   ],
-  declarations: [RecipesListComponent, RecipescontainerComponent, CategoriesComponent, RecipeDetailsComponent],
+  declarations: [RecipesListComponent, RecipescontainerComponent, CategoriesComponent, RecipeDetailsComponent, RecipesDashboardComponent],
   exports: [RecipesListComponent, RecipescontainerComponent, CategoriesComponent, RecipeDetailsComponent]
 })
 export class RecipesModule { }
