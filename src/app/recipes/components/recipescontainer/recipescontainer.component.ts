@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Observable} from "rxjs/Observable";
+import {AddEditRecipeModalComponent} from "../../modals/add-edit-recipe-modal/add-edit-recipe-modal.component";
 
 @Component({
   selector: 'app-recipescontainer',
@@ -9,6 +10,7 @@ import {Observable} from "rxjs/Observable";
 export class RecipescontainerComponent implements OnInit {
 
   selectedCategory: string;
+  private addEditRecipeModal: AddEditRecipeModalComponent = new AddEditRecipeModalComponent();
   constructor() { }
 
   ngOnInit() {
@@ -16,6 +18,11 @@ export class RecipescontainerComponent implements OnInit {
 
   test(ev) {
     this.selectedCategory = ev;
+  }
+
+  addRecipe() {
+    console.log("add");
+    this.addEditRecipeModal.show();
   }
 
 }

@@ -9,6 +9,7 @@ import {RecipesRoutingModule} from "./routing/recipes-routing.module";
 import {MDBBootstrapModule} from "angular-bootstrap-md/index";
 import {PipesModule} from "../pipes/pipes.module";
 import { RecipesDashboardComponent } from './components/recipes-dashboard/recipes-dashboard.component';
+import { AddEditRecipeModalComponent } from './modals/add-edit-recipe-modal/add-edit-recipe-modal.component';
 
 @NgModule({
   imports: [
@@ -18,7 +19,8 @@ import { RecipesDashboardComponent } from './components/recipes-dashboard/recipe
     MDBBootstrapModule.forRoot(),
     RecipesRoutingModule
   ],
-  declarations: [RecipesListComponent, RecipescontainerComponent, CategoriesComponent, RecipeDetailsComponent, RecipesDashboardComponent],
-  exports: [RecipesListComponent, RecipescontainerComponent, CategoriesComponent, RecipeDetailsComponent]
+  declarations: [RecipesListComponent, RecipescontainerComponent, CategoriesComponent, RecipeDetailsComponent, RecipesDashboardComponent, AddEditRecipeModalComponent],
+  exports: [RecipesListComponent, RecipescontainerComponent, CategoriesComponent, RecipeDetailsComponent],
+  entryComponents: [AddEditRecipeModalComponent]
 })
 export class RecipesModule { }

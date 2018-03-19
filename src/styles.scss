@@ -178,3 +178,29 @@ select:focus {
 .card-padding-bottom-0 {
   padding-bottom: 0;
 }
+
+.btn-clear {
+  color: inherit!important;
+  background-color: transparent;
+  box-shadow: none;
+  border: none;
+  margin: 10px;
+  text-decoration: none;
+  outline: 0!important;
+}
+.btn-clear:hover,
+.btn-clear:active,
+.btn-clear:enabled{
+  box-shadow: none;
+}
+.btn-no-v-margin {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}
+.btn-block {
+  width: 100%;
+  border-radius: 0;
+}
+.margin-0 {
+  margin-bottom: 0;
+}

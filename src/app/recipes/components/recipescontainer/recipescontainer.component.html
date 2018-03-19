@@ -2,6 +2,7 @@
   <div class="col-md-2 col-sm-4 col-xs-12 div-column padding-o">
     <div class="sticky-top">
       <app-categories (categorySelected)="test($event)"></app-categories>
+      <button  (click)="addRecipe()" class="btn btn-default waves-light btn-block" mdbRippleRadius><i class="fa fa-plus"></i> Dodaj przepis</button>
     </div>
     <div>
       <app-recipes-list [category]="selectedCategory"></app-recipes-list>
@@ -13,5 +14,4 @@
       <router-outlet></router-outlet>
     </div>
   </div>
-
 </div>

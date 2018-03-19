@@ -6,21 +6,27 @@
     <div class="row">
       <div class="col-md-6 col-sm-6">
         <div class="sticky-offset sticky-top">
-          <table *ngFor="let grp of recipe?.Engredients" class="table table-sm">
-            <thead>
-            <tr>
-              <td>
-                <strong>{{grp.Name}}</strong>
-                <button class="btn btn-link btn-sm pull-right" mdbRippleRadius><i class="fa fa-magic"></i></button>
-              </td>
-            </tr>
-            </thead>
-            <tbody>
-            <tr class="intend" *ngFor="let eng of grp?.Positions">
-              <td>{{eng.Name}}</td>
-            </tr>
-            </tbody>
-          </table>
+          <div *ngFor="let grp of recipe?.Engredients">
+            <table class="table table-sm margin-0">
+              <thead>
+              <tr>
+                <td>
+                  <strong>{{grp.Name}}</strong>
+                  <button class="btn btn-clear btn-sm btn-no-v-margin pull-right" (click)="compressExpand(grp)"
+                          mdbRippleRadius><i class="fa" [class.fa-compress]="!grp.isCollapsed" [class.fa-expand]="grp.isCollapsed"></i>
+                  </button>
+                </td>
+              </tr>
+              </thead>
+            </table>
+            <div [@collapse] *ngIf="!grp.isCollapsed">
+              <table class="table table-sm margin-0">
+                <tr class="intend" *ngFor="let eng of grp?.Positions">
+                  <td>{{eng.Name}}</td>
+                </tr>
+              </table>
+            </div>
+          </div>
         </div>
       </div>
       <div class="col-md-6 col-sm-6 margin-divs">
@@ -65,3 +71,4 @@
   <div *ngIf="!recipe">
     dupa
   </div>
+</div>
