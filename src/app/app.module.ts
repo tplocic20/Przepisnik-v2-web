@@ -17,6 +17,7 @@ import {RecipesModule} from "./recipes/recipes.module";
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import {SearchService} from "./services/search.service";
 import { SearchComponent } from './components/search/search.component';
+import {ModalService} from "./services/modal.service";
 
 const fireBaseConfig = {
   apiKey: "AIzaSyDlCSFFdJ2kdm8-2ZkKPZasVWHqc0bfotg",
@@ -48,7 +49,7 @@ const fireBaseConfig = {
 
     RoutingModule,
   ],
-  providers: [FireService, SearchService],
+  providers: [FireService, SearchService, ModalService],
   bootstrap: [AppComponent],
 })
 export class AppModule {

@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Inject, OnInit, ViewContainerRef} from '@angular/core';
 import {Observable} from "rxjs/Observable";
 import {AddEditRecipeModalComponent} from "../../modals/add-edit-recipe-modal/add-edit-recipe-modal.component";
+import {ModalService} from "../../../services/modal.service";
+import {ModalModeEnum} from "../../../models/enums/ModalModeEnum";
 
 @Component({
   selector: 'app-recipescontainer',
@@ -10,8 +12,7 @@ import {AddEditRecipeModalComponent} from "../../modals/add-edit-recipe-modal/ad
 export class RecipescontainerComponent implements OnInit {
 
   selectedCategory: string;
-  private addEditRecipeModal: AddEditRecipeModalComponent = new AddEditRecipeModalComponent();
-  constructor() { }
+  constructor(private viewContainerRef: ViewContainerRef, private modalSrv: ModalService) { }
 
   ngOnInit() {
   }
@@ -21,8 +22,7 @@ export class RecipescontainerComponent implements OnInit {
   }
 
   addRecipe() {
-    console.log("add");
-    this.addEditRecipeModal.show();
+    this.modalSrv.showModal(this.viewContainerRef, AddEditRecipeModalComponent, {mode: ModalModeEnum.Add});
   }
 
 }
