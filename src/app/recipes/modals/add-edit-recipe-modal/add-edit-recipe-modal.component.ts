@@ -1,29 +1,51 @@
-import {AfterViewInit, Component, Input, OnInit, ViewChild} from '@angular/core';
-import {ModalDirective} from "angular-bootstrap-md/modals/modal.directive";
+import {Component, Inject, OnInit, ViewChild} from '@angular/core';
 import {ModalModeEnum} from "../../../models/enums/ModalModeEnum";
 import {Observable} from "rxjs/Observable";
 import {Recipe} from "../../../models/Recipe";
+import {FireService} from "../../../services/fire.service";
+import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material";
+import {CategoriesSelectComponent} from "../../partials/categories-select/categories-select.component";
 
 @Component({
   selector: 'app-add-edit-recipe-modal',
   templateUrl: './add-edit-recipe-modal.component.html',
   styleUrls: ['./add-edit-recipe-modal.component.scss']
 })
-export class AddEditRecipeModalComponent implements AfterViewInit {
+export class AddEditRecipeModalComponent implements OnInit {
+
+  @ViewChild('categories') categories: CategoriesSelectComponent;
+  firstTabValid: boolean = true;
+  secondTabValid: boolean = true;
+  thirdTabValid: boolean = true;
 
   public config: any;
   modalTittle: string;
-  recipe: Observable<Recipe>;
-  @ViewChild('modalRef') public modalRef: ModalDirective;
+  private recipe: Recipe = {Name: ""};
 
-  constructor() {
+  constructor(private srv: FireService, public dialogRef: MatDialogRef<AddEditRecipeModalComponent>, @Inject(MAT_DIALOG_DATA) public data: any) {
+    this.config = data;
   }
-  ngAfterViewInit(): void {
-    if (this.config.mode === ModalModeEnum.Add)
+
+  ngOnInit(): void {
+    if (this.config.mode === ModalModeEnum.Add) {
       this.modalTittle = "Nowy przepis";
-    else {
+      this.recipe.Engredients = [{Name: "Składniki", Positions: []}];
+    } else {
+      if (this.config.recId) {
+        this.srv.getRecipe(this.config.recId).subscribe(rec => this.recipe = rec);
+        this.modalTittle = `Edycja ${this.recipe.Name}`;
+      } else {
+        this.close();
+      }
 
     }
-    this.modalRef.show();
+  }
+
+  close() {
+    this.dialogRef.close();
+  }
+
+  submit() {
+    this.firstTabValid = this.categories.validCategories != null;
   }
 }

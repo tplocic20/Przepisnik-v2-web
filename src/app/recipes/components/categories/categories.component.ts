@@ -16,7 +16,7 @@ export class CategoriesComponent implements OnInit {
   constructor(private srv: FireService) { }
 
   ngOnInit() {
-    this.categories = this.srv.getCategories();
+    this.categories = this.srv.categories;
   }
 
   selectionChanged() {

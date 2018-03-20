@@ -1,8 +1,18 @@
-  <table class="table table-hover table-sm">
-    <tbody>
-    <tr *ngFor="let rec of recipes | async | filter:searchService.searchValue" [routerLink]="['/recipes', rec.$key]" routerLinkActive="table-info">
-      <td>{{rec.Name}}</td>
-    </tr>
-    </tbody>
-  </table>
+<table class="table table-hover table-sm">
+  <tbody>
+  <tr class="buttons-row" *ngFor="let rec of recipes | async | filter:searchService.searchValue"
+      [routerLink]="['/recipes', rec.$key]" routerLinkActive="table-info">
+    <td>
+
+      <div class="row-data">{{rec.Name}}</div>
+
+      <div class="btn-group pull-right position-absolute hover-elements">
+        <button class="btn btn-primary btn-sm btn-no-v-margin" mdbRippleRadius>test</button>
+        <button class="btn btn-primary btn-sm btn-no-v-margin" mdbRippleRadius>test</button>
+      </div>
+
+    </td>
+  </tr>
+  </tbody>
+</table>
 

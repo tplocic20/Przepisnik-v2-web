@@ -1,0 +1,11 @@
+.pan-container {
+  margin-top: 15px;
+  display: flex;
+  .left-pan {
+    float: left;
+    width: 100%;
+  }
+  .right-pan {
+    float: right;
+  }
+}

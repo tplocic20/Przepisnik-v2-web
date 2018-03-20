@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FireService} from "./services/fire.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-root',
@@ -8,10 +9,10 @@ import {FireService} from "./services/fire.service";
 })
 export class AppComponent implements OnInit {
 
-  constructor(private srv: FireService) {
+  constructor(private srv: FireService, private router: Router) {
     this.srv.authCtx.subscribe(user => {
       if (user) {
-
+        this.router.navigate(['recipes']);
       }
     });
   }

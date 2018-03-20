@@ -1,0 +1,25 @@
+<div class="md-form form-sm">
+  <div class="pan-container">
+    <div class="left-pan">
+      <input #focusInput mdbActive type="text" id="newCatInput" class="form-control" [(ngModel)]="newCatName"
+             (keyup.enter)="addCat()">
+      <label for="newCatInput" class="">Nowa kategoria</label>
+    </div>
+    <div class="right-pan">
+      <button type="button" class="btn btn-default btn-sm" (click)="addCat()">Dodaj</button>
+    </div>
+  </div>
+</div>
+<div *ngFor="let grp of categories">
+  <table class="table table-sm">
+    <thead>
+    <tr>
+      <td>
+        {{grp.Name}}
+      </td>
+    </tr>
+    </thead>
+  </table>
+</div>
+
+

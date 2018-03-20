@@ -1,3 +1,4 @@
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
 $md-checkbox-margin: 16px 0;
 $md-checkbox-checked-color: #2BBBAD;
 $md-checkbox-border-color: rgba(0, 0, 0, 0.54);
@@ -203,4 +204,11 @@ select:focus {
 }
 .margin-0 {
   margin-bottom: 0;
+}
+
+.cdk-overlay-container {
+  z-index: 99999;
+}
+.position-absolute {
+  position: absolute;
 }
