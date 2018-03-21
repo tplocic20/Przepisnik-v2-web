@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {Observable} from "rxjs/Observable";
 import {FireService} from "../../../services/fire.service";
 
@@ -7,7 +7,8 @@ import {FireService} from "../../../services/fire.service";
   templateUrl: './categories-select.component.html',
   styleUrls: ['./categories-select.component.scss']
 })
-export class CategoriesSelectComponent implements OnInit {
+export class CategoriesSelectComponent implements OnChanges {
+
 
   categories: Observable<any[]>;
   @Input() initialCategories: any;
@@ -20,9 +21,6 @@ export class CategoriesSelectComponent implements OnInit {
 
   constructor(private srv: FireService) {
     this.categories = this.srv.categories;
-    if (this.initialCategories) {
-      this.selectedCategories = this.initialCategories.split(';');
-    }
   }
 
   checkCategory(key) {
@@ -34,7 +32,9 @@ export class CategoriesSelectComponent implements OnInit {
     }
   }
 
-  ngOnInit() {
-  }
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['initialCategories'] && changes['initialCategories'].currentValue) {
+      this.selectedCategories = changes['initialCategories'].currentValue.split(';');
+    }  }
 
 }

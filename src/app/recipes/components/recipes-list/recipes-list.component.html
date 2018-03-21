@@ -3,16 +3,31 @@
   <tr class="buttons-row" *ngFor="let rec of recipes | async | filter:searchService.searchValue"
       [routerLink]="['/recipes', rec.$key]" routerLinkActive="table-info">
     <td>
-
       <div class="row-data">{{rec.Name}}</div>
-
       <div class="btn-group pull-right position-absolute hover-elements">
-        <button class="btn btn-primary btn-sm btn-no-v-margin" mdbRippleRadius>test</button>
-        <button class="btn btn-primary btn-sm btn-no-v-margin" mdbRippleRadius>test</button>
+        <!--<button class="btn btn-default btn-sm btn-no-v-margin" mdbRippleRadius><i class="fa fa-edit"></i></button>-->
+        <button type="button" [routerLink]="['/recipes', rec.$key]"
+                class="btn btn-sm btn-default dropdown-toggle dropdown-toggle-split px-3 waves-light"
+                mdbRippleRadius [matMenuTriggerFor]="appMenu" [matMenuTriggerData]="{key: rec.$key}"></button>
       </div>
-
     </td>
   </tr>
   </tbody>
 </table>
 
+<mat-menu #appMenu="matMenu">
+  <ng-template matMenuContent let-key="key">
+    <button class="menu-success" mat-menu-item>
+      <i class="fa fa-share-alt"></i>
+      Share
+    </button>
+    <button class="menu-primary" mat-menu-item (click)="editRecipe(key)">
+      <i class="fa fa-edit"></i>
+      Edit
+    </button>
+    <button class="menu-danger" mat-menu-item>
+      <i class="fa fa-trash"></i>
+      Delete
+    </button>
+  </ng-template>
+</mat-menu>

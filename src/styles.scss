@@ -212,3 +212,54 @@ select:focus {
 .position-absolute {
   position: absolute;
 }
+
+.menu-success:hover {
+  background-color: #00C851 !important;
+  color: white !important;
+}
+.menu-danger:hover {
+  background-color: #ff4444 !important;
+  color: white !important;
+}
+.menu-primary:hover {
+  background-color: #4285F4 !important;
+  color: white !important;
+}
+
+.buttons-row .hover-elements {
+  opacity: 0;
+  -webkit-transition: opacity .5s;
+  -moz-transition: opacity .5s;
+  -ms-transition: opacity .5s;
+  -o-transition: opacity .5s;
+  transition: opacity .5s;
+}
+.buttons-row .btn-group {
+  float: right;
+  display: flex;
+  right: 8px;
+  transform: translateY(-25px);
+}
+.buttons-row:hover .hover-elements{
+  opacity: 1;
+}
+
+.buttons-row .table-info .hover-elements {
+  opacity: 1;
+}
+
+.buttons-row span {
+  text-overflow: clip;
+}
+.buttons-row .row-data {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.btn-default:focus {
+  background-color: #2BBBAD !important;
+}
+.btn:focus {
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12) !important;
+
+}

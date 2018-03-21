@@ -10,7 +10,7 @@ import {MDBBootstrapModule} from "angular-bootstrap-md/index";
 import {PipesModule} from "../pipes/pipes.module";
 import {RecipesDashboardComponent} from './components/recipes-dashboard/recipes-dashboard.component';
 import {AddEditRecipeModalComponent} from './modals/add-edit-recipe-modal/add-edit-recipe-modal.component';
-import {MatTabsModule, MatDialogModule} from "@angular/material";
+import {MatTabsModule, MatDialogModule, MatMenuModule, MatInputModule} from "@angular/material";
 import { CategoriesSelectComponent } from './partials/categories-select/categories-select.component';
 import { EngredientsEditorComponent } from './partials/engredients-editor/engredients-editor.component';
 
@@ -22,7 +22,9 @@ import { EngredientsEditorComponent } from './partials/engredients-editor/engred
     MDBBootstrapModule.forRoot(),
     RecipesRoutingModule,
     MatTabsModule,
-    MatDialogModule
+    MatDialogModule,
+    MatMenuModule,
+    MatInputModule
   ],
   declarations: [RecipesListComponent, RecipescontainerComponent, CategoriesComponent, RecipeDetailsComponent, RecipesDashboardComponent, AddEditRecipeModalComponent, CategoriesSelectComponent, EngredientsEditorComponent],
   exports: [RecipesListComponent, RecipescontainerComponent, CategoriesComponent, RecipeDetailsComponent],

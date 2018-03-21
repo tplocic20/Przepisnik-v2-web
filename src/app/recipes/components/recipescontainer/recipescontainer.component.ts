@@ -23,11 +23,8 @@ export class RecipescontainerComponent implements OnInit {
   }
 
   addRecipe() {
-    // this.modalSrv.showModal(this.viewContainerRef, AddEditRecipeModalComponent, {mode: ModalModeEnum.Add});
     this.dialogSrv.open(AddEditRecipeModalComponent, {
-      // width: '1000px',
       disableClose: true,
-
       data: { mode: ModalModeEnum.Add }
     });
 

@@ -11,14 +11,47 @@
   </div>
 </div>
 <div *ngFor="let grp of categories">
-  <table class="table table-sm">
+  <table class="table table-sm margin-0">
     <thead>
     <tr>
       <td>
-        {{grp.Name}}
+        <strong>{{grp.Name}}</strong>
       </td>
     </tr>
     </thead>
+  </table>
+  <table class="table table-sm">
+    <tr *ngFor="let eng of grp.Positions" class="buttons-row">
+      <td colspan="2">
+        <div class="row-data">
+          {{eng.Name}} - {{eng.Qty}} {{eng.Unit}}
+        </div>
+        <div class="btn-group pull-right position-absolute hover-elements">
+          <button type="button" class="btn btn-primary btn-sm btn-no-v-margin">Edytuj</button>
+          <button type="button" class="btn btn-danger btn-sm btn-no-v-margin">Usuń</button>
+        </div>
+      </td>
+    </tr>
+    <tr *ngIf="grp.newElement">
+      <td>
+        <div class="engredient-form-group">
+            <input #nameInput mdbActive type="text" class="form-control engredient-form-element" placeholder="Nazwa" [(ngModel)]="grp.newElement.Name" (keyup.enter)="confirmEngredient(grp)">
+            <input mdbActive type="number" class="form-control engredient-form-element" placeholder="Ilość" [(ngModel)]="grp.newElement.Qty" (keyup.enter)="confirmEngredient(grp)">
+            <input mdbActive type="text" class="form-control engredient-form-element" placeholder="Jednostka" [(ngModel)]="grp.newElement.Unit" (keyup.enter)="confirmEngredient(grp)">
+            <button type="button" class="btn btn-success btn-sm pull-right" (click)="confirmEngredient(grp)"><i class="fa fa-check"></i></button>
+            <button type="button" class="btn btn-danger btn-sm pull-right" (click)="cancelEngredient()"><i class="fa fa-times"></i></button>
+        </div>
+      </td>
+    </tr>
+    <tr *ngIf="!grp.newElement">
+      <td colspan="2">
+        <div class="btn-group pull-right">
+          <button type="button" class="btn btn-primary btn-sm btn-no-v-margin" (click)="addEngredient(grp)">Dodaj
+            składnik
+          </button>
+        </div>
+      </td>
+    </tr>
   </table>
 </div>
 

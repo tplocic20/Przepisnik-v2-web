@@ -46,7 +46,6 @@ const fireBaseConfig = {
     BrowserAnimationsModule,
     NotesModule,
     RecipesModule,
-
     RoutingModule,
   ],
   providers: [FireService, SearchService, ModalService],

@@ -19,21 +19,27 @@ export class AddEditRecipeModalComponent implements OnInit {
   thirdTabValid: boolean = true;
 
   public config: any;
-  modalTittle: string;
+
   private recipe: Recipe = {Name: ""};
 
   constructor(private srv: FireService, public dialogRef: MatDialogRef<AddEditRecipeModalComponent>, @Inject(MAT_DIALOG_DATA) public data: any) {
     this.config = data;
   }
 
+  get modalTittle() {
+    if (this.config.mode === ModalModeEnum.Add) {
+      return "Nowy przepis";
+    } else {
+      return `Edycja ${this.recipe.Name}`;
+    }
+  }
+
   ngOnInit(): void {
     if (this.config.mode === ModalModeEnum.Add) {
-      this.modalTittle = "Nowy przepis";
       this.recipe.Engredients = [{Name: "Składniki", Positions: []}];
     } else {
       if (this.config.recId) {
         this.srv.getRecipe(this.config.recId).subscribe(rec => this.recipe = rec);
-        this.modalTittle = `Edycja ${this.recipe.Name}`;
       } else {
         this.close();
       }

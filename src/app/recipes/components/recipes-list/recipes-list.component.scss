@@ -5,31 +5,4 @@ table {
   tr:focus {
     outline: none;
   }
-
-  .buttons-row .hover-elements {
-    opacity: 0;
-    -webkit-transition: opacity .5s;
-    -moz-transition: opacity .5s;
-    -ms-transition: opacity .5s;
-    -o-transition: opacity .5s;
-    transition: opacity .5s;
-  }
-  .buttons-row .btn-group {
-    float: right;
-    display: flex;
-    right: 8px;
-    top: 25%;
-  }
-  .buttons-row:hover .hover-elements{
-    opacity: 1;
-  }
-  .buttons-row span {
-    text-overflow: clip;
-  }
-  .buttons-row .row-data {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
-
 }

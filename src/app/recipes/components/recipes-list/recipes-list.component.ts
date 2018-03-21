@@ -4,6 +4,9 @@ import {Recipe} from "../../../models/Recipe";
 import {FireService} from "../../../services/fire.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {SearchService} from "../../../services/search.service";
+import {AddEditRecipeModalComponent} from "../../modals/add-edit-recipe-modal/add-edit-recipe-modal.component";
+import {ModalModeEnum} from "../../../models/enums/ModalModeEnum";
+import {MatDialog} from "@angular/material";
 
 @Component({
   selector: 'app-recipes-list',
@@ -17,7 +20,7 @@ export class RecipesListComponent implements OnInit, OnChanges {
   selectedRecipe: any;
   loading = true;
 
-  constructor(private srv: FireService, public searchService: SearchService) {
+  constructor(private srv: FireService, public searchService: SearchService, private dialogSrv: MatDialog) {
 
   }
 
@@ -33,6 +36,14 @@ export class RecipesListComponent implements OnInit, OnChanges {
 
   private getRecipes() {
     this.recipes = this.srv.getRecipes(this.category);
+  }
+
+  editRecipe(key) {
+    console.log(key);
+    this.dialogSrv.open(AddEditRecipeModalComponent, {
+      disableClose: true,
+      data: { mode: ModalModeEnum.Edit, recId: key }
+    });
   }
 
 }

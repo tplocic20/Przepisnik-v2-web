@@ -4,7 +4,7 @@
   </div>
   <div class="recipe-details">
     <div class="row">
-      <div class="col-md-6 col-sm-6">
+      <div class="col-md-6 col-sm-12">
         <div class="sticky-offset sticky-top">
           <div *ngFor="let grp of recipe?.Engredients">
             <table class="table table-sm margin-0">
@@ -29,7 +29,7 @@
           </div>
         </div>
       </div>
-      <div class="col-md-6 col-sm-6 margin-divs">
+      <div class="col-md-6 col-sm-12 margin-divs">
         <div class="card card-body sticky-offset sticky-top card-padding-bottom-0"
              *ngIf="recipe.Temperature || recipe.Time">
           <p><strong>Temperatura: </strong>{{recipe?.Temperature}} &#x2103;</p>
