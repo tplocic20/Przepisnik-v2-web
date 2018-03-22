@@ -1,6 +1,6 @@
 <table class="table table-hover table-sm">
   <tbody>
-  <tr class="buttons-row" *ngFor="let rec of recipes | async | filter:searchService.searchValue"
+  <tr class="buttons-row" *ngFor="let rec of recipes | async | filter:searchService.searchValue | orderByProperty:'Name'"
       [routerLink]="['/recipes', rec.$key]" routerLinkActive="table-info">
     <td>
       <div class="row-data">{{rec.Name}}</div>

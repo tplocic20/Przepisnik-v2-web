@@ -1,4 +1,4 @@
-<h1 mat-dialog-title>Hi {{modalTittle}}</h1>
+<h1 mat-dialog-title>{{modalTittle}}</h1>
 <div mat-dialog-content>
   <mat-tab-group>
     <mat-tab>
@@ -8,43 +8,58 @@
           Kategorie
         </span>
       </ng-template>
-      <app-categories-select #categories [initialCategories]="recipe.Categories"></app-categories-select>
+      <app-categories-select #categories [initialCategories]="recipe.Categories"
+                             [showErrorMessage]="!firstTabValid"></app-categories-select>
     </mat-tab>
     <mat-tab>
       <ng-template mat-tab-label>
-        Składniki
+        <span [class.red-text]="!secondTabValid">
+          <i *ngIf="!secondTabValid" class="fa fa-exclamation-circle"></i>
+          Składniki
+        </span>
+
       </ng-template>
-      <app-engredients-editor [categories]="recipe.Engredients"></app-engredients-editor>
+      <app-engredients-editor #engredients [engredients]="recipe.Engredients"
+                              [showErrorMessage]="!secondTabValid"></app-engredients-editor>
     </mat-tab>
     <mat-tab>
       <ng-template mat-tab-label>
-        Pzepis
+        <span [class.red-text]="!thirdTabValid">
+          <i *ngIf="!thirdTabValid" class="fa fa-exclamation-circle"></i>
+          Przepis
+        </span>
+
       </ng-template>
+      <span *ngIf="!thirdTabValid" class="red-text">
+  <i class="fa fa-exclamation-circle"></i>
+  Pole "Nazwa" i "Przepis" musza być wypełnione
+</span>
       <div class="row modal-row">
         <div class="col-md-12">
           <div class="md-form">
-            <input type="text" class="form-control" id="nameInput" mdbActive>
+            <input type="text" class="form-control" id="nameInput" mdbActive required [(ngModel)]="recipe.Name">
             <label for="nameInput">Nazwa</label>
           </div>
         </div>
         <div class="col-md-6">
           <div class="md-form">
             <i class="fa fa-user prefix"></i>
-            <input type="text" class="form-control" id="timeInput" mdbActive>
+            <input type="text" class="form-control" id="timeInput" mdbActive [(ngModel)]="recipe.Time">
             <label for="timeInput">Czas pieczenia</label>
           </div>
         </div>
         <div class="col-md-6">
           <div class="md-form">
             <i class="fa fa-user prefix"></i>
-            <input type="text" class="form-control" id="temperatureInput" mdbActive>
+            <input type="text" class="form-control" id="temperatureInput" mdbActive [(ngModel)]="recipe.Temperature">
             <label for="temperatureInput">Temperatura</label>
           </div>
         </div>
         <div class="col-md-12">
           <div class="textarea-container">
             <mat-form-field>
-              <textarea matInput placeholder="Przepis" matTextareaAutosize matAutosizeMinRows="2" matAutosizeMaxRows="7"></textarea>
+              <textarea matInput placeholder="Przepis" matTextareaAutosize matAutosizeMinRows="2"
+                        matAutosizeMaxRows="7" required [(ngModel)]="recipe.Recipe"></textarea>
             </mat-form-field>
           </div>
         </div>

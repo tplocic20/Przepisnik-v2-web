@@ -1,5 +1,5 @@
 import {
-  AfterViewInit, Component, ElementRef, HostListener, Input, OnInit, QueryList, ViewChild,
+  AfterViewInit, Component, ElementRef, HostListener, Input, OnChanges, OnInit, QueryList, SimpleChanges, ViewChild,
   ViewChildren
 } from '@angular/core';
 import {EngredientGroup} from "../../../models/EngredientGroup";
@@ -9,10 +9,11 @@ import {EngredientGroup} from "../../../models/EngredientGroup";
   templateUrl: './engredients-editor.component.html',
   styleUrls: ['./engredients-editor.component.scss']
 })
-export class EngredientsEditorComponent {
+export class EngredientsEditorComponent implements OnChanges {
 
 
-  @Input() categories: EngredientGroup[];
+  @Input() engredients: EngredientGroup[];
+  @Input() showErrorMessage: boolean;
   @ViewChild('focusInput') focusInput: ElementRef;
   @ViewChildren('nameInput') nameInput: QueryList<ElementRef>;
 
@@ -21,13 +22,28 @@ export class EngredientsEditorComponent {
   constructor() {
   }
 
+  get validEngredients() {
+     if (this.engredients.length > 0 && this.engredients[0].Positions.length > 0)
+       return this.engredients;
+     return null;
+
+  }
+
+
+  ngOnChanges(changes: SimpleChanges): void {
+
+    if (changes['showErrorMessage']) {
+      this.showErrorMessage = changes['showErrorMessage'].currentValue;
+    }
+  }
+
   setFocusToInput() {
     this.focusInput.nativeElement.focus();
   }
 
   addCat() {
     if (this.newCatName) {
-      this.categories.push({Name: this.newCatName, Positions: []});
+      this.engredients.push({Name: this.newCatName, Positions: []});
       this.newCatName = "";
     }
     this.setFocusToInput();
@@ -39,7 +55,7 @@ export class EngredientsEditorComponent {
   }
 
   addEngredient(cat) {
-    this.categories.forEach(c => {
+    this.engredients.forEach(c => {
       delete (c as any).newElement;
     });
     cat.newElement = {
@@ -64,7 +80,7 @@ export class EngredientsEditorComponent {
   }
 
   cancelEngredient() {
-    this.categories.forEach(c => {
+    this.engredients.forEach(c => {
       delete (c as any).newElement;
     });
   }

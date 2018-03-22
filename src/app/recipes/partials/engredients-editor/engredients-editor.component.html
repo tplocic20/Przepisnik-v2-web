@@ -1,3 +1,7 @@
+<span *ngIf="showErrorMessage" class="red-text">
+  <i class="fa fa-exclamation-circle"></i>
+  Przepis musi zawierac conajmniej jedną kategorię z jednym składnik
+</span>
 <div class="md-form form-sm">
   <div class="pan-container">
     <div class="left-pan">
@@ -10,7 +14,7 @@
     </div>
   </div>
 </div>
-<div *ngFor="let grp of categories">
+<div *ngFor="let grp of engredients">
   <table class="table table-sm margin-0">
     <thead>
     <tr>

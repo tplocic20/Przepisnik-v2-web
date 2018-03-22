@@ -12,7 +12,9 @@ export class CategoriesSelectComponent implements OnChanges {
 
   categories: Observable<any[]>;
   @Input() initialCategories: any;
+  @Input() showErrorMessage: boolean;
   selectedCategories: any[] = [];
+
   get validCategories() {
     if (this.selectedCategories.length === 0)
       return null;
@@ -35,6 +37,10 @@ export class CategoriesSelectComponent implements OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['initialCategories'] && changes['initialCategories'].currentValue) {
       this.selectedCategories = changes['initialCategories'].currentValue.split(';');
-    }  }
+    }
+    if (changes['showErrorMessage']) {
+      this.showErrorMessage = changes['showErrorMessage'].currentValue;
+    }
+  }
 
 }

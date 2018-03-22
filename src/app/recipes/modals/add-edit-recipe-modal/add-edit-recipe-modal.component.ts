@@ -5,6 +5,7 @@ import {Recipe} from "../../../models/Recipe";
 import {FireService} from "../../../services/fire.service";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material";
 import {CategoriesSelectComponent} from "../../partials/categories-select/categories-select.component";
+import {EngredientsEditorComponent} from "../../partials/engredients-editor/engredients-editor.component";
 
 @Component({
   selector: 'app-add-edit-recipe-modal',
@@ -14,6 +15,7 @@ import {CategoriesSelectComponent} from "../../partials/categories-select/catego
 export class AddEditRecipeModalComponent implements OnInit {
 
   @ViewChild('categories') categories: CategoriesSelectComponent;
+  @ViewChild('engredients') engredients: EngredientsEditorComponent;
   firstTabValid: boolean = true;
   secondTabValid: boolean = true;
   thirdTabValid: boolean = true;
@@ -53,5 +55,13 @@ export class AddEditRecipeModalComponent implements OnInit {
 
   submit() {
     this.firstTabValid = this.categories.validCategories != null;
+    this.secondTabValid = this.engredients.validEngredients != null;
+    this.thirdTabValid = this.recipe.Name !== "" && this.recipe.Recipe !== "";
+
+    if (this.firstTabValid && this.secondTabValid && this.thirdTabValid) {
+      this.recipe.Categories = this.categories.validCategories;
+      this.recipe.Engredients = this.engredients.validEngredients;
+      console.log(this.recipe);
+    }
   }
 }

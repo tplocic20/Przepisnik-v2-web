@@ -1,4 +1,9 @@
+<span *ngIf="showErrorMessage" class="red-text">
+  <i class="fa fa-exclamation-circle"></i>
+  Musisz wybrać conajmniej jedną kategorię
+</span>
 <div *ngFor="let cat of categories | async" class="md-checkbox">
-  <input [id]="cat.$key" type="checkbox" [checked]="selectedCategories.indexOf(cat.$key)>-1" (click)="checkCategory(cat.$key)">
+  <input [id]="cat.$key" type="checkbox" [checked]="selectedCategories.indexOf(cat.$key)>-1"
+         (click)="checkCategory(cat.$key)">
   <label [for]="cat.$key">{{cat.Name}}</label>
 </div>
