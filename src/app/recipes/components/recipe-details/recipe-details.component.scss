@@ -2,20 +2,30 @@
   top: 2px;
 }
 .recipe-tittle {
-  z-index:9999;
+  top: 1px;
+}
+.top-z-index {
+  z-index: 9999;
+}
+
+.second-z-index {
+  z-index: 9998;
+}
+.third-z-index {
+  z-index: 9997;
+}
+
+.top-z-index:below-level(10px) {
+  background-color: pink;
 }
 .recipe-details {
   height: 100%;
   padding: 20px 10px;
-  .sticky-offset{
-    top: 60px;
+  .sticky-offset-50{
+    top: 50px;
   }
-  .sticky-offsets > div:first-child {
-    top: 60px;
-  }
-  .sticky-offsets > div:nth-child(2){
-    top: 180px;
-
+  .sticky-offset-150{
+    top: 150px;
   }
   .intend >td {
     padding-left: 20px;

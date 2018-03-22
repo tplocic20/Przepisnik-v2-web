@@ -1,4 +1,4 @@
-import {Component, HostBinding, OnInit} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {Recipe} from "../../../models/Recipe";
 import {FireService} from "../../../services/fire.service";
@@ -12,8 +12,11 @@ import {Collapse} from "../../../styles/animations";
 })
 export class RecipeDetailsComponent implements OnInit {
 
+
   recId: any;
   recipe: Recipe;
+
+  @ViewChild('tempTimeDiv') tempTimeDiv: ElementRef;
 
   constructor(private route: ActivatedRoute, private router: Router, private srv: FireService) {
   }

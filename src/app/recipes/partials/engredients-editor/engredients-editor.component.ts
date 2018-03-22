@@ -33,6 +33,11 @@ export class EngredientsEditorComponent {
     this.setFocusToInput();
   }
 
+  stopAddingCat() {
+    this.newCatName = "";
+    this.focusInput.nativeElement.blur();
+  }
+
   addEngredient(cat) {
     this.categories.forEach(c => {
       delete (c as any).newElement;

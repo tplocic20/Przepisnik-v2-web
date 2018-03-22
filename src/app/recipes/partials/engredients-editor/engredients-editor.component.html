@@ -2,7 +2,7 @@
   <div class="pan-container">
     <div class="left-pan">
       <input #focusInput mdbActive type="text" id="newCatInput" class="form-control" [(ngModel)]="newCatName"
-             (keyup.enter)="addCat()">
+             (keyup.enter)="addCat()" (keyup.esc)="stopAddingCat()">
       <label for="newCatInput" class="">Nowa kategoria</label>
     </div>
     <div class="right-pan">
@@ -35,9 +35,12 @@
     <tr *ngIf="grp.newElement">
       <td>
         <div class="engredient-form-group">
-            <input #nameInput mdbActive type="text" class="form-control engredient-form-element" placeholder="Nazwa" [(ngModel)]="grp.newElement.Name" (keyup.enter)="confirmEngredient(grp)">
-            <input mdbActive type="number" class="form-control engredient-form-element" placeholder="Ilość" [(ngModel)]="grp.newElement.Qty" (keyup.enter)="confirmEngredient(grp)">
-            <input mdbActive type="text" class="form-control engredient-form-element" placeholder="Jednostka" [(ngModel)]="grp.newElement.Unit" (keyup.enter)="confirmEngredient(grp)">
+            <input #nameInput mdbActive type="text" class="form-control engredient-form-element" placeholder="Nazwa" [(ngModel)]="grp.newElement.Name"
+                   (keyup.enter)="confirmEngredient(grp)" (keyup.esc)="cancelEngredient()">
+            <input mdbActive type="number" class="form-control engredient-form-element" placeholder="Ilość" [(ngModel)]="grp.newElement.Qty"
+                   (keyup.enter)="confirmEngredient(grp)" (keyup.esc)="cancelEngredient()">
+            <input mdbActive type="text" class="form-control engredient-form-element" placeholder="Jednostka" [(ngModel)]="grp.newElement.Unit"
+                   (keyup.enter)="confirmEngredient(grp)" (keyup.esc)="cancelEngredient()">
             <button type="button" class="btn btn-success btn-sm pull-right" (click)="confirmEngredient(grp)"><i class="fa fa-check"></i></button>
             <button type="button" class="btn btn-danger btn-sm pull-right" (click)="cancelEngredient()"><i class="fa fa-times"></i></button>
         </div>

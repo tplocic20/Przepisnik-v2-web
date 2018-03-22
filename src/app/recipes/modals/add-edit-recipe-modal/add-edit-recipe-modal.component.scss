@@ -1,9 +1,10 @@
 .modal-row {
   margin: 15px;
 }
-mat-form-field {
-  width: 100%;
-  .mat-form-field-ripple {
-    background-color: #4285F4 !important;
+
+.textarea-container {
+  mat-form-field {
+    width: 100%;
+
   }
 }
