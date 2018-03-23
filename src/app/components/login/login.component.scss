@@ -1,15 +1,12 @@
-.login-card {
-  width: 500px;
-  height: 300px;
-  display: table;
-  margin: 100px auto;
-  .raised-title {
-    color: #fff;
-    text-align: center;
-    margin-top: -50px;
-    margin-bottom: 3rem;
-    padding: 1rem;
-    border-radius: 5px;
-    //box-shadow: 0 5px 11px 0 rgba(0,0,0,.18), 0 4px 15px 0 rgba(0,0,0,.15);
-  }
+.loader {
+ .center {
+   margin: 0;
+   position: absolute;
+   top: 50%;
+   left: 50%;
+   margin-right: -50%;
+   transform: translate(-50%, -50%);
+
+
+ }
 }

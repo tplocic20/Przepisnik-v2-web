@@ -1,12 +1,13 @@
 import { NgModule } from '@angular/core';
 import {RouterModule, Routes} from "@angular/router";
 import {LoginComponent} from "../components/login/login.component";
-import {RecipescontainerComponent} from "../recipes/components/recipescontainer/recipescontainer.component";
 import {NotescontainerComponent} from "../notes/components/notescontainer/notescontainer.component";
+import {AuthGuard} from "../guards/auth-guard";
+import {RegisterComponent} from "../components/register/register.component";
 
 const routes: Routes = [
   {path: 'home', component: LoginComponent},
- // {path: 'recipes', component: RecipescontainerComponent},
+  // {path: 'register', component: RegisterComponent},
   {path: 'notes', component: NotescontainerComponent},
   { path: '', redirectTo: '/home', pathMatch: 'full'}
 ];
@@ -15,6 +16,8 @@ const routes: Routes = [
   imports: [
     RouterModule.forRoot(routes,
       { enableTracing: true })
+  ],
+  providers: [    AuthGuard
   ],
   exports: [RouterModule]
 })

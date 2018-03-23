@@ -17,6 +17,14 @@ export class AppComponent implements OnInit {
     });
   }
 
+  get isAuthenticated() {
+    return this.srv.isSignedIn;
+  }
+
   ngOnInit(): void {
+  }
+
+  logout() {
+    this.srv.signOut().then(() => this.router.navigate(['home']));
   }
 }

@@ -61,7 +61,11 @@ export class AddEditRecipeModalComponent implements OnInit {
     if (this.firstTabValid && this.secondTabValid && this.thirdTabValid) {
       this.recipe.Categories = this.categories.validCategories;
       this.recipe.Engredients = this.engredients.validEngredients;
-      console.log(this.recipe);
+      if (this.config.mode === ModalModeEnum.Add)
+        this.srv.addRecipe(this.recipe);
+      else
+        this.srv.updateRecipe(this.config.recId, this.recipe);
+      this.close();
     }
   }
 }

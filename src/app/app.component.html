@@ -5,14 +5,17 @@
   </logo>
   <links>    <!-- Links -->
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item" routerLinkActive="active">
+      <li class="nav-item" routerLinkActive="active"  *ngIf="isAuthenticated">
         <a class="nav-link waves-light" routerLink="recipes" mdbRippleRadius>Przepisy</a>
       </li>
-      <li class="nav-item" routerLinkActive="active">
-        <a class="nav-link waves-light" routerLink="notes" mdbRippleRadius>Notatki</a>
-      </li>
+      <!--<li class="nav-item" routerLinkActive="active"  *ngIf="isAuthenticated">-->
+        <!--<a class="nav-link waves-light" routerLink="notes" mdbRippleRadius>Notatki</a>-->
+      <!--</li>-->
     </ul>
-<app-search></app-search>
+    <app-search  *ngIf="isAuthenticated"></app-search>
+    <div class="navbar-nav"  *ngIf="isAuthenticated">
+      <a class="nav-link waves-light" (click)="logout()" mdbRippleRadius>WYloguj</a>
+    </div>
   </links>
 </mdb-navbar>
 <div class="content container-fluid">

@@ -265,10 +265,19 @@ select:focus {
 .btn-no-focus:focus {
   box-shadow: none !important;
 }
-.mat-focused .mat-form-field-label {
-  color: #4285F4 !important;
-}
 
-.mat-form-field-underline .mat-form-field-ripple {
-  background-color: #4285F4 !important;
+.login-card {
+  width: 500px;
+  height: 300px;
+  display: table;
+  margin: 100px auto;
+  .raised-title {
+    color: #fff;
+    text-align: center;
+    margin-top: -50px;
+    margin-bottom: 3rem;
+    padding: 1rem;
+    border-radius: 5px;
+    //box-shadow: 0 5px 11px 0 rgba(0,0,0,.18), 0 4px 15px 0 rgba(0,0,0,.15);
+  }
 }

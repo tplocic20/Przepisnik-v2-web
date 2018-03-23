@@ -12,11 +12,15 @@ export class LoginComponent implements OnInit {
   password: string;
   rememberMe: boolean;
   failedAttempt = false;
+  needsToLogIn: boolean = false;
+  loginTimeout: any;
 
   constructor(private srv: FireService) { }
 
   ngOnInit() {
-
+    this.loginTimeout = setTimeout(() => {
+      this.needsToLogIn = true;
+    }, 1000);
   }
 
   login() {

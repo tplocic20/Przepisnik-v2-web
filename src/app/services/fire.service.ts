@@ -52,8 +52,8 @@ export class FireService {
     return this.categoriesLoaded;
   }
 
-  public register() {
-
+  public register(email, pass) {
+    return this.auth.auth.createUserWithEmailAndPassword(email, pass);
   }
 
   public rememberMe(email, pass) {
