@@ -1,0 +1,40 @@
+.pan-container {
+  margin-top: 15px;
+  display: flex;
+  .left-pan {
+    float: left;
+    width: 100%;
+  }
+  .right-pan {
+    float: right;
+  }
+}
+
+table .action {
+  width: auto;
+  text-align: right;
+  white-space: nowrap
+}
+
+table .content {
+  width: auto
+}
+
+.engredient-form-group {
+  display: flex;
+  padding-top: 0px;
+  padding-bottom: 0px;
+
+  .engredient-form-element {
+    padding: 0 8px;
+    height: auto;
+    min-width: 0;
+  }
+  .engredient-form-element:focus {
+    width: 200%;
+  }
+  .btn {
+    margin-left: 0;
+    margin-right: 0;
+  }
+}

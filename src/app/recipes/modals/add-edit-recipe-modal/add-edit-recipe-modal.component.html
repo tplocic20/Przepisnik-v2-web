@@ -1,0 +1,119 @@
+<h1 mat-dialog-title>{{modalTittle}}</h1>
+<div mat-dialog-content>
+  <mat-tab-group>
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <span [class.red-text]="!firstTabValid">
+          <i *ngIf="!firstTabValid" class="fa fa-exclamation-circle"></i>
+          Kategorie
+        </span>
+      </ng-template>
+      <app-categories-select #categories [initialCategories]="recipe.Categories"
+                             [showErrorMessage]="!firstTabValid"></app-categories-select>
+    </mat-tab>
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <span [class.red-text]="!secondTabValid">
+          <i *ngIf="!secondTabValid" class="fa fa-exclamation-circle"></i>
+          Składniki
+        </span>
+
+      </ng-template>
+      <app-engredients-editor #engredients [engredients]="recipe.Engredients"
+                              [showErrorMessage]="!secondTabValid"></app-engredients-editor>
+    </mat-tab>
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <span [class.red-text]="!thirdTabValid">
+          <i *ngIf="!thirdTabValid" class="fa fa-exclamation-circle"></i>
+          Przepis
+        </span>
+
+      </ng-template>
+      <span *ngIf="!thirdTabValid" class="red-text">
+  <i class="fa fa-exclamation-circle"></i>
+  Pole "Nazwa" i "Przepis" musza być wypełnione
+</span>
+      <div class="row modal-row">
+        <div class="col-md-12">
+          <div class="md-form">
+            <input type="text" class="form-control" id="nameInput" mdbActive required [(ngModel)]="recipe.Name">
+            <label for="nameInput">Nazwa</label>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="md-form">
+            <i class="fa fa-user prefix"></i>
+            <input type="text" class="form-control" id="timeInput" mdbActive [(ngModel)]="recipe.Time">
+            <label for="timeInput">Czas pieczenia</label>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="md-form">
+            <i class="fa fa-user prefix"></i>
+            <input type="text" class="form-control" id="temperatureInput" mdbActive [(ngModel)]="recipe.Temperature">
+            <label for="temperatureInput">Temperatura</label>
+          </div>
+        </div>
+        <div class="col-md-12">
+          <div class="textarea-container">
+            <mat-form-field>
+              <textarea matInput placeholder="Przepis" matTextareaAutosize matAutosizeMinRows="2"
+                        matAutosizeMaxRows="7" required [(ngModel)]="recipe.Recipe"></textarea>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+
+    </mat-tab>
+  </mat-tab-group>
+</div>
+<div mat-dialog-actions>
+  <button type="button" class="btn btn-secondary waves-light" aria-label="Close" (click)="close()" mdbRippleRadius>
+    Close
+  </button>
+  <button type="button" class="btn btn-primary relative waves-light pull-right" (click)="submit()" mdbRippleRadius>Save
+    changes
+  </button>
+</div>
+
+
+<!--<div mdbModal #modalRef="mdb-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel"-->
+<!--aria-hidden="true" [config]="config">-->
+<!--<div class="modal-dialog modal-lg" role="document">-->
+<!--<div class="modal-content">-->
+<!--<div class="modal-header">-->
+<!--<button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">-->
+<!--<span aria-hidden="true">×</span>-->
+<!--</button>-->
+<!--<h4 class="modal-title w-100">{{modalTittle}}</h4>-->
+<!--</div>-->
+<!--<div class="modal-body">-->
+<!--<mat-tab-group>-->
+<!--<mat-tab label="Kategorie">-->
+<!--<div *ngFor="let cat of categories | async" class="md-checkbox">-->
+<!--<input [id]="cat.$key" type="checkbox">-->
+<!--<label [for]="cat.$key">{{cat.Name}}</label>-->
+<!--</div>-->
+<!--</mat-tab>-->
+<!--<mat-tab label="Składniki">-->
+<!--<h1>Some more tab content</h1>-->
+<!--<p> {{config | json}}-->
+<!--</p>-->
+<!--</mat-tab>-->
+<!--<mat-tab label="Przepis">-->
+<!--<h1>Some more tab content</h1>-->
+<!--<p> {{config | json}}-->
+<!--</p>-->
+<!--</mat-tab>-->
+<!--</mat-tab-group>-->
+<!--</div>-->
+<!--<div class="modal-footer">-->
+<!--<button type="button" class="btn btn-secondary waves-light" aria-label="Close" (click)="modalRef.hide()"-->
+<!--mdbRippleRadius>Close-->
+<!--</button>-->
+<!--<button type="button" class="btn btn-primary relative waves-light" mdbRippleRadius>Save changes</button>-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->

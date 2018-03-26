@@ -1,0 +1,65 @@
+<span *ngIf="showErrorMessage" class="red-text">
+  <i class="fa fa-exclamation-circle"></i>
+  Przepis musi zawierac conajmniej jedną kategorię z jednym składnik
+</span>
+<div class="md-form form-sm">
+  <div class="pan-container">
+    <div class="left-pan">
+      <input #focusInput mdbActive type="text" id="newCatInput" class="form-control" [(ngModel)]="newCatName"
+             (keyup.enter)="addCat()" (keyup.esc)="stopAddingCat()">
+      <label for="newCatInput" class="">Nowa kategoria</label>
+    </div>
+    <div class="right-pan">
+      <button type="button" class="btn btn-default btn-sm" (click)="addCat()">Dodaj</button>
+    </div>
+  </div>
+</div>
+<div *ngFor="let grp of engredients">
+  <table class="table table-sm margin-0">
+    <thead>
+    <tr>
+      <td>
+        <strong>{{grp.Name}}</strong>
+      </td>
+    </tr>
+    </thead>
+  </table>
+  <table class="table table-sm">
+    <tr *ngFor="let eng of grp.Positions" class="buttons-row">
+      <td colspan="2">
+        <div class="row-data">
+          {{eng.Name}} - {{eng.Qty}} {{eng.Unit}}
+        </div>
+        <div class="btn-group pull-right position-absolute hover-elements">
+          <button type="button" class="btn btn-primary btn-sm btn-no-v-margin">Edytuj</button>
+          <button type="button" class="btn btn-danger btn-sm btn-no-v-margin">Usuń</button>
+        </div>
+      </td>
+    </tr>
+    <tr *ngIf="grp.newElement">
+      <td>
+        <div class="engredient-form-group">
+            <input #nameInput mdbActive type="text" class="form-control engredient-form-element" placeholder="Nazwa" [(ngModel)]="grp.newElement.Name"
+                   (keyup.enter)="confirmEngredient(grp)" (keyup.esc)="cancelEngredient()">
+            <input mdbActive type="number" class="form-control engredient-form-element" placeholder="Ilość" [(ngModel)]="grp.newElement.Qty"
+                   (keyup.enter)="confirmEngredient(grp)" (keyup.esc)="cancelEngredient()">
+            <input mdbActive type="text" class="form-control engredient-form-element" placeholder="Jednostka" [(ngModel)]="grp.newElement.Unit"
+                   (keyup.enter)="confirmEngredient(grp)" (keyup.esc)="cancelEngredient()">
+            <button type="button" class="btn btn-success btn-sm pull-right" (click)="confirmEngredient(grp)"><i class="fa fa-check"></i></button>
+            <button type="button" class="btn btn-danger btn-sm pull-right" (click)="cancelEngredient()"><i class="fa fa-times"></i></button>
+        </div>
+      </td>
+    </tr>
+    <tr *ngIf="!grp.newElement">
+      <td colspan="2">
+        <div class="btn-group pull-right">
+          <button type="button" class="btn btn-primary btn-sm btn-no-v-margin" (click)="addEngredient(grp)">Dodaj
+            składnik
+          </button>
+        </div>
+      </td>
+    </tr>
+  </table>
+</div>
+
+

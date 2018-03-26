@@ -1,37 +1,45 @@
-<div class="card login-card">
+<div class="card login-card"  *ngIf="needsToLogIn">
   <div class="card-body">
     <h3 class="raised-title default-color z-depth-2"><i class="fa fa-lock"></i> Zaloguj się:</h3>
     <form>
       <div class="md-form">
         <i class="fa fa-envelope prefix grey-text"></i>
-        <input type="email" required id="defaultForm-email" class="form-control" mdbActive [(ngModel)]="email"
-               [ngModelOptions]="{standalone: true}" data-error="Błędny email" data-success="Poprawny email" mdbInputValidate>
-        <label for="defaultForm-email">Email</label>
+        <input type="email" required id="form-email" class="form-control" mdbActive [(ngModel)]="email"
+               [ngModelOptions]="{standalone: true}" data-error="Błędny email" data-success="Poprawny email"
+               mdbInputValidate>
+        <label for="form-email">Email</label>
       </div>
       <br/>
       <div class="md-form">
         <i class="fa fa-lock prefix grey-text"></i>
-        <input type="password" required id="defaultForm-pass" class="form-control" mdbActive [(ngModel)]="password"
+        <input type="password" required id="form-pass" class="form-control" mdbActive [(ngModel)]="password"
                [ngModelOptions]="{standalone: true}" data-error="Podaj hasło" data-success="" mdbInputValidate>
-        <label for="defaultForm-pass">Hasło</label>
+        <label for="form-pass">Hasło</label>
       </div>
-      <div class="md-checkbox">
-        <input id="i2" type="checkbox" [(ngModel)]="rememberMe" [ngModelOptions]="{standalone: true}">
-        <label for="i2">Zapamiętaj mnie</label>
-      </div>
+      <!--<div class="md-checkbox">-->
+        <!--<input id="form-remember" type="checkbox" [(ngModel)]="rememberMe" [ngModelOptions]="{standalone: true}">-->
+        <!--<label for="form-remember">Zapamiętaj mnie</label>-->
+      <!--</div>-->
       <div class="text-center">
         <button class="btn btn-default waves-light" (click)="login()" mdbRippleRadius>Zaloguj</button>
       </div>
       <div class="text-center" *ngIf="failedAttempt">
-         <p class="red-text"> <i class="fa fa-warning"></i> Nie udało się zalogować, sprawdź email i hasło</p>
+        <p class="red-text"><i class="fa fa-warning"></i> Nie udało się zalogować, sprawdź email i hasło</p>
       </div>
     </form>
+  </div>
+  <div class="modal-footer">
+   Nie masz konta?<a routerLink="/register"> Zarejestruj się</a>
   </div>
 </div>
 
 
 
-
+<div class="loader" *ngIf="!needsToLogIn">
+  <div class="center">
+    <mat-spinner></mat-spinner>
+  </div>
+</div>
 
 
 

@@ -44,12 +44,16 @@ export class FireService {
     return this.authState != null ? (this.authState.displayName ? this.authState.displayName : this.authState.email) : null;
   }
 
-  public autoSignIn() {
-
+  private categoriesLoaded: Observable<any[]>;
+  get categories() {
+    if (!this.categoriesLoaded) {
+      this.categoriesLoaded = this.getCategories();
+    }
+    return this.categoriesLoaded;
   }
 
-  public register() {
-
+  public register(email, pass) {
+    return this.auth.auth.createUserWithEmailAndPassword(email, pass);
   }
 
   public rememberMe(email, pass) {
@@ -88,11 +92,9 @@ export class FireService {
     });
   }
 
-  getCategories() {
+  private getCategories() {
     if (!this.categoriesList) return null;
-    // this.msg.loading.show("Pobieranie danych");
     return this.categoriesList.map(res => {
-      // this.msg.loading.close();
       return res;
     });
   }

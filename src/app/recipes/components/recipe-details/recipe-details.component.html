@@ -1,59 +1,69 @@
 <div *ngIf="recipe">
-  <div class="navbar bg-white sticky-top recipe-tittle">
+  <div class="navbar bg-white sticky-top top-z-index recipe-tittle">
     <h4>{{recipe?.Name}}</h4>
   </div>
   <div class="recipe-details">
     <div class="row">
-      <div class="col-md-6 col-sm-6">
-        <div class="sticky-offset sticky-top">
-          <table *ngFor="let grp of recipe?.Engredients" class="table table-sm">
-            <thead>
-            <tr>
-              <td>
-                <strong>{{grp.Name}}</strong>
-                <button class="btn btn-link btn-sm pull-right" mdbRippleRadius><i class="fa fa-magic"></i></button>
-              </td>
-            </tr>
-            </thead>
-            <tbody>
-            <tr class="intend" *ngFor="let eng of grp?.Positions">
-              <td>{{eng.Name}}</td>
-            </tr>
-            </tbody>
-          </table>
+      <div class="col-md-6 col-sm-12">
+        <div class="sticky-offset-50 sticky-top">
+          <div *ngFor="let grp of recipe?.Engredients">
+            <table class="table table-sm margin-0">
+              <thead>
+              <tr>
+                <td>
+                  <strong>{{grp.Name}}</strong>
+                  <button class="btn btn-clear btn-sm btn-no-v-margin pull-right btn-no-focus"
+                          (click)="compressExpand(grp)"
+                          mdbRippleRadius><i class="fa" [class.fa-compress]="!grp.isCollapsed"
+                                             [class.fa-expand]="grp.isCollapsed"></i>
+                  </button>
+                </td>
+              </tr>
+              </thead>
+            </table>
+            <div [@collapse] *ngIf="!grp.isCollapsed">
+              <table class="table table-sm margin-0">
+                <tr class="intend" *ngFor="let eng of grp?.Positions">
+                  <td>{{eng.Name}}</td>
+                </tr>
+              </table>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="col-md-6 col-sm-6 margin-divs">
-        <div class="card card-body sticky-offset sticky-top card-padding-bottom-0"
+      <div class="col-md-6 col-sm-12 margin-divs">
+        <div #tempTimeDiv class="card card-body sticky-offset-50 sticky-top card-padding-bottom-0 third-z-index"
              *ngIf="recipe.Temperature || recipe.Time">
           <p><strong>Temperatura: </strong>{{recipe?.Temperature}} &#x2103;</p>
           <p><strong>Czas: </strong>{{recipe?.Time}}</p>
         </div>
 
-        <div class="card">
-          <div class="card-header ">
-            <h4 class="card-title ">Przepis</h4>
+        <div class=" sticky-offset-150 sticky-top margin-divs">
+          <div class="card">
+            <div class="card-header ">
+              <h4 class="card-title ">Przepis</h4>
+            </div>
+            <div class="card-body pre-line">
+              {{recipe?.Recipe}}
+            </div>
           </div>
-          <div class="card-body pre-line">
-            {{recipe?.Recipe}}
-          </div>
-        </div>
-        <div class="card" *ngIf="recipe.Gallery">
-          <div class="card-header ">
-            <h4 class="card-title ">Galeria</h4>
-          </div>
-          <div class="card-body">
-            <div class="row">
-              <div class="col-md-6" *ngFor="let image of recipe.Gallery">
-                <div class="card">
+          <div class="card" *ngIf="recipe.Gallery">
+            <div class="card-header ">
+              <h4 class="card-title ">Galeria</h4>
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-6" *ngFor="let image of recipe.Gallery">
+                  <div class="card">
 
-                  <div class="view overlay">
-                    <img [src]="image.url" class="img-fluid img-center img-max-256" alt="Obraz niedostępny"/>
-                    <a>
-                      <div class="mask rgba-white-slight"></div>
-                    </a>
+                    <div class="view overlay">
+                      <img [src]="image.url" class="img-fluid img-center img-max-256" alt="Obraz niedostępny"/>
+                      <a>
+                        <div class="mask rgba-white-slight"></div>
+                      </a>
+                    </div>
+
                   </div>
-
                 </div>
               </div>
             </div>
@@ -65,3 +75,4 @@
   <div *ngIf="!recipe">
     dupa
   </div>
+</div>

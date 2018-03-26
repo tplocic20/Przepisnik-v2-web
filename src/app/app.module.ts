@@ -17,15 +17,20 @@ import {RecipesModule} from "./recipes/recipes.module";
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import {SearchService} from "./services/search.service";
 import { SearchComponent } from './components/search/search.component';
+<<<<<<< HEAD
 import { UserInfoComponent } from './components/user-info/user-info.component';
+=======
+import {ModalService} from "./services/modal.service";
+import {MatProgressBarModule, MatProgressSpinnerModule} from "@angular/material";
+>>>>>>> master
 
 const fireBaseConfig = {
-  apiKey: "AIzaSyDlCSFFdJ2kdm8-2ZkKPZasVWHqc0bfotg",
-  authDomain: "przepisnik-v2.firebaseapp.com",
-  databaseURL: "https://przepisnik-v2.firebaseio.com",
-  projectId: "przepisnik-v2",
-  storageBucket: "przepisnik-v2.appspot.com",
-  messagingSenderId: "529215752695"
+  apiKey: "AIzaSyAIHYAHC6ykzoTnO25vEpxwkXm9_fS_Jeo",
+  authDomain: "przepisnik.firebaseapp.com",
+  databaseURL: "https://przepisnik.firebaseio.com",
+  projectId: "firebase-przepisnik",
+  storageBucket: "firebase-przepisnik.appspot.com",
+  messagingSenderId: "457833981759"
 };
 
 @NgModule({
@@ -47,10 +52,10 @@ const fireBaseConfig = {
     BrowserAnimationsModule,
     NotesModule,
     RecipesModule,
-
     RoutingModule,
+    MatProgressSpinnerModule
   ],
-  providers: [FireService, SearchService],
+  providers: [FireService, SearchService, ModalService],
   bootstrap: [AppComponent],
 })
 export class AppModule {
