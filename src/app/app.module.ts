@@ -17,6 +17,7 @@ import {RecipesModule} from "./recipes/recipes.module";
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import {SearchService} from "./services/search.service";
 import { SearchComponent } from './components/search/search.component';
+import { UserInfoComponent } from './components/user-info/user-info.component';
 
 const fireBaseConfig = {
   apiKey: "AIzaSyDlCSFFdJ2kdm8-2ZkKPZasVWHqc0bfotg",
@@ -33,6 +34,7 @@ const fireBaseConfig = {
     LoginComponent,
     RegisterComponent,
     SearchComponent,
+    UserInfoComponent,
 
   ],
   imports: [

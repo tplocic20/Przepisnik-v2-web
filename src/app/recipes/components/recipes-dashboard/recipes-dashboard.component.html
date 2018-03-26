@@ -1,7 +1,7 @@
 <div class="row">
   <div class="col-md-3" *ngFor="let fav of favourites | async">
     <div class="card">
-      <div class="view overlay">
+      <div class="view overlay waves-light" mdbRippleRadius>
 
         <div *ngIf="fav.Gallery">
           <img [src]="fav.Gallery[0].url" class="img-fluid img-center img-max-256" alt="Ładowanie obrazu"/>
@@ -19,4 +19,3 @@
     </div>
   </div>
 </div>
-
