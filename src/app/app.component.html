@@ -12,15 +12,10 @@
         <!--<a class="nav-link waves-light" routerLink="notes" mdbRippleRadius>Notatki</a>-->
       <!--</li>-->
     </ul>
-<<<<<<< HEAD
-    <app-search></app-search>
-    <app-user-info></app-user-info>
-=======
+
+
     <app-search  *ngIf="isAuthenticated"></app-search>
-    <div class="navbar-nav"  *ngIf="isAuthenticated">
-      <a class="nav-link waves-light" (click)="logout()" mdbRippleRadius>WYloguj</a>
-    </div>
->>>>>>> master
+    <app-user-info  *ngIf="isAuthenticated"></app-user-info>
   </links>
 </mdb-navbar>
 <div class="content container-fluid">

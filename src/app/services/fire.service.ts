@@ -10,7 +10,7 @@ import {Recipe} from "../models/Recipe";
 @Injectable()
 export class FireService {
 
-  private authState: any = null;
+  public authState: any = null;
   authCtx: Observable<any> = null;
 
   constructor(private auth: AngularFireAuth, private db: AngularFireDatabase) {
@@ -36,12 +36,12 @@ export class FireService {
 
   private imagesRef = firebase.storage();
 
-  get isSignedIn() {
-    return this.authState != null;
+  get userData() {
+    return this.authState;
   }
 
-  get userName() {
-    return this.authState != null ? (this.authState.displayName ? this.authState.displayName : this.authState.email) : null;
+  get isSignedIn() {
+    return this.authState != null;
   }
 
   private categoriesLoaded: Observable<any[]>;

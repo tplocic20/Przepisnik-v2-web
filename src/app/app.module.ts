@@ -17,12 +17,10 @@ import {RecipesModule} from "./recipes/recipes.module";
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import {SearchService} from "./services/search.service";
 import { SearchComponent } from './components/search/search.component';
-<<<<<<< HEAD
 import { UserInfoComponent } from './components/user-info/user-info.component';
-=======
 import {ModalService} from "./services/modal.service";
-import {MatProgressBarModule, MatProgressSpinnerModule} from "@angular/material";
->>>>>>> master
+import {MatMenuModule, MatProgressBarModule, MatProgressSpinnerModule} from "@angular/material";
+import { ProfileComponent } from './components/modals/profile/profile.component';
 
 const fireBaseConfig = {
   apiKey: "AIzaSyAIHYAHC6ykzoTnO25vEpxwkXm9_fS_Jeo",
@@ -40,6 +38,7 @@ const fireBaseConfig = {
     RegisterComponent,
     SearchComponent,
     UserInfoComponent,
+    ProfileComponent,
 
   ],
   imports: [
@@ -53,10 +52,12 @@ const fireBaseConfig = {
     NotesModule,
     RecipesModule,
     RoutingModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatMenuModule,
   ],
   providers: [FireService, SearchService, ModalService],
   bootstrap: [AppComponent],
+  entryComponents: [ProfileComponent]
 })
 export class AppModule {
 }

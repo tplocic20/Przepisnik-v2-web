@@ -1,17 +1,23 @@
-<!--<div class="btn-group" dropdown>-->
-  <!--<button dropdownToggle type="button" class="btn btn-primary dropdown-toggle waves-light" mdbRippleRadius>-->
-    <!--Basic dropdown-->
-  <!--</button>-->
-
-  <!--<div class="dropdown-menu dropdown-primary">-->
-    <!--<a class="dropdown-item" href="#">Action</a>-->
-    <!--<a class="dropdown-item" href="#">Another action</a>-->
-    <!--<a class="dropdown-item" href="#">Something else here</a>-->
-    <!--<div class="divider dropdown-divider"></div>-->
-    <!--<a class="dropdown-item" href="#">Separated link</a>-->
-  <!--</div>-->
-<!--</div>-->
-<button (click)="test()"> asdf</button>
-<div class="chip">
-  <img src="../../../assets/ico.png"  alt="Contact Person"> userData.name
+<div class="chip" *ngIf="userData" [matMenuTriggerFor]="appMenu">
+  <img src="../../../assets/ico.png" alt="Contact Person">
+  <span *ngIf="userData.name">
+    {{userData.name}}
+  </span>
+  <span *ngIf="!userData.name">
+    {{userData.email}}
+  </span>
 </div>
+<mat-menu class="rounded-menu" #appMenu="matMenu" yPosition="below">
+  <button mat-menu-item (click)="editProfile()">
+    <i class="fa fa-lg fa-user" ></i>
+    &emsp;<span>Profil</span>
+  </button>
+  <button mat-menu-item>
+    <i class="fa fa-lg fa-cog"></i>
+    &emsp;<span>Ustawienia</span>
+  </button>
+  <button mat-menu-item (click)="logout()">
+    <i class="fa fa-lg fa-sign-out"></i>
+    &emsp;<span>Wyloguj się</span>
+  </button>
+</mat-menu>

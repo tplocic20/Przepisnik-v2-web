@@ -2,11 +2,10 @@ import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core'
 import {Observable} from "rxjs/Observable";
 import {Recipe} from "../../../models/Recipe";
 import {FireService} from "../../../services/fire.service";
-import {ActivatedRoute, Router} from "@angular/router";
 import {SearchService} from "../../../services/search.service";
 import {AddEditRecipeModalComponent} from "../../modals/add-edit-recipe-modal/add-edit-recipe-modal.component";
 import {ModalModeEnum} from "../../../models/enums/ModalModeEnum";
-import {MatDialog} from "@angular/material";
+import {MatDialog, MatDialogConfig} from "@angular/material";
 
 @Component({
   selector: 'app-recipes-list',
@@ -39,11 +38,10 @@ export class RecipesListComponent implements OnInit, OnChanges {
   }
 
   editRecipe(key) {
-    console.log(key);
-    this.dialogSrv.open(AddEditRecipeModalComponent, {
+    const config  = {
       disableClose: true,
-      data: { mode: ModalModeEnum.Edit, recId: key }
-    });
+      data: {mode: ModalModeEnum.Edit, recId: key}
+    };
+    this.dialogSrv.open(AddEditRecipeModalComponent, config as any);
   }
-
 }
