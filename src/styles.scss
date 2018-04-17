@@ -284,3 +284,32 @@ select:focus {
 .mat-menu-panel {
   border-radius: 10px !important;
 }
+.engredient-form-group {
+  display: flex;
+  padding-top: 0px;
+  padding-bottom: 0px;
+
+  .engredient-form-element {
+    padding: 0 8px;
+    height: auto;
+    min-width: 0;
+  }
+  .engredient-form-element:focus {
+    width: 300%;
+  }
+  .btn {
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
+input.ng-invalid.ng-touched {
+  &::placeholder {
+    color: #F44336 !important;
+  }
+  border-bottom: 1px solid #F44336 !important;
+  box-shadow: 0 1px 0 0 #F44336 !important;
+}
+.display-none {
+  display: none !important;
+}
+

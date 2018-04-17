@@ -8,7 +8,7 @@ import {RoutingModule} from "./router/routing.module";
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import {FireService} from "./services/fire.service";
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {AngularFireModule} from "angularfire2";
 import {AngularFireAuthModule} from "angularfire2/auth";
 import {AngularFireDatabaseModule} from "angularfire2/database";
@@ -38,8 +38,7 @@ const fireBaseConfig = {
     RegisterComponent,
     SearchComponent,
     UserInfoComponent,
-    ProfileComponent,
-
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
