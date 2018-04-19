@@ -1,5 +1,6 @@
 <div class="chip" *ngIf="userData" [matMenuTriggerFor]="appMenu">
-  <img src="../../../assets/ico.png" alt="Contact Person">
+  <img *ngIf="userData.photoURL" [src]="userData.photoURL" alt="Contact Person">
+  <img *ngIf="!userData.photoURL" src="https://i.pinimg.com/564x/f0/03/44/f00344d904062ce92b4b3b146060d874.jpg" alt="Contact Person">
   <span *ngIf="userData.name">
     {{userData.name}}
   </span>
@@ -7,12 +8,12 @@
     {{userData.email}}
   </span>
 </div>
-<mat-menu class="rounded-menu" #appMenu="matMenu" yPosition="below">
+<mat-menu [classList]="classes" class="rounded-menu" #appMenu="matMenu" yPosition="below">
   <button mat-menu-item (click)="editProfile()">
     <i class="fa fa-lg fa-user" ></i>
     &emsp;<span>Profil</span>
   </button>
-  <button mat-menu-item>
+  <button mat-menu-item (click)="settings()">
     <i class="fa fa-lg fa-cog"></i>
     &emsp;<span>Ustawienia</span>
   </button>

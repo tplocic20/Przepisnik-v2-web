@@ -176,4 +176,11 @@ export class FireService {
   removeImage(imageKey: string) {
     return this.imagesRef.ref(imageKey).delete();
   }
+
+  updateUserInfo(userInfo) {
+    console.log(userInfo);
+    // this.authState.updateProfile({
+    //   displayName: userInfo.name,
+    // });
+  }
 }

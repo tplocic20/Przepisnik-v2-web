@@ -21,6 +21,7 @@ import { UserInfoComponent } from './components/user-info/user-info.component';
 import {ModalService} from "./services/modal.service";
 import {MatMenuModule, MatProgressBarModule, MatProgressSpinnerModule} from "@angular/material";
 import { ProfileComponent } from './components/modals/profile/profile.component';
+import { SettingsComponent } from './components/modals/settings/settings.component';
 
 const fireBaseConfig = {
   apiKey: "AIzaSyAIHYAHC6ykzoTnO25vEpxwkXm9_fS_Jeo",
@@ -38,7 +39,8 @@ const fireBaseConfig = {
     RegisterComponent,
     SearchComponent,
     UserInfoComponent,
-    ProfileComponent
+    ProfileComponent,
+    SettingsComponent
   ],
   imports: [
     BrowserModule,

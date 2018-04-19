@@ -12,6 +12,7 @@ import {ProfileComponent} from "../modals/profile/profile.component";
 export class UserInfoComponent implements OnInit {
 
   userData: any;
+  classes = "rounded-menu";
 
   constructor(private srv: FireService, private router: Router, private dialogSrv: MatDialog) {
   }
@@ -37,5 +38,9 @@ export class UserInfoComponent implements OnInit {
       data: this.userData
     };
     this.dialogSrv.open(ProfileComponent, config as any);
+  }
+
+  settings() {
+
   }
 }

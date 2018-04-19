@@ -44,4 +44,30 @@ export class RecipesListComponent implements OnInit, OnChanges {
     };
     this.dialogSrv.open(AddEditRecipeModalComponent, config as any);
   }
+
+  removeRecipe(recipe) {
+    recipe.toRemove = true;
+  }
+
+  removeConfirm(recipe) {
+    recipe.isRemoving = true;
+    recipe.removeTimer = 3;
+    recipe.removeTimeout = setInterval(() => {
+      console.log("timeoutRem: " + recipe.removeTimer);
+      recipe.removeTimer--;
+      if (recipe.removeTimer === 0) {
+        this.srv.removeRecipe(recipe.$key);
+        clearInterval(recipe.removeTimeout);
+      }
+    }, 1000);
+  }
+
+  removeCancel(recipe) {
+    delete recipe.toRemove;
+    delete recipe.isRemoving;
+    if (recipe.removeTimeout) {
+      clearInterval(recipe.removeTimeout);
+      delete recipe.removeTimeout;
+    }
+  }
 }
