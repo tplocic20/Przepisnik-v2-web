@@ -3,3 +3,12 @@ img {
   height: 200px;
   border-radius: 50%;
 }
+
+.close {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  z-index: 100;
+  color: red;
+  font-size: 35px;
+}

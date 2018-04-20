@@ -1,10 +1,10 @@
 <div class="chip" *ngIf="userData" [matMenuTriggerFor]="appMenu">
-  <img *ngIf="userData.photoURL" [src]="userData.photoURL" alt="Contact Person">
+  <img *ngIf="userData.photoURL" [src]="userData.photoURL">
   <img *ngIf="!userData.photoURL" src="https://i.pinimg.com/564x/f0/03/44/f00344d904062ce92b4b3b146060d874.jpg" alt="Contact Person">
-  <span *ngIf="userData.name">
-    {{userData.name}}
+  <span *ngIf="userData.displayName">
+    {{userData.displayName}}
   </span>
-  <span *ngIf="!userData.name">
+  <span *ngIf="!userData.displayName">
     {{userData.email}}
   </span>
 </div>

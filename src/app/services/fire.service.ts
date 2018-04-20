@@ -18,6 +18,8 @@ export class FireService {
     this.auth.authState.subscribe(user => {
       if (user) {
         this.authState = user;
+        this.userRef = this.db.object("Users/" + this.authState.uid);
+        this.userObj = this.userRef.valueChanges();
       }
     });
   }
@@ -34,6 +36,9 @@ export class FireService {
   private notesRef = this.db.list("Notes");
   private notesList = this.notesRef.snapshotChanges().map(actions => this.mapWithKey(actions));
 
+  private userRef = null;
+  private userObj = null;
+
   private imagesRef = firebase.storage();
 
   get userData() {
@@ -45,6 +50,7 @@ export class FireService {
   }
 
   private categoriesLoaded: Observable<any[]>;
+
   get categories() {
     if (!this.categoriesLoaded) {
       this.categoriesLoaded = this.getCategories();
@@ -90,6 +96,10 @@ export class FireService {
       let r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
       return v.toString(16);
     });
+  }
+
+  getUserData() {
+    return this.userObj;
   }
 
   private getCategories() {
@@ -169,18 +179,49 @@ export class FireService {
     return this.db.object(`Recipes/${recipeId}`).valueChanges();
   }
 
-  uploadImage(imageData, contentType) {
-    return this.imagesRef.ref(this.newGuid()).putString(imageData, 'base64', {contentType: contentType});
+  uploadImage(imageData, contentType = null) {
+    if (contentType) {
+      return this.imagesRef.ref(this.newGuid()).putString(imageData, 'base64', {contentType: contentType});
+    } else {
+      return this.imagesRef.ref(this.newGuid()).put(imageData);
+
+    }
   }
 
   removeImage(imageKey: string) {
     return this.imagesRef.ref(imageKey).delete();
   }
 
-  updateUserInfo(userInfo) {
-    console.log(userInfo);
-    // this.authState.updateProfile({
-    //   displayName: userInfo.name,
-    // });
+
+  updateUserInfo(currentUser, userInfo) {
+
+    if (!currentUser) {
+      currentUser = {
+        photoId: null
+      };
+    }
+    const uploadData = {
+      displayName: userInfo.name,
+      photoURL: "",
+    };
+    if (userInfo.newPhoto) {
+      this.uploadImage(userInfo.newPhoto).then((savedPicture) => {
+        const refs = savedPicture.ref.fullPath.split('/');
+        uploadData.photoURL = savedPicture.downloadURL;
+        currentUser.photoId = refs[refs.length - 1];
+        this.userRef.set(currentUser);
+        this.authState.updateProfile(uploadData);
+      }).catch(err => {
+        console.log(err);
+      });
+    } else {
+      if (currentUser.photoId) {
+        this.removeImage(currentUser.photoId);
+        currentUser.photoId = null;
+        this.userRef.set(currentUser);
+      }
+      uploadData.photoURL = null;
+      this.authState.updateProfile(uploadData);
+    }
   }
 }

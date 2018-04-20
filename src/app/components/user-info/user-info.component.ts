@@ -15,17 +15,19 @@ export class UserInfoComponent implements OnInit {
   classes = "rounded-menu";
 
   constructor(private srv: FireService, private router: Router, private dialogSrv: MatDialog) {
+    // this.srv.authCtx.subscribe(user => this.userData = {
+    //     name: user.displayName,
+    //     email: user.email,
+    //     photoUrl: user.photoURL,
+    //     emailVerified: user.emailVerified,
+    //     uid: user.uid,
+    //   }
+    // );
+
+    this.userData = this.srv.authState;
   }
 
   ngOnInit() {
-    this.srv.authCtx.subscribe(user => this.userData = {
-        name: user.displayName,
-        email: user.email,
-        photoUrl: user.photoURL,
-        emailVerified: user.emailVerified,
-        uid: user.uid,
-      }
-    );
   }
 
   logout() {
