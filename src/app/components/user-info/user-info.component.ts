@@ -3,6 +3,7 @@ import {FireService} from "../../services/fire.service";
 import {Router} from "@angular/router";
 import {MatDialog} from "@angular/material";
 import {ProfileComponent} from "../modals/profile/profile.component";
+import {SettingsComponent} from "../modals/settings/settings.component";
 
 @Component({
   selector: 'app-user-info',
@@ -43,6 +44,9 @@ export class UserInfoComponent implements OnInit {
   }
 
   settings() {
-
+    const config = {
+      disableClose: true
+    };
+    this.dialogSrv.open(SettingsComponent, config as any);
   }
 }
