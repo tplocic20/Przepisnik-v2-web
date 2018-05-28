@@ -1,7 +1,5 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
-
-
 import {AppComponent} from './app.component';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {RoutingModule} from "./router/routing.module";
@@ -19,7 +17,7 @@ import {SearchService} from "./services/search.service";
 import { SearchComponent } from './components/search/search.component';
 import { UserInfoComponent } from './components/user-info/user-info.component';
 import {ModalService} from "./services/modal.service";
-import {MatMenuModule, MatProgressBarModule, MatProgressSpinnerModule, MatTabsModule} from "@angular/material";
+import {MatMenuModule, MatProgressSpinnerModule, MatTabsModule} from "@angular/material";
 import { ProfileComponent } from './components/modals/profile/profile.component';
 import { SettingsComponent } from './components/modals/settings/settings.component';
 import { ImageUploadComponent } from './components/partials/image-upload/image-upload.component';
@@ -41,7 +39,7 @@ const fireBaseConfig = {
     SearchComponent,
     UserInfoComponent,
     ProfileComponent,
-    SettingsComponent
+    SettingsComponent,
     ImageUploadComponent,
 
   ],
