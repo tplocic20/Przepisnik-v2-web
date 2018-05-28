@@ -8,7 +8,7 @@ import {RoutingModule} from "./router/routing.module";
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import {FireService} from "./services/fire.service";
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {AngularFireModule} from "angularfire2";
 import {AngularFireAuthModule} from "angularfire2/auth";
 import {AngularFireDatabaseModule} from "angularfire2/database";
@@ -19,8 +19,9 @@ import {SearchService} from "./services/search.service";
 import { SearchComponent } from './components/search/search.component';
 import { UserInfoComponent } from './components/user-info/user-info.component';
 import {ModalService} from "./services/modal.service";
-import {MatMenuModule, MatProgressBarModule, MatProgressSpinnerModule} from "@angular/material";
+import {MatMenuModule, MatProgressBarModule, MatProgressSpinnerModule, MatTabsModule} from "@angular/material";
 import { ProfileComponent } from './components/modals/profile/profile.component';
+import { SettingsComponent } from './components/modals/settings/settings.component';
 import { ImageUploadComponent } from './components/partials/image-upload/image-upload.component';
 
 const fireBaseConfig = {
@@ -40,6 +41,7 @@ const fireBaseConfig = {
     SearchComponent,
     UserInfoComponent,
     ProfileComponent,
+    SettingsComponent
     ImageUploadComponent,
 
   ],
@@ -56,10 +58,11 @@ const fireBaseConfig = {
     RoutingModule,
     MatProgressSpinnerModule,
     MatMenuModule,
+    MatTabsModule,
   ],
   providers: [FireService, SearchService, ModalService],
   bootstrap: [AppComponent],
-  entryComponents: [ProfileComponent]
+  entryComponents: [ProfileComponent, SettingsComponent]
 })
 export class AppModule {
 }

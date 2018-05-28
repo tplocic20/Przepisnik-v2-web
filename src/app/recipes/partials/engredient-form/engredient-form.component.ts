@@ -1,0 +1,55 @@
+import {Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+
+@Component({
+  selector: 'app-engredient-form',
+  templateUrl: './engredient-form.component.html',
+  styleUrls: ['./engredient-form.component.scss']
+})
+export class EngredientFormComponent implements OnInit {
+
+  @ViewChild('nameInput') input: ElementRef;
+  form: FormGroup;
+  @Input() data;
+  @Output() submit: EventEmitter<any> = new EventEmitter<any>();
+  @Output() cancel: EventEmitter<any> = new EventEmitter<any>();
+
+  constructor(private fb: FormBuilder) {
+  }
+
+  get canEditAnother() {
+    return !this.form.dirty;
+  }
+
+  ngOnInit() {
+    this.createForm();
+    this.input.nativeElement.focus();
+  }
+
+  private createForm() {
+    this.form = this.fb.group(
+      {
+        name: [this.data ? this.data.Name : '', Validators.required],
+        qty: [this.data ? this.data.Qty : ''],
+        unit: [this.data ? this.data.Unit : '']
+      }
+    );
+  }
+
+  successClick() {
+    if (this.form.valid) {
+      this.data.Name = this.form.get("name").value;
+      this.data.Qty = this.form.get("qty").value;
+      this.data.Unit = this.form.get("unit").value;
+      this.submit.emit(this.data);
+      this.close();
+    }
+  }
+
+  close() {
+    this.form.reset();
+    this.cancel.emit();
+    delete this.data.isInEdit;
+  }
+
+}

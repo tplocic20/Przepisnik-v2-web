@@ -22,7 +22,7 @@ export class AddEditRecipeModalComponent implements OnInit {
 
   public config: any;
 
-  private recipe: Recipe = {Name: ""};
+  public recipe: Recipe = {Name: ""};
 
   constructor(private srv: FireService, public dialogRef: MatDialogRef<AddEditRecipeModalComponent>, @Inject(MAT_DIALOG_DATA) public data: any) {
     this.config = data;

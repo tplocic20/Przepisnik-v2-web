@@ -4,20 +4,22 @@ import {RecipesListComponent} from './components/recipes-list/recipes-list.compo
 import {RecipescontainerComponent} from './components/recipescontainer/recipescontainer.component';
 import {CategoriesComponent} from './components/categories/categories.component';
 import {RecipeDetailsComponent} from './components/recipe-details/recipe-details.component';
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {RecipesRoutingModule} from "./routing/recipes-routing.module";
 import {MDBBootstrapModule} from "angular-bootstrap-md/index";
 import {PipesModule} from "../pipes/pipes.module";
 import {RecipesDashboardComponent} from './components/recipes-dashboard/recipes-dashboard.component';
 import {AddEditRecipeModalComponent} from './modals/add-edit-recipe-modal/add-edit-recipe-modal.component';
 import {MatTabsModule, MatDialogModule, MatMenuModule, MatInputModule} from "@angular/material";
-import { CategoriesSelectComponent } from './partials/categories-select/categories-select.component';
-import { EngredientsEditorComponent } from './partials/engredients-editor/engredients-editor.component';
+import {CategoriesSelectComponent} from './partials/categories-select/categories-select.component';
+import {EngredientsEditorComponent} from './partials/engredients-editor/engredients-editor.component';
+import { EngredientFormComponent } from './partials/engredient-form/engredient-form.component';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     PipesModule,
     MDBBootstrapModule.forRoot(),
     RecipesRoutingModule,
@@ -26,7 +28,8 @@ import { EngredientsEditorComponent } from './partials/engredients-editor/engred
     MatMenuModule,
     MatInputModule
   ],
-  declarations: [RecipesListComponent, RecipescontainerComponent, CategoriesComponent, RecipeDetailsComponent, RecipesDashboardComponent, AddEditRecipeModalComponent, CategoriesSelectComponent, EngredientsEditorComponent],
+  declarations: [RecipesListComponent, RecipescontainerComponent, CategoriesComponent, RecipeDetailsComponent, RecipesDashboardComponent, AddEditRecipeModalComponent,
+    CategoriesSelectComponent, EngredientsEditorComponent, EngredientFormComponent],
   exports: [RecipesListComponent, RecipescontainerComponent, CategoriesComponent, RecipeDetailsComponent],
   entryComponents: [AddEditRecipeModalComponent]
 })

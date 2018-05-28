@@ -2,63 +2,110 @@
   <i class="fa fa-exclamation-circle"></i>
   Przepis musi zawierac conajmniej jedną kategorię z jednym składnik
 </span>
+
+<!-- TOP NEW CATEGORY FORM -->
 <div class="md-form form-sm">
   <div class="pan-container">
     <div class="left-pan">
       <input #focusInput mdbActive type="text" id="newCatInput" class="form-control" [(ngModel)]="newCatName"
-             (keyup.enter)="addCat()" (keyup.esc)="stopAddingCat()">
+             (keyup.enter)="addGroup()" (keyup.esc)="stopAddingGroup()">
       <label for="newCatInput" class="">Nowa kategoria</label>
     </div>
     <div class="right-pan">
-      <button type="button" class="btn btn-default btn-sm" (click)="addCat()">Dodaj</button>
+      <button type="button" class="btn btn-default btn-sm" (click)="addGroup()">Dodaj</button>
     </div>
   </div>
 </div>
-<div *ngFor="let grp of engredients">
+
+<div *ngFor="let grp of engredients" [@collapseExit]>
+
   <table class="table table-sm margin-0">
     <thead>
-    <tr>
-      <td>
-        <strong>{{grp.Name}}</strong>
+    <tr class="buttons-row" [class.table-danger]="grp.toRemove">
+
+      <td *ngIf="!grp.isInEdit">
+        <div class="row-data">
+          <strong>{{grp.Name}}</strong>
+        </div>
+        <div class="btn-group pull-right position-absolute hover-elements" *ngIf="canEdit && !grp.toRemove">
+          <button type="button" (click)="editGroup(grp)" class="btn btn-primary btn-sm btn-no-v-margin">Edytuj
+          </button>
+          <button type="button" (click)="removeGroup(grp)" class="btn btn-danger btn-sm btn-no-v-margin">Usuń</button>
+        </div>
+        <div #el class="btn-group pull-right position-absolute " *ngIf="grp.toRemove"
+             [class.display-none]="grp.isRemoved">
+          <button type="button" (click)="removeGroupConfirm(grp, el)" class="btn btn-danger btn-sm btn-no-v-margin">Tak
+          </button>
+          <button type="button" (click)="removeGroupCancel(grp)" class="btn btn-primary btn-sm btn-no-v-margin">Nie
+          </button>
+        </div>
       </td>
+
+      <td *ngIf="grp.isInEdit">
+        <form [formGroup]="engredientGroupForm" (keyup.enter)="editGroupConfirm(grp)"
+              (keyup.esc)="editGroupCancel(grp)">
+          <div class="engredient-form-group">
+            <input #nameInput mdbActive type="text" class="form-control engredient-form-element" placeholder="Nazwa"
+                   formControlName="name">
+            <button type="button" (click)="editGroupConfirm(grp)" class="btn btn-success btn-sm pull-right"><i
+              class="fa fa-check"></i></button>
+            <button type="button" (click)="editGroupCancel(grp)" class="btn btn-danger btn-sm pull-right"><i
+              class="fa fa-times"></i></button>
+          </div>
+        </form>
+      </td>
+
     </tr>
     </thead>
   </table>
+
   <table class="table table-sm">
-    <tr *ngFor="let eng of grp.Positions" class="buttons-row">
-      <td colspan="2">
-        <div class="row-data">
-          {{eng.Name}} - {{eng.Qty}} {{eng.Unit}}
-        </div>
-        <div class="btn-group pull-right position-absolute hover-elements">
-          <button type="button" class="btn btn-primary btn-sm btn-no-v-margin">Edytuj</button>
-          <button type="button" class="btn btn-danger btn-sm btn-no-v-margin">Usuń</button>
+    <tr *ngFor="let eng of grp.Positions" class="buttons-row" [class.table-danger]="eng.toRemove || grp.toRemove">
+      <td>
+        <div>
+          <div *ngIf="!eng.isInEdit">
+            <div class="row-data">
+              {{eng.Name}} - {{eng.Qty}} {{eng.Unit}}
+            </div>
+            <div class="btn-group pull-right position-absolute hover-elements"
+                 *ngIf="canEdit && !eng.toRemove && !grp.toRemove">
+              <button type="button" (click)="editEngredient(eng)" class="btn btn-primary btn-sm btn-no-v-margin">Edytuj
+              </button>
+              <button type="button" (click)="removeEngredient(eng)" class="btn btn-danger btn-sm btn-no-v-margin">Usuń
+              </button>
+            </div>
+            <div class="btn-group pull-right position-absolute " *ngIf="eng.toRemove && !grp.toRemove">
+              <button type="button" (click)="removeEngredientConfirm(grp, eng)"
+                      class="btn btn-danger btn-sm btn-no-v-margin">Tak</button>
+              <button type="button" (click)="removeEngredientCancel(eng)"
+                      class="btn btn-primary btn-sm btn-no-v-margin">Nie</button>
+            </div>
+          </div>
+
+          <div *ngIf="eng.isInEdit">
+            <app-engredient-form #engredientForm [data]="eng"></app-engredient-form>
+          </div>
         </div>
       </td>
     </tr>
+
     <tr *ngIf="grp.newElement">
       <td>
-        <div class="engredient-form-group">
-            <input #nameInput mdbActive type="text" class="form-control engredient-form-element" placeholder="Nazwa" [(ngModel)]="grp.newElement.Name"
-                   (keyup.enter)="confirmEngredient(grp)" (keyup.esc)="cancelEngredient()">
-            <input mdbActive type="number" class="form-control engredient-form-element" placeholder="Ilość" [(ngModel)]="grp.newElement.Qty"
-                   (keyup.enter)="confirmEngredient(grp)" (keyup.esc)="cancelEngredient()">
-            <input mdbActive type="text" class="form-control engredient-form-element" placeholder="Jednostka" [(ngModel)]="grp.newElement.Unit"
-                   (keyup.enter)="confirmEngredient(grp)" (keyup.esc)="cancelEngredient()">
-            <button type="button" class="btn btn-success btn-sm pull-right" (click)="confirmEngredient(grp)"><i class="fa fa-check"></i></button>
-            <button type="button" class="btn btn-danger btn-sm pull-right" (click)="cancelEngredient()"><i class="fa fa-times"></i></button>
-        </div>
+        <app-engredient-form #engredientForm [data]="grp.newElement" (submit)="confirmEngredient(grp)"
+                             (cancel)="cancelEngredient()"></app-engredient-form>
       </td>
     </tr>
+
     <tr *ngIf="!grp.newElement">
-      <td colspan="2">
+      <td>
         <div class="btn-group pull-right">
-          <button type="button" class="btn btn-primary btn-sm btn-no-v-margin" (click)="addEngredient(grp)">Dodaj
-            składnik
+          <button type="button" class="btn btn-primary btn-sm btn-no-v-margin" (click)="addEngredient(grp)">
+            Dodaj składnik
           </button>
         </div>
       </td>
     </tr>
+
   </table>
 </div>
 

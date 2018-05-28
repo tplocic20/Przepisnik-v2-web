@@ -3,6 +3,7 @@ import {FireService} from "../../services/fire.service";
 import {Router} from "@angular/router";
 import {MatDialog} from "@angular/material";
 import {ProfileComponent} from "../modals/profile/profile.component";
+import {SettingsComponent} from "../modals/settings/settings.component";
 
 @Component({
   selector: 'app-user-info',
@@ -12,19 +13,22 @@ import {ProfileComponent} from "../modals/profile/profile.component";
 export class UserInfoComponent implements OnInit {
 
   userData: any;
+  classes = "rounded-menu";
 
   constructor(private srv: FireService, private router: Router, private dialogSrv: MatDialog) {
+    // this.srv.authCtx.subscribe(user => this.userData = {
+    //     name: user.displayName,
+    //     email: user.email,
+    //     photoUrl: user.photoURL,
+    //     emailVerified: user.emailVerified,
+    //     uid: user.uid,
+    //   }
+    // );
+
+    this.userData = this.srv.authState;
   }
 
   ngOnInit() {
-    this.srv.authCtx.subscribe(user => this.userData = {
-        name: user.displayName,
-        email: user.email,
-        photoUrl: user.photoURL != null ? user.photoUrl : 'https://i.pinimg.com/564x/f0/03/44/f00344d904062ce92b4b3b146060d874.jpg',
-        emailVerified: user.emailVerified,
-        uid: user.uid,
-      }
-    );
   }
 
   logout() {
@@ -37,5 +41,12 @@ export class UserInfoComponent implements OnInit {
       data: this.userData
     };
     this.dialogSrv.open(ProfileComponent, config as any);
+  }
+
+  settings() {
+    const config = {
+      disableClose: true
+    };
+    this.dialogSrv.open(SettingsComponent, config as any);
   }
 }

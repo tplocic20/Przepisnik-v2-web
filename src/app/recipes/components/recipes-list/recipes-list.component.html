@@ -1,14 +1,23 @@
 <table class="table table-hover table-sm">
   <tbody>
   <tr class="buttons-row" *ngFor="let rec of recipes | async | filter:searchService.searchValue | orderByProperty:'Name'"
-      [routerLink]="['/recipes', rec.$key]" routerLinkActive="table-info">
+      [routerLink]="['/recipes', rec.$key]" routerLinkActive="table-info" [class.table-danger]="rec.toRemove">
     <td>
       <div class="row-data">{{rec.Name}}</div>
-      <div class="btn-group pull-right position-absolute hover-elements">
-        <!--<button class="btn btn-default btn-sm btn-no-v-margin" mdbRippleRadius><i class="fa fa-edit"></i></button>-->
+      <div class="btn-group pull-right position-absolute hover-elements" *ngIf="!rec.toRemove">
         <button type="button" [routerLink]="['/recipes', rec.$key]"
                 class="btn btn-sm btn-default dropdown-toggle dropdown-toggle-split px-3 waves-light"
-                mdbRippleRadius [matMenuTriggerFor]="appMenu" [matMenuTriggerData]="{key: rec.$key}"></button>
+                mdbRippleRadius [matMenuTriggerFor]="appMenu" [matMenuTriggerData]="{rec: rec}"></button>
+      </div>
+      <div class="btn-group pull-right position-absolute " *ngIf="rec.toRemove && !rec.isRemoving">
+        <button type="button" (click)="removeConfirm(rec)"
+                class="btn btn-danger btn-sm btn-no-v-margin">Tak</button>
+        <button type="button" (click)="removeCancel(rec)"
+                class="btn btn-primary btn-sm btn-no-v-margin">Nie</button>
+      </div>
+      <div class="btn-group pull-right position-absolute " *ngIf="rec.isRemoving">
+        <button type="button" (click)="removeCancel(rec)"
+                class="btn btn-primary btn-sm btn-no-v-margin">Anuluj <strong>({{rec.removeTimer}})</strong></button>
       </div>
     </td>
   </tr>
@@ -16,18 +25,18 @@
 </table>
 
 <mat-menu #appMenu="matMenu">
-  <ng-template matMenuContent let-key="key">
+  <ng-template matMenuContent let-recipe="rec">
     <button class="menu-success" mat-menu-item>
       <i class="fa fa-share-alt"></i>
-      Share
+      Udostępnij
     </button>
-    <button class="menu-primary" mat-menu-item (click)="editRecipe(key)">
+    <button class="menu-primary" mat-menu-item (click)="editRecipe(recipe.$key)">
       <i class="fa fa-edit"></i>
-      Edit
+      Edytuj
     </button>
-    <button class="menu-danger" mat-menu-item>
+    <button class="menu-danger" mat-menu-item (click)="removeRecipe(recipe)">
       <i class="fa fa-trash"></i>
-      Delete
+      Usuń
     </button>
   </ng-template>
 </mat-menu>
