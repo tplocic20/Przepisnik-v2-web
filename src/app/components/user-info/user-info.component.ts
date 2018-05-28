@@ -20,7 +20,7 @@ export class UserInfoComponent implements OnInit {
     this.srv.authCtx.subscribe(user => this.userData = {
         name: user.displayName,
         email: user.email,
-        photoUrl: user.photoURL,
+        photoUrl: user.photoURL != null ? user.photoUrl : 'https://i.pinimg.com/564x/f0/03/44/f00344d904062ce92b4b3b146060d874.jpg',
         emailVerified: user.emailVerified,
         uid: user.uid,
       }

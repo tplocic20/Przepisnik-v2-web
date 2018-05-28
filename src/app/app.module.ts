@@ -21,6 +21,7 @@ import { UserInfoComponent } from './components/user-info/user-info.component';
 import {ModalService} from "./services/modal.service";
 import {MatMenuModule, MatProgressBarModule, MatProgressSpinnerModule} from "@angular/material";
 import { ProfileComponent } from './components/modals/profile/profile.component';
+import { ImageUploadComponent } from './components/partials/image-upload/image-upload.component';
 
 const fireBaseConfig = {
   apiKey: "AIzaSyAIHYAHC6ykzoTnO25vEpxwkXm9_fS_Jeo",
@@ -39,6 +40,7 @@ const fireBaseConfig = {
     SearchComponent,
     UserInfoComponent,
     ProfileComponent,
+    ImageUploadComponent,
 
   ],
   imports: [
