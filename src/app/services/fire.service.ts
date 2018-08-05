@@ -6,6 +6,7 @@ import 'firebase/storage';
 import {Observable} from "rxjs/Observable";
 import {Note} from "../models/Note";
 import {Recipe} from "../models/Recipe";
+import {map} from "rxjs/internal/operators";
 
 @Injectable()
 export class FireService {
@@ -25,16 +26,26 @@ export class FireService {
   }
 
   private categoriesRef = this.db.list("Categories");
-  private categoriesList = this.categoriesRef.snapshotChanges().map(actions => this.mapWithKey(actions));
+  private categoriesList = this.categoriesRef.snapshotChanges().pipe(
+    map(actions => actions.map(a => ({ $key: a.key, ...a.payload.val() }))));
 
   private recipesRef = this.db.list("Recipes");
-  private recipesList = this.recipesRef.snapshotChanges().map(actions => this.mapWithKey(actions));
+  private recipesList = this.recipesRef.snapshotChanges().pipe(
+    map(actions =>
+      actions.map(a => ({ $key: a.key, ...a.payload.val() }))
+    ));
 
   private favouritesRef = this.db.list("Recipes", query => query.orderByChild('Favourite').equalTo(true));
-  private favouritesList = this.favouritesRef.snapshotChanges().map(actions => this.mapWithKey(actions));
+  private favouritesList = this.favouritesRef.snapshotChanges().pipe(
+    map(actions =>
+      actions.map(a => ({ $key: a.key, ...a.payload.val() }))
+    ));
 
   private notesRef = this.db.list("Notes");
-  private notesList = this.notesRef.snapshotChanges().map(actions => this.mapWithKey(actions));
+  private notesList = this.notesRef.snapshotChanges().pipe(
+    map(actions =>
+      actions.map(a => ({ $key: a.key, ...a.payload.val() }))
+    ));
 
   private userRef = null;
   private userObj = null;
@@ -104,9 +115,10 @@ export class FireService {
 
   private getCategories() {
     if (!this.categoriesList) return null;
-    return this.categoriesList.map(res => {
-      return res;
-    });
+    return this.categoriesList.pipe(
+      map(actions =>
+        actions.map(a => a)
+      ));
   }
 
   addCategory(data) {
@@ -126,10 +138,10 @@ export class FireService {
 
   getNotes() {
     // this.msg.loading.show("Pobieranie danych");
-    return this.notesList.map(res => {
-      // this.msg.loading.close();
-      return res;
-    });
+    return this.notesList.pipe(
+      map(actions =>
+        actions.map(a => a)
+      ));
   }
 
   getNote(noteId) {
@@ -150,19 +162,23 @@ export class FireService {
   }
 
   getFavourites() {
-    return this.favouritesList.map(res => {
-      return res;
-    });
+    return this.favouritesList.pipe(
+      map(actions =>
+        actions.map(a => a)
+      ));
   }
 
   getRecipes(categoryId) {
     // this.msg.loading.show("Pobieranie danych");
-    return this.recipesList.map(data => {
-      // this.msg.loading.close();
-      return data.filter(x => x.Categories.indexOf(categoryId || "") > -1);
-    });
+    return this.recipesList.pipe(
+      map(actions => {
+          return actions.filter(x => (x as any).Categories.indexOf(categoryId || "") > -1).map(a => {
+            return a;
+          });
+        }
+      ));
   }
-
+// .filter(x => x.Categories.indexOf(categoryId || "") > -1);
   addRecipe(recipe: Recipe) {
     return this.recipesRef.push(recipe);
   }

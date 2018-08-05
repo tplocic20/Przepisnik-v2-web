@@ -10,7 +10,7 @@ import {Recipe} from "../../../models/Recipe";
 })
 export class RecipesDashboardComponent implements OnInit {
 
-  favourites: Observable<Recipe[]>;
+  favourites: Observable<any>;
 
   constructor(private srv: FireService) { }
 

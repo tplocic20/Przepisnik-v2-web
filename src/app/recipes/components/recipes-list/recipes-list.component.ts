@@ -15,7 +15,7 @@ import {MatDialog, MatDialogConfig} from "@angular/material";
 export class RecipesListComponent implements OnInit, OnChanges {
 
   @Input() category: string;
-  recipes: Observable<Recipe[]>;
+  recipes: Observable<any>;
   selectedRecipe: any;
   loading = true;
 

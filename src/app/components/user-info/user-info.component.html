@@ -11,14 +11,17 @@
 <mat-menu [classList]="classes" class="rounded-menu" #appMenu="matMenu" yPosition="below">
   <button mat-menu-item (click)="editProfile()">
     <i class="fa fa-lg fa-user" ></i>
+    &nbsp;
     &emsp;<span>Profil</span>
   </button>
   <button mat-menu-item (click)="settings()">
     <i class="fa fa-lg fa-cog"></i>
+    &nbsp;
     &emsp;<span>Ustawienia</span>
   </button>
   <button mat-menu-item (click)="logout()">
     <i class="fa fa-lg fa-sign-out"></i>
+    &nbsp;
     &emsp;<span>Wyloguj się</span>
   </button>
 </mat-menu>

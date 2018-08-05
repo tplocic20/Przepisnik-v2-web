@@ -44,7 +44,7 @@
       <td *ngIf="grp.isInEdit">
         <form [formGroup]="engredientGroupForm" (keyup.enter)="editGroupConfirm(grp)"
               (keyup.esc)="editGroupCancel(grp)">
-          <div class="engredient-form-group">
+          <div class="engredient-form-group md-form">
             <input #nameInput mdbActive type="text" class="form-control engredient-form-element" placeholder="Nazwa"
                    formControlName="name">
             <button type="button" (click)="editGroupConfirm(grp)" class="btn btn-success btn-sm pull-right"><i
@@ -91,7 +91,7 @@
 
     <tr *ngIf="grp.newElement">
       <td>
-        <app-engredient-form #engredientForm [data]="grp.newElement" (submit)="confirmEngredient(grp)"
+        <app-engredient-form #engredientForm [data]="grp.newElement" (submit)="confirmEngredient($event, grp)"
                              (cancel)="cancelEngredient()"></app-engredient-form>
       </td>
     </tr>

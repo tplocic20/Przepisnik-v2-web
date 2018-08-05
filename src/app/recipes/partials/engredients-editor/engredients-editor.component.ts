@@ -143,9 +143,9 @@ export class EngredientsEditorComponent implements OnChanges, AfterViewInit {
     }
   }
 
-  confirmEngredient(grp) {
+  confirmEngredient(data, grp) {
     if (grp.newElement) {
-      grp.Positions.push(grp.newElement);
+      grp.Positions.push(data);
       this.addEngredient(grp);
     } else {
       this.cancelEngredient();

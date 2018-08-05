@@ -22,7 +22,12 @@ export class EngredientFormComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log('form init');
     this.createForm();
+    this.focusInput();
+  }
+
+  focusInput() {
     this.input.nativeElement.focus();
   }
 
@@ -41,15 +46,27 @@ export class EngredientFormComponent implements OnInit {
       this.data.Name = this.form.get("name").value;
       this.data.Qty = this.form.get("qty").value;
       this.data.Unit = this.form.get("unit").value;
-      this.submit.emit(this.data);
-      this.close();
+      this.submit.emit({
+        Name: this.form.get("name").value,
+        Qty: this.form.get("qty").value,
+        Unit: this.form.get("unit").value
+      });
     }
+    this.reset();
+  }
+
+  reset() {
+    this.form.reset({
+      name: '',
+      qty: 0,
+      uit: ''
+    });
+    delete this.data.isInEdit;
   }
 
   close() {
-    this.form.reset();
     this.cancel.emit();
-    delete this.data.isInEdit;
+    this.reset();
   }
 
 }
