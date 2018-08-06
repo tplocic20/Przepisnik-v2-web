@@ -24,6 +24,10 @@ export class FireService {
     });
   }
 
+  private unitsRef = this.db.list("Units");
+  private unitsList = this.unitsRef.snapshotChanges().pipe(
+    map(actions => actions.map(a => ({$key: a.key, ...a.payload.val()}))));
+
   private categoriesRef = this.db.list("Categories");
   private categoriesList = this.categoriesRef.snapshotChanges().pipe(
     map(actions => actions.map(a => ({$key: a.key, ...a.payload.val()}))));
@@ -54,12 +58,19 @@ export class FireService {
   }
 
   private categoriesLoaded: any;
-
   get categories() {
     if (!this.categoriesLoaded) {
       this.categoriesLoaded = this.getCategories();
     }
     return this.categoriesLoaded;
+  }
+
+  private unitsLoaded: any;
+  get units() {
+    if (!this.unitsLoaded) {
+      this.unitsLoaded = this.getUnits();
+    }
+    return this.unitsLoaded;
   }
 
   public register(email, pass) {
@@ -70,15 +81,15 @@ export class FireService {
     this.userState.sendEmailVerification();
   }
 
-  public rememberMe(email, pass) {
-    const credentials = {
-      e: email,
-      p: pass
-    };
-    const encoded = btoa(JSON.stringify(credentials));
-    console.log(encoded);
-    // this.storage.set('credentials', encoded);
-  }
+  // public rememberMe(email, pass) {
+  //   const credentials = {
+  //     e: email,
+  //     p: pass
+  //   };
+  //   const encoded = btoa(JSON.stringify(credentials));
+  //   console.log(encoded);
+  //   // this.storage.set('credentials', encoded);
+  // }
 
   public signIn(email, pass) {
     return this.auth.auth.signInWithEmailAndPassword(email, pass);
@@ -90,24 +101,29 @@ export class FireService {
     return this.auth.auth.signOut();
   }
 
-  private mapWithKey(actions) {
-    const list = [];
-    actions.forEach(action => {
-      const $key = action.payload.key;
-      list.push({$key, ...action.payload.val()});
-    });
-    return list;
-  }
+  // private mapWithKey(actions) {
+  //   const list = [];
+  //   actions.forEach(action => {
+  //     const $key = action.payload.key;
+  //     list.push({$key, ...action.payload.val()});
+  //   });
+  //   return list;
+  // }
 
   private newGuid() {
-    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
-      let r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
-      return v.toString(16);
-    });
+    return this.db.createPushId();
   }
 
   getUserData() {
     return this.userObj;
+  }
+
+  private getUnits() {
+    if (!this.unitsList) return null;
+    return this.unitsList.pipe(
+      map(actions =>
+        actions.map(a => a)
+      ));
   }
 
   private getCategories() {
@@ -117,6 +133,8 @@ export class FireService {
         actions.map(a => a)
       ));
   }
+
+
 
   addCategory(data) {
     // this.categoriesRef.push({Name: data}).then(() => this.msg.toast.info(`Kategoria ${data} została dodana`),
@@ -208,7 +226,6 @@ export class FireService {
 
 
   updateUserInfo(currentUser, userInfo) {
-
     if (!currentUser) {
       currentUser = {
         photoId: null
@@ -219,7 +236,6 @@ export class FireService {
       photoURL: userInfo.photoURL,
     };
     if (userInfo.newPhoto) {
-      console.log(this.db.createPushId());
       const ref = `av_${userInfo.uid}`;
       const imgRef = this.storage.ref(ref);
       this.storage.upload(ref, userInfo.newPhoto).then(() => {

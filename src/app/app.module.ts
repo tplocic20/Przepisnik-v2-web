@@ -22,6 +22,7 @@ import { ProfileComponent } from './components/modals/profile/profile.component'
 import { SettingsComponent } from './components/modals/settings/settings.component';
 import { ImageUploadComponent } from './components/partials/image-upload/image-upload.component';
 import {AngularFireStorageModule} from "angularfire2/storage";
+import { UnitsEditorComponent } from './components/partials/units-editor/units-editor.component';
 
 const fireBaseConfig = {
   apiKey: "AIzaSyDlCSFFdJ2kdm8-2ZkKPZasVWHqc0bfotg",
@@ -42,7 +43,7 @@ const fireBaseConfig = {
     ProfileComponent,
     SettingsComponent,
     ImageUploadComponent,
-
+    UnitsEditorComponent,
   ],
   imports: [
     BrowserModule,
