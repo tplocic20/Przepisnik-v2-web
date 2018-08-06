@@ -4,25 +4,34 @@
 <div mat-dialog-content>
   <div class="row">
     <div class="col-md-4 text-center">
-        <span *ngIf="userData?.photoUrl" class="close" (click)="removeImg()">&times;</span>
-        <img *ngIf="!userData?.photoUrl" src="https://i.pinimg.com/564x/f0/03/44/f00344d904062ce92b4b3b146060d874.jpg">
-        <img *ngIf="userData?.photoUrl" [src]="userData.photoUrl">
+      <span *ngIf="userData?.photoURL" class="close" (click)="removeImg()">&times;</span>
+      <img *ngIf="!userData?.photoURL" src="https://i.pinimg.com/564x/f0/03/44/f00344d904062ce92b4b3b146060d874.jpg">
+      <img *ngIf="userData?.photoURL" [src]="userData.photoURL">
 
       <input type="file" accept="image/*" #file style="display: none !important;" (change)="onFileChange($event)">
-        <button (click)="file.click()" type="button" class="btn btn-default waves-light" mdbRippleRadius>Zmień awatar</button>
+      <button (click)="file.click()" type="button" class="btn btn-default waves-light" mdbRippleRadius>Zmień awatar
+      </button>
     </div>
     <div class="col-md-8" *ngIf="userData">
-      <div class="md-form">
-        <i class="fa fa-user prefix grey-text"></i>
-        <input type="text" id="nameForm" class="form-control" mdbActive [(ngModel)]="userData.name">
-        <label for="nameForm">Nazwa</label>
-      </div>
+      <form [formGroup]="userForm">
+        <div class="md-form">
+          <i class="fa fa-user prefix grey-text"></i>
+          <input type="text" id="nameForm" class="form-control" mdbActive formControlName="name" placeholder="Nazwa">
+        </div>
 
-      <div class="md-form">
-        <i class="fa fa-envelope prefix grey-text"></i>
-        <input type="text" id="emailForm" class="form-control" disabled [(ngModel)]="config.email">
-      </div>
+        <div class="md-form">
+          <i class="fa fa-envelope prefix grey-text"></i>
+          <input type="text" id="emailForm" class="form-control" formControlName="email">
+        </div>
 
+        <div *ngIf="userData?.emailVerified">
+          <p class="teal-text">Email zweryfikowany</p>
+        </div>
+        <div *ngIf="!userData?.emailVerified">
+          <p class="red-text">Email niezweryfikowany</p>
+          <button class="btn btn-primary btn-sm" (click)="verifyEmail()">Wyślij ponownie link weryfikacyjny</button>
+        </div>
+      </form>
     </div>
   </div>
 

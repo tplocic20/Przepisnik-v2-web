@@ -21,6 +21,7 @@ import {MatMenuModule, MatProgressSpinnerModule, MatTabsModule} from "@angular/m
 import { ProfileComponent } from './components/modals/profile/profile.component';
 import { SettingsComponent } from './components/modals/settings/settings.component';
 import { ImageUploadComponent } from './components/partials/image-upload/image-upload.component';
+import {AngularFireStorageModule} from "angularfire2/storage";
 
 const fireBaseConfig = {
   apiKey: "AIzaSyDlCSFFdJ2kdm8-2ZkKPZasVWHqc0bfotg",
@@ -49,7 +50,9 @@ const fireBaseConfig = {
     AngularFireModule.initializeApp(fireBaseConfig),
     AngularFireAuthModule,
     AngularFireDatabaseModule,
+    AngularFireStorageModule,
     FormsModule,
+    ReactiveFormsModule,
     BrowserAnimationsModule,
     NotesModule,
     RecipesModule,

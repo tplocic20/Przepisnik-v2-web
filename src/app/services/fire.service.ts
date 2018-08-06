@@ -1,25 +1,24 @@
 import {Injectable} from '@angular/core';
 import {AngularFireAuth} from "angularfire2/auth";
 import {AngularFireDatabase} from "angularfire2/database";
-import * as firebase from 'firebase/app';
 import 'firebase/storage';
-import {Observable} from "rxjs/Observable";
 import {Note} from "../models/Note";
 import {Recipe} from "../models/Recipe";
 import {map} from "rxjs/internal/operators";
+import {AngularFireStorage} from "angularfire2/storage";
 
 @Injectable()
 export class FireService {
 
-  public authState: any = null;
-  authCtx: Observable<any> = null;
+  public userState: any = null;
+  authCtx: any = null;
 
-  constructor(private auth: AngularFireAuth, private db: AngularFireDatabase) {
+  constructor(private auth: AngularFireAuth, private db: AngularFireDatabase, private storage: AngularFireStorage) {
     this.authCtx = this.auth.authState;
     this.auth.authState.subscribe(user => {
       if (user) {
-        this.authState = user;
-        this.userRef = this.db.object("Users/" + this.authState.uid);
+        this.userState = user;
+        this.userRef = this.db.object("Users/" + this.userState.uid);
         this.userObj = this.userRef.valueChanges();
       }
     });
@@ -27,40 +26,34 @@ export class FireService {
 
   private categoriesRef = this.db.list("Categories");
   private categoriesList = this.categoriesRef.snapshotChanges().pipe(
-    map(actions => actions.map(a => ({ $key: a.key, ...a.payload.val() }))));
+    map(actions => actions.map(a => ({$key: a.key, ...a.payload.val()}))));
 
   private recipesRef = this.db.list("Recipes");
   private recipesList = this.recipesRef.snapshotChanges().pipe(
     map(actions =>
-      actions.map(a => ({ $key: a.key, ...a.payload.val() }))
+      actions.map(a => ({$key: a.key, ...a.payload.val()}))
     ));
 
   private favouritesRef = this.db.list("Recipes", query => query.orderByChild('Favourite').equalTo(true));
   private favouritesList = this.favouritesRef.snapshotChanges().pipe(
     map(actions =>
-      actions.map(a => ({ $key: a.key, ...a.payload.val() }))
+      actions.map(a => ({$key: a.key, ...a.payload.val()}))
     ));
 
   private notesRef = this.db.list("Notes");
   private notesList = this.notesRef.snapshotChanges().pipe(
     map(actions =>
-      actions.map(a => ({ $key: a.key, ...a.payload.val() }))
+      actions.map(a => ({$key: a.key, ...a.payload.val()}))
     ));
 
   private userRef = null;
   private userObj = null;
 
-  private imagesRef = firebase.storage();
-
-  get userData() {
-    return this.authState;
-  }
-
   get isSignedIn() {
-    return this.authState != null;
+    return this.userState != null;
   }
 
-  private categoriesLoaded: Observable<any[]>;
+  private categoriesLoaded: any;
 
   get categories() {
     if (!this.categoriesLoaded) {
@@ -71,6 +64,10 @@ export class FireService {
 
   public register(email, pass) {
     return this.auth.auth.createUserWithEmailAndPassword(email, pass);
+  }
+
+  public verifyEmail() {
+    this.userState.sendEmailVerification();
   }
 
   public rememberMe(email, pass) {
@@ -89,7 +86,7 @@ export class FireService {
 
   public signOut() {
     // this.storage.remove('credentials');
-    this.authState = null;
+    this.userState = null;
     return this.auth.auth.signOut();
   }
 
@@ -178,6 +175,7 @@ export class FireService {
         }
       ));
   }
+
 // .filter(x => x.Categories.indexOf(categoryId || "") > -1);
   addRecipe(recipe: Recipe) {
     return this.recipesRef.push(recipe);
@@ -197,15 +195,15 @@ export class FireService {
 
   uploadImage(imageData, contentType = null) {
     if (contentType) {
-      return this.imagesRef.ref(this.newGuid()).putString(imageData, 'base64', {contentType: contentType});
+      return this.storage.ref(this.newGuid()).putString(imageData, 'base64', {contentType: contentType});
     } else {
-      return this.imagesRef.ref(this.newGuid()).put(imageData);
+      return this.storage.ref(this.newGuid()).put(imageData);
 
     }
   }
 
   removeImage(imageKey: string) {
-    return this.imagesRef.ref(imageKey).delete();
+    return this.storage.ref(imageKey).delete();
   }
 
 
@@ -217,27 +215,33 @@ export class FireService {
       };
     }
     const uploadData = {
-      displayName: userInfo.name,
-      photoURL: "",
+      displayName: userInfo.displayName,
+      photoURL: userInfo.photoURL,
     };
     if (userInfo.newPhoto) {
-      this.uploadImage(userInfo.newPhoto).then((savedPicture) => {
-        const refs = savedPicture.ref.fullPath.split('/');
-        uploadData.photoURL = savedPicture.downloadURL;
-        currentUser.photoId = refs[refs.length - 1];
-        this.userRef.set(currentUser);
-        this.authState.updateProfile(uploadData);
+      console.log(this.db.createPushId());
+      const ref = `av_${userInfo.uid}`;
+      const imgRef = this.storage.ref(ref);
+      this.storage.upload(ref, userInfo.newPhoto).then(() => {
+        imgRef.getDownloadURL().subscribe(url => {
+          uploadData.photoURL = url;
+          currentUser.photoId = ref;
+          this.userRef.set(currentUser);
+          this.userState.updateProfile(uploadData);
+        });
       }).catch(err => {
         console.log(err);
       });
-    } else {
+    } else if (!userInfo.photoURL) {
       if (currentUser.photoId) {
         this.removeImage(currentUser.photoId);
         currentUser.photoId = null;
         this.userRef.set(currentUser);
       }
       uploadData.photoURL = null;
-      this.authState.updateProfile(uploadData);
+      this.userState.updateProfile(uploadData);
+    } else {
+      this.userState.updateProfile(uploadData);
     }
   }
 }

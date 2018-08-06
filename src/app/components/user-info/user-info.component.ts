@@ -16,16 +16,7 @@ export class UserInfoComponent implements OnInit {
   classes = "rounded-menu";
 
   constructor(private srv: FireService, private router: Router, private dialogSrv: MatDialog) {
-    // this.srv.authCtx.subscribe(user => this.userData = {
-    //     name: user.displayName,
-    //     email: user.email,
-    //     photoUrl: user.photoURL,
-    //     emailVerified: user.emailVerified,
-    //     uid: user.uid,
-    //   }
-    // );
-
-    this.userData = this.srv.authState;
+    this.userData = this.srv.userState;
   }
 
   ngOnInit() {
@@ -37,8 +28,7 @@ export class UserInfoComponent implements OnInit {
 
   editProfile() {
     const config = {
-      disableClose: true,
-      data: this.userData
+      disableClose: true
     };
     this.dialogSrv.open(ProfileComponent, config as any);
   }
