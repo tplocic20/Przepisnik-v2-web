@@ -23,6 +23,8 @@ import { ProfileComponent } from './components/modals/profile/profile.component'
 import { SettingsComponent } from './components/modals/settings/settings.component';
 import { ImageUploadComponent } from './components/partials/image-upload/image-upload.component';
 import { CategoriesSettingsComponent } from './components/partials/categories-settings/categories-settings.component';
+import {AngularFireStorageModule} from "angularfire2/storage";
+import { UnitsEditorComponent } from './components/partials/units-editor/units-editor.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +38,7 @@ import { CategoriesSettingsComponent } from './components/partials/categories-se
     ImageUploadComponent,
     CategoriesSettingsComponent,
 
+    UnitsEditorComponent,
   ],
   imports: [
     BrowserModule,
@@ -43,6 +46,7 @@ import { CategoriesSettingsComponent } from './components/partials/categories-se
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
     AngularFireDatabaseModule,
+    AngularFireStorageModule,
     FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
