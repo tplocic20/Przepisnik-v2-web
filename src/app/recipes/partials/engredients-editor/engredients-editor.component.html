@@ -44,8 +44,8 @@
       <td *ngIf="grp.isInEdit">
         <form [formGroup]="engredientGroupForm" (keyup.enter)="editGroupConfirm(grp)"
               (keyup.esc)="editGroupCancel(grp)">
-          <div class="engredient-form-group md-form">
-            <input #nameInput mdbActive type="text" class="form-control engredient-form-element" placeholder="Nazwa"
+          <div class="elastic-form-group md-form">
+            <input #nameInput mdbActive type="text" class="form-control elastic-element" placeholder="Nazwa"
                    formControlName="name">
             <button type="button" (click)="editGroupConfirm(grp)" class="btn btn-success btn-sm pull-right"><i
               class="fa fa-check"></i></button>

@@ -122,8 +122,7 @@ export class FireService {
   }
 
   addCategory(data) {
-    // this.categoriesRef.push({Name: data}).then(() => this.msg.toast.info(`Kategoria ${data} została dodana`),
-    //     error => this.msg.toast.error(error));
+    return this.categoriesRef.push({Name: data});
   }
 
   removeCategory(data) {
@@ -132,8 +131,7 @@ export class FireService {
   }
 
   editCategory(data) {
-    // this.categoriesRef.update(data.$key, {Name: data.Name}).then(() => this.msg.toast.info(`Kategoria ${data.Name} została zapisana`),
-    //     error => this.msg.toast.error(error));
+    return this.categoriesRef.update(data.$key, {Name: data.Name});
   }
 
   getNotes() {

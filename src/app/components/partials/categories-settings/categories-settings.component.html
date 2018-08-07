@@ -1,0 +1,49 @@
+<span class="text">Zmiany zapisywane są w czasie rzeczywistym, ostrożnie :D</span>
+<table class="table table-sm margin-0">
+  <tr class="buttons-row" *ngFor="let cat of categories | async">
+    <td>
+      <div *ngIf="!cat.inEdit">
+        <div class="row-data">
+          {{cat.Name}}
+        </div>
+        <div class="btn-group pull-right position-absolute hover-elements">
+          <button type="button" class="btn btn-primary btn-sm btn-no-v-margin" (click)="editCategory(cat)">
+            Edytuj
+          </button>
+          <button type="button" class="btn btn-danger btn-sm btn-no-v-margin" (click)="removeCategory(cat)">
+            Usuń
+          </button>
+        </div>
+      </div>
+      <div *ngIf="cat.inEdit">
+        <form [formGroup]="categoryEditForm" (keyup.enter)="saveCategory(cat)" (keyup.esc)="cancelEditCategory(cat)">
+          <div class="elastic-form-group md-form">
+            <input #categoryInput mdbActive type="text" id="editCategoryInput" formControlName="name"
+                   class="form-control elastic-element" placeholder="Kategoria">
+            <button type="button" (click)="saveCategory(cat)" class="btn btn-success btn-sm pull-right"><i
+              class="fa fa-check"></i></button>
+            <button type="button" (click)="cancelEditCategory(cat)" class="btn btn-danger btn-sm pull-right"><i
+              class="fa fa-times"></i></button>
+          </div>
+        </form>
+      </div>
+    </td>
+  </tr>
+</table>
+
+
+<div *ngIf="addingNewCat" class="md-form form-sm">
+  <div class="pan-container">
+    <div class="left-pan">
+      <input #focusInput mdbActive type="text" id="newCatInput" class="form-control" [(ngModel)]="newCategoryName"
+             (keyup.enter)="addCategory()" (keyup.esc)="cancelNewCategory()">
+      <label for="newCatInput" class="">Nowa kategoria</label>
+    </div>
+    <div class="right-pan">
+      <button type="button" class="btn btn-default btn-sm" (click)="addCategory()">Dodaj</button>
+    </div>
+  </div>
+</div>
+<button *ngIf="!addingNewCat && !categoryEditGroup" class="pull-right btn btn-primary" (click)="addCategory()">
+  Dodaj kateogorię
+</button>

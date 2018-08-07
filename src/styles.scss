@@ -307,12 +307,12 @@ select:focus {
     border-radius: 10px !important;
 }
 
-.engredient-form-group {
+.elastic-form-group {
   display: flex;
   padding-top: 0px;
   padding-bottom: 0px;
 
-  .engredient-form-element {
+  .elastic-element {
     padding: 0 8px;
     height: auto;
     min-width: 0;
@@ -322,7 +322,7 @@ select:focus {
     -o-transition: width 0.5s , border-color 0.15s ease-in-out !important;
     transition: width 0.5s , border-color 0.15s ease-in-out !important;
   }
-  .engredient-form-element:focus {
+  .elastic-element:focus {
     width: 300%;
   }
   .btn {
@@ -345,4 +345,15 @@ input.ng-invalid.ng-touched {
 
 button:focus {
   outline: none;
+}
+.pan-container {
+  margin-top: 15px;
+  display: flex;
+  .left-pan {
+    float: left;
+    width: 100%;
+  }
+  .right-pan {
+    float: right;
+  }
 }

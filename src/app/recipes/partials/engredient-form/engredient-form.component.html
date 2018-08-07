@@ -1,10 +1,10 @@
 <form [formGroup]="form" (keyup.enter)="successClick()" (keyup.esc)="close()">
-  <div class="engredient-form-group md-form">
-    <input #nameInput type="text" class="form-control engredient-form-element" placeholder="Nazwa"
+  <div class="elastic-form-group md-form">
+    <input #nameInput type="text" class="form-control elastic-element" placeholder="Nazwa"
            formControlName="name" required >
-    <input mdbActive type="number" class="form-control engredient-form-element" placeholder="Ilość"
+    <input mdbActive type="number" class="form-control elastic-element" placeholder="Ilość"
            formControlName="qty">
-    <input mdbActive type="text" class="form-control engredient-form-element" placeholder="Jednostka"
+    <input mdbActive type="text" class="form-control elastic-element" placeholder="Jednostka"
            formControlName="unit">
     <button type="button" class="btn btn-success btn-sm pull-right" (click)="successClick()">
       <i class="fa fa-check"></i>

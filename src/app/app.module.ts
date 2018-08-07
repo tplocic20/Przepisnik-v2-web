@@ -1,5 +1,6 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
+import {environment} from '../environments/environment';
 import {AppComponent} from './app.component';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {RoutingModule} from "./router/routing.module";
@@ -21,15 +22,7 @@ import {MatMenuModule, MatProgressSpinnerModule, MatTabsModule} from "@angular/m
 import { ProfileComponent } from './components/modals/profile/profile.component';
 import { SettingsComponent } from './components/modals/settings/settings.component';
 import { ImageUploadComponent } from './components/partials/image-upload/image-upload.component';
-
-const fireBaseConfig = {
-  apiKey: "AIzaSyDlCSFFdJ2kdm8-2ZkKPZasVWHqc0bfotg",
-  authDomain: "przepisnik-v2.firebaseapp.com",
-  databaseURL: "https://przepisnik-v2.firebaseio.com",
-  projectId: "przepisnik-v2",
-  storageBucket: "przepisnik-v2.appspot.com",
-  messagingSenderId: "529215752695"
-};
+import { CategoriesSettingsComponent } from './components/partials/categories-settings/categories-settings.component';
 
 @NgModule({
   declarations: [
@@ -41,15 +34,17 @@ const fireBaseConfig = {
     ProfileComponent,
     SettingsComponent,
     ImageUploadComponent,
+    CategoriesSettingsComponent,
 
   ],
   imports: [
     BrowserModule,
     MDBBootstrapModule.forRoot(),
-    AngularFireModule.initializeApp(fireBaseConfig),
+    AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
     AngularFireDatabaseModule,
     FormsModule,
+    ReactiveFormsModule,
     BrowserAnimationsModule,
     NotesModule,
     RecipesModule,
