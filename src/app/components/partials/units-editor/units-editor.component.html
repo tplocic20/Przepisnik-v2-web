@@ -1,3 +1,5 @@
 <div *ngFor="let unit of units | async">
-  <p>{{unit.Name}}</p>
+  <div class="md-form">
+    <input mdbActive  class="form-control" [(ngModel)]="unit.Name" placeholder="unit.Name"/>
+  </div>
 </div>
