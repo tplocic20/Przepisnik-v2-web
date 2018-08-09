@@ -1,28 +1,40 @@
-<span class="text">Zmiany zapisywane są w czasie rzeczywistym, ostrożnie :D</span>
-<table class="table table-sm margin-0">
-  <tr class="buttons-row" *ngFor="let cat of categories | async">
+<table class="table table-hover table-sm margin-0">
+  <tr class="buttons-row" #catItem *ngFor="let cat of categories | async; trackBy: categoriesTrackFn "  [class.table-danger]="catItem.toRemove || catItem.isRemoving" [class.table-active]="catItem.inEdit">
     <td>
-      <div *ngIf="!cat.inEdit">
+      <div *ngIf="!catItem.inEdit">
         <div class="row-data">
           {{cat.Name}}
         </div>
-        <div class="btn-group pull-right position-absolute hover-elements">
-          <button type="button" class="btn btn-primary btn-sm btn-no-v-margin" (click)="editCategory(cat)">
+        <div *ngIf="!categoryEditForm && !catItem.toRemove" class="btn-group pull-right position-absolute hover-elements">
+          <button type="button" class="btn btn-primary btn-sm no-v-margin" (click)="editCategory(cat, catItem)">
             Edytuj
           </button>
-          <button type="button" class="btn btn-danger btn-sm btn-no-v-margin" (click)="removeCategory(cat)">
+          <button type="button" class="btn btn-danger btn-sm no-v-margin" (click)="removeCategory(cat, catItem)">
             Usuń
           </button>
         </div>
+        <div *ngIf="catItem.toRemove && !catItem.isRemoving" class="btn-group pull-right position-absolute">
+          <button type="button" class="btn btn-danger btn-sm no-v-margin" (click)="removeCategory(cat, catItem)">
+            Tak
+          </button>
+          <button type="button" class="btn btn-primary btn-sm no-v-margin" (click)="cancelRemove(cat, catItem)">
+            Nie
+          </button>
+        </div>
+        <div *ngIf="catItem.toRemove && catItem.isRemoving" class="btn-group pull-right position-absolute">
+          <button type="button" class="btn btn-primary btn-sm no-v-margin" (click)="cancelRemove(cat, catItem)">
+            Anuluj ({{catItem.removeTimer}})
+          </button>
+        </div>
       </div>
-      <div *ngIf="cat.inEdit">
-        <form [formGroup]="categoryEditForm" (keyup.enter)="saveCategory(cat)" (keyup.esc)="cancelEditCategory(cat)">
-          <div class="elastic-form-group md-form">
-            <input #categoryInput mdbActive type="text" id="editCategoryInput" formControlName="name"
+      <div *ngIf="catItem.inEdit">
+        <form [formGroup]="categoryEditForm" (keyup.enter)="saveCategory(cat, catItem)" (keyup.esc)="cancelEditCategory(cat, catItem)">
+          <div class="elastic-form-group no-v-margin md-form">
+            <input #focusInput mdbActive type="text" id="editCategoryInput" formControlName="name"
                    class="form-control elastic-element" placeholder="Kategoria">
-            <button type="button" (click)="saveCategory(cat)" class="btn btn-success btn-sm pull-right"><i
+            <button type="button" (click)="saveCategory(cat, catItem)" class="btn btn-success btn-sm pull-right"><i
               class="fa fa-check"></i></button>
-            <button type="button" (click)="cancelEditCategory(cat)" class="btn btn-danger btn-sm pull-right"><i
+            <button type="button" (click)="cancelEditCategory(cat, catItem)" class="btn btn-danger btn-sm pull-right"><i
               class="fa fa-times"></i></button>
           </div>
         </form>
@@ -32,18 +44,16 @@
 </table>
 
 
-<div *ngIf="addingNewCat" class="md-form form-sm">
-  <div class="pan-container">
-    <div class="left-pan">
-      <input #focusInput mdbActive type="text" id="newCatInput" class="form-control" [(ngModel)]="newCategoryName"
+<div *ngIf="addingNewCat">
+  <form [formGroup]="categoryNewForm">
+    <div class="elastic-form-group md-form">
+    <input #focusInput mdbActive type="text" id="newCatInput" class="form-control elastic-element" formControlName="name"
              (keyup.enter)="addCategory()" (keyup.esc)="cancelNewCategory()">
       <label for="newCatInput" class="">Nowa kategoria</label>
+      <button class="btn btn-default btn-sm pull-right" (click)="addCategory()">Dodaj</button>
     </div>
-    <div class="right-pan">
-      <button type="button" class="btn btn-default btn-sm" (click)="addCategory()">Dodaj</button>
-    </div>
-  </div>
+  </form>
 </div>
-<button *ngIf="!addingNewCat && !categoryEditGroup" class="pull-right btn btn-primary" (click)="addCategory()">
+<button *ngIf="!addingNewCat" [class.disabled]="categoryEditForm" [disabled]="categoryEditForm" class="pull-right btn btn-primary" (click)="addCategory()">
   Dodaj kateogorię
 </button>

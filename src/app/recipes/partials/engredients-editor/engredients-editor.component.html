@@ -28,15 +28,15 @@
           <strong>{{grp.Name}}</strong>
         </div>
         <div class="btn-group pull-right position-absolute hover-elements" *ngIf="canEdit && !grp.toRemove">
-          <button type="button" (click)="editGroup(grp)" class="btn btn-primary btn-sm btn-no-v-margin">Edytuj
+          <button type="button" (click)="editGroup(grp)" class="btn btn-primary btn-sm no-v-margin">Edytuj
           </button>
-          <button type="button" (click)="removeGroup(grp)" class="btn btn-danger btn-sm btn-no-v-margin">Usuń</button>
+          <button type="button" (click)="removeGroup(grp)" class="btn btn-danger btn-sm no-v-margin">Usuń</button>
         </div>
         <div #el class="btn-group pull-right position-absolute " *ngIf="grp.toRemove"
              [class.display-none]="grp.isRemoved">
-          <button type="button" (click)="removeGroupConfirm(grp, el)" class="btn btn-danger btn-sm btn-no-v-margin">Tak
+          <button type="button" (click)="removeGroupConfirm(grp, el)" class="btn btn-danger btn-sm no-v-margin">Tak
           </button>
-          <button type="button" (click)="removeGroupCancel(grp)" class="btn btn-primary btn-sm btn-no-v-margin">Nie
+          <button type="button" (click)="removeGroupCancel(grp)" class="btn btn-primary btn-sm no-v-margin">Nie
           </button>
         </div>
       </td>
@@ -69,16 +69,16 @@
             </div>
             <div class="btn-group pull-right position-absolute hover-elements"
                  *ngIf="canEdit && !eng.toRemove && !grp.toRemove">
-              <button type="button" (click)="editEngredient(eng)" class="btn btn-primary btn-sm btn-no-v-margin">Edytuj
+              <button type="button" (click)="editEngredient(eng)" class="btn btn-primary btn-sm no-v-margin">Edytuj
               </button>
-              <button type="button" (click)="removeEngredient(eng)" class="btn btn-danger btn-sm btn-no-v-margin">Usuń
+              <button type="button" (click)="removeEngredient(eng)" class="btn btn-danger btn-sm no-v-margin">Usuń
               </button>
             </div>
             <div class="btn-group pull-right position-absolute " *ngIf="eng.toRemove && !grp.toRemove">
               <button type="button" (click)="removeEngredientConfirm(grp, eng)"
-                      class="btn btn-danger btn-sm btn-no-v-margin">Tak</button>
+                      class="btn btn-danger btn-sm no-v-margin">Tak</button>
               <button type="button" (click)="removeEngredientCancel(eng)"
-                      class="btn btn-primary btn-sm btn-no-v-margin">Nie</button>
+                      class="btn btn-primary btn-sm no-v-margin">Nie</button>
             </div>
           </div>
 
@@ -99,7 +99,7 @@
     <tr *ngIf="!grp.newElement">
       <td>
         <div class="btn-group pull-right">
-          <button type="button" class="btn btn-primary btn-sm btn-no-v-margin" (click)="addEngredient(grp)">
+          <button type="button" class="btn btn-primary btn-sm no-v-margin" (click)="addEngredient(grp)">
             Dodaj składnik
           </button>
         </div>

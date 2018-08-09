@@ -29,7 +29,7 @@ export class FireService {
     map(actions => actions.map(a => ({$key: a.key, ...a.payload.val()}))));
 
   private categoriesRef = this.db.list("Categories");
-  private categoriesList = this.categoriesRef.snapshotChanges().pipe(
+  public categoriesList = this.categoriesRef.snapshotChanges().pipe(
     map(actions => actions.map(a => ({$key: a.key, ...a.payload.val()}))));
 
   private recipesRef = this.db.list("Recipes");
@@ -128,21 +128,15 @@ export class FireService {
 
   private getCategories() {
     if (!this.categoriesList) return null;
-    return this.categoriesList.pipe(
-      map(actions =>
-        actions.map(a => a)
-      ));
+    return this.categoriesList;
   }
-
-
 
   addCategory(data) {
     return this.categoriesRef.push({Name: data});
   }
 
   removeCategory(data) {
-    // this.categoriesRef.remove(data.$key).then(() => this.msg.toast.info(`Kategoria ${data.Name} została usunięta`),
-    //     error => this.msg.toast.error(error));
+    return this.categoriesRef.remove(data.$key);
   }
 
   editCategory(data) {
@@ -182,12 +176,9 @@ export class FireService {
   }
 
   getRecipes(categoryId) {
-    // this.msg.loading.show("Pobieranie danych");
     return this.recipesList.pipe(
       map(actions => {
-          return actions.filter(x => (x as any).Categories.indexOf(categoryId || "") > -1).map(a => {
-            return a;
-          });
+          return actions.filter(x => (x as any).Categories.indexOf(categoryId || "") > -1);
         }
       ));
   }
