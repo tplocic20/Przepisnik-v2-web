@@ -1,5 +1,40 @@
-<div *ngFor="let unit of units | async">
-  <div class="md-form">
-    <input mdbActive  class="form-control" [(ngModel)]="unit.Name" placeholder="unit.Name"/>
-  </div>
-</div>
+<table class="table table-sm table-hover margin-0">
+  <tr class="buttons-row" *ngFor="let unit of units | async" #unitItem [class.table-danger]="unitItem.toRemove">
+    <td>
+      <div *ngIf="!unitItem.isEdit">
+        <div class="row-data">
+          {{unit.Name}}
+        </div>
+        <div class="btn-group pull-right position-absolute hover-elements" *ngIf="!unitItem.toRemove">
+          <button type="button" class="btn btn-primary btn-sm no-v-margin" (click)="editUnit(unit, unitItem)">
+            Edytuj
+          </button>
+          <button type="button" class="btn btn-danger btn-sm no-v-margin"  (click)="unitItem.toRemove = true">
+            Usuń
+          </button>
+        </div>
+        <div class="btn-group pull-right position-absolute" *ngIf="unitItem.toRemove">
+          <button type="button" class="btn btn-danger btn-sm no-v-margin" (click)="removeUnit(unit)">
+            Tak
+          </button>
+          <button type="button" class="btn btn-primary btn-sm no-v-margin"  (click)="unitItem.toRemove = false">
+            Nie
+          </button>
+        </div>
+
+      </div>
+      <div *ngIf="unitItem.isEdit">
+        <form [formGroup]="unitItem.form" (keyup.enter)="saveUnit(unit, unitItem)" (keyup.esc)="cancelEditUnit(unit)">
+          <div class="elastic-form-group no-v-margin md-form">
+            <input #focusInput mdbActive type="text" id="editCategoryInput" formControlName="name"
+                   class="form-control elastic-element" placeholder="Kategoria">
+            <button type="button" (click)="saveUnit(unit, unitItem)" class="btn btn-success btn-sm pull-right"><i
+              class="fa fa-check"></i></button>
+            <button type="button" (click)="cancelEditUnit(unitItem)" class="btn btn-danger btn-sm pull-right"><i
+              class="fa fa-times"></i></button>
+          </div>
+        </form>
+      </div>
+    </td>
+  </tr>
+</table>
