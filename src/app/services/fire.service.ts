@@ -1,11 +1,12 @@
 import {Injectable} from '@angular/core';
 import {AngularFireAuth} from "angularfire2/auth";
-import {AngularFireDatabase} from "angularfire2/database";
+import {AngularFireDatabase, AngularFireList} from "angularfire2/database";
 import 'firebase/storage';
 import {Note} from "../models/Note";
 import {Recipe} from "../models/Recipe";
 import {map} from "rxjs/internal/operators";
 import {AngularFireStorage} from "angularfire2/storage";
+import {Observable} from "rxjs/Rx";
 
 @Injectable()
 export class FireService {
@@ -20,35 +21,45 @@ export class FireService {
         this.userState = user;
         this.userRef = this.db.object("Users/" + this.userState.uid);
         this.userObj = this.userRef.valueChanges();
+
+        this.categoriesRef = this.db.list(`Categories/${user.uid}`);
+        this.categoriesList = this.categoriesRef.snapshotChanges().pipe(
+          map(actions => actions.map(a => ({$key: a.key, ...a.payload.val()}))));
+
+        this.unitsRef = this.db.list(`Units/${user.uid}`);
+        this.unitsList = this.unitsRef.snapshotChanges().pipe(
+          map(actions => actions.map(a => ({$key: a.key, ...a.payload.val()}))));
+
+        this.recipesRef = this.db.list(`Recipes/${user.uid}`);
+        this.recipesList = this.recipesRef.snapshotChanges().pipe(
+          map(actions => actions.map(a => ({$key: a.key, ...a.payload.val()}))));
+
+        this.notesRef = this.db.list(`Notes/${user.uid}`);
+        this.notesList = this.notesRef.snapshotChanges().pipe(
+          map(actions => actions.map(a => ({$key: a.key, ...a.payload.val()}))));
+
+        this.favouritesRef = this.db.list(`Recipes/${user.uid}`, query => query.orderByChild('Favourite').equalTo(true));
+        this.favouritesList = this.favouritesRef.snapshotChanges().pipe(
+          map(actions => actions.map(a => ({$key: a.key, ...a.payload.val()}))));
+
       }
     });
   }
 
-  private unitsRef = this.db.list("Units");
-  private unitsList = this.unitsRef.snapshotChanges().pipe(
-    map(actions => actions.map(a => ({$key: a.key, ...a.payload.val()}))));
+  private unitsRef: AngularFireList<any>;
+  private unitsList: Observable<any>;
 
-  private categoriesRef = this.db.list("Categories");
-  public categoriesList = this.categoriesRef.snapshotChanges().pipe(
-    map(actions => actions.map(a => ({$key: a.key, ...a.payload.val()}))));
+  private categoriesRef: AngularFireList<any>;
+  public categoriesList: Observable<any>;
 
-  private recipesRef = this.db.list("Recipes");
-  private recipesList = this.recipesRef.snapshotChanges().pipe(
-    map(actions =>
-      actions.map(a => ({$key: a.key, ...a.payload.val()}))
-    ));
+  private recipesRef: AngularFireList<any>;
+  private recipesList: Observable<any>;
 
-  private favouritesRef = this.db.list("Recipes", query => query.orderByChild('Favourite').equalTo(true));
-  private favouritesList = this.favouritesRef.snapshotChanges().pipe(
-    map(actions =>
-      actions.map(a => ({$key: a.key, ...a.payload.val()}))
-    ));
+  private favouritesRef: AngularFireList<any>;
+  private favouritesList: Observable<any>;
 
-  private notesRef = this.db.list("Notes");
-  private notesList = this.notesRef.snapshotChanges().pipe(
-    map(actions =>
-      actions.map(a => ({$key: a.key, ...a.payload.val()}))
-    ));
+  private notesRef: AngularFireList<any>;
+  private notesList: Observable<any>;
 
   private userRef = null;
   private userObj = null;
@@ -58,6 +69,7 @@ export class FireService {
   }
 
   private categoriesLoaded: any;
+
   get categories() {
     if (!this.categoriesLoaded) {
       this.categoriesLoaded = this.getCategories();
@@ -66,6 +78,7 @@ export class FireService {
   }
 
   private unitsLoaded: any;
+
   get units() {
     if (!this.unitsLoaded) {
       this.unitsLoaded = this.getUnits();
@@ -81,34 +94,14 @@ export class FireService {
     this.userState.sendEmailVerification();
   }
 
-  // public rememberMe(email, pass) {
-  //   const credentials = {
-  //     e: email,
-  //     p: pass
-  //   };
-  //   const encoded = btoa(JSON.stringify(credentials));
-  //   console.log(encoded);
-  //   // this.storage.set('credentials', encoded);
-  // }
-
   public signIn(email, pass) {
     return this.auth.auth.signInWithEmailAndPassword(email, pass);
   }
 
   public signOut() {
-    // this.storage.remove('credentials');
     this.userState = null;
     return this.auth.auth.signOut();
   }
-
-  // private mapWithKey(actions) {
-  //   const list = [];
-  //   actions.forEach(action => {
-  //     const $key = action.payload.key;
-  //     list.push({$key, ...action.payload.val()});
-  //   });
-  //   return list;
-  // }
 
   private newGuid() {
     return this.db.createPushId();
@@ -126,13 +119,21 @@ export class FireService {
       ));
   }
 
+  editUnit(unit) {
+    return this.unitsRef.update(unit.$key, {Name: unit.Name});
+  }
+
+  removeUnit(unit) {
+    return this.unitsRef.remove(unit.$key);
+  }
+
   private getCategories() {
     if (!this.categoriesList) return null;
     return this.categoriesList;
   }
 
   addCategory(data) {
-    return this.categoriesRef.push({Name: data});
+    return this.categoriesRef.push({Name: data, Owner: this.userState.uid});
   }
 
   removeCategory(data) {
@@ -183,7 +184,6 @@ export class FireService {
       ));
   }
 
-// .filter(x => x.Categories.indexOf(categoryId || "") > -1);
   addRecipe(recipe: Recipe) {
     return this.recipesRef.push(recipe);
   }
@@ -197,7 +197,7 @@ export class FireService {
   }
 
   getRecipe(recipeId) {
-    return this.db.object(`Recipes/${recipeId}`).valueChanges();
+    return this.db.object(`Recipes/${this.userState.uid}/${recipeId}`).valueChanges();
   }
 
   uploadImage(imageData, contentType = null) {
