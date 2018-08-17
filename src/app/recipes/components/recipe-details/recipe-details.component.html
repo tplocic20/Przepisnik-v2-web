@@ -31,14 +31,18 @@
           </div>
         </div>
       </div>
-      <div class="col-md-6 col-sm-12 margin-divs">
-        <div #tempTimeDiv class="card card-body sticky-offset-50 sticky-top card-padding-bottom-0 third-z-index"
-             *ngIf="recipe.Temperature || recipe.Time">
-          <p><strong>Temperatura: </strong>{{recipe?.Temperature}} &#x2103;</p>
-          <p><strong>Czas: </strong>{{recipe?.Time}}</p>
+      <div class="col-md-6 col-sm-12">
+        <div class="sticky-top top-z-index margin-divs" *ngIf="recipe.Temperature || recipe.Time">
+          <div #tempTimeDiv class="row info-row">
+            <div class="col" *ngIf="recipe.Temperature">
+              <p><strong>Temperatura: </strong>{{recipe?.Temperature}} &#x2103;</p>
+            </div>
+            <div class="col" *ngIf="recipe.Time">
+              <p><strong>Czas: </strong>{{recipe?.Time}}</p>
+            </div>
+          </div>
         </div>
-
-        <div class=" sticky-offset-150 sticky-top margin-divs">
+        <div class="sticky-top margin-divs">
           <div class="card">
             <div class="card-header ">
               <h4 class="card-title ">Przepis</h4>

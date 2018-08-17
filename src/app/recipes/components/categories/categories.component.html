@@ -1,10 +1,12 @@
 <div class="navbar bg-default">
   <div class="select-container">
-    <select (change)="selectionChanged()" [(ngModel)]="selectedCategory">
+    <select class="browser-default" (change)="selectionChanged()" [(ngModel)]="selectedCategory">
       <option value="-">Wszystkie</option>
       <option *ngFor="let cat of categories | async" [ngValue]="cat.$key">
         {{cat.Name}}
       </option>
     </select>
-  </div>
+
+    <!--<mdb-select (ngModelChange)="selectionChanged($event)" [(ngModel)]="selectedCategory" class="colorful-select dropdown-default"-->
+                <!--[options]="selectOptions" customClass="select-item"></mdb-select>  </div>-->
 </div>

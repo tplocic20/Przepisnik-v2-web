@@ -6,7 +6,6 @@ import {CategoriesComponent} from './components/categories/categories.component'
 import {RecipeDetailsComponent} from './components/recipe-details/recipe-details.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {RecipesRoutingModule} from "./routing/recipes-routing.module";
-import {MDBBootstrapModule} from "angular-bootstrap-md";
 import {PipesModule} from "../pipes/pipes.module";
 import {RecipesDashboardComponent} from './components/recipes-dashboard/recipes-dashboard.component';
 import {AddEditRecipeModalComponent} from './modals/add-edit-recipe-modal/add-edit-recipe-modal.component';
@@ -14,6 +13,7 @@ import {MatTabsModule, MatDialogModule, MatMenuModule, MatInputModule} from "@an
 import {CategoriesSelectComponent} from './partials/categories-select/categories-select.component';
 import {EngredientsEditorComponent} from './partials/engredients-editor/engredients-editor.component';
 import { EngredientFormComponent } from './partials/engredient-form/engredient-form.component';
+import {MDBBootstrapModulesPro} from "ng-uikit-pro-standard";
 
 @NgModule({
   imports: [
@@ -21,7 +21,7 @@ import { EngredientFormComponent } from './partials/engredient-form/engredient-f
     FormsModule,
     ReactiveFormsModule,
     PipesModule,
-    MDBBootstrapModule.forRoot(),
+    MDBBootstrapModulesPro.forRoot(),
     RecipesRoutingModule,
     MatTabsModule,
     MatDialogModule,

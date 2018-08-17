@@ -13,18 +13,19 @@ import {AngularFireAuthModule} from "angularfire2/auth";
 import {AngularFireDatabaseModule} from "angularfire2/database";
 import {NotesModule} from "./notes/notes.module";
 import {RecipesModule} from "./recipes/recipes.module";
-import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import {SearchService} from "./services/search.service";
 import { SearchComponent } from './components/search/search.component';
 import { UserInfoComponent } from './components/user-info/user-info.component';
 import {ModalService} from "./services/modal.service";
-import {MatMenuModule, MatProgressSpinnerModule, MatTabsModule} from "@angular/material";
+import {MatMenuModule, MatTabsModule} from "@angular/material";
 import { ProfileComponent } from './components/modals/profile/profile.component';
 import { SettingsComponent } from './components/modals/settings/settings.component';
 import { ImageUploadComponent } from './components/partials/image-upload/image-upload.component';
 import { CategoriesSettingsComponent } from './components/partials/categories-settings/categories-settings.component';
 import {AngularFireStorageModule} from "angularfire2/storage";
 import { UnitsEditorComponent } from './components/partials/units-editor/units-editor.component';
+import {MDBBootstrapModulesPro, MDBSpinningPreloader} from "ng-uikit-pro-standard";
+import {NO_ERRORS_SCHEMA} from '@angular/core';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,7 @@ import { UnitsEditorComponent } from './components/partials/units-editor/units-e
   ],
   imports: [
     BrowserModule,
-    MDBBootstrapModule.forRoot(),
+    MDBBootstrapModulesPro.forRoot(),
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
     AngularFireDatabaseModule,
@@ -53,13 +54,13 @@ import { UnitsEditorComponent } from './components/partials/units-editor/units-e
     NotesModule,
     RecipesModule,
     RoutingModule,
-    MatProgressSpinnerModule,
     MatMenuModule,
     MatTabsModule,
   ],
-  providers: [FireService, SearchService, ModalService],
+  providers: [FireService, SearchService, ModalService, MDBSpinningPreloader],
   bootstrap: [AppComponent],
-  entryComponents: [ProfileComponent, SettingsComponent]
+  entryComponents: [ProfileComponent, SettingsComponent],
+  schemas: [ NO_ERRORS_SCHEMA ]
 })
 export class AppModule {
 }
