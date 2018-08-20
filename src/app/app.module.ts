@@ -26,6 +26,8 @@ import {AngularFireStorageModule} from "angularfire2/storage";
 import { UnitsEditorComponent } from './components/partials/units-editor/units-editor.component';
 import {MDBBootstrapModulesPro, MDBSpinningPreloader} from "ng-uikit-pro-standard";
 import {NO_ERRORS_SCHEMA} from '@angular/core';
+import {SettingsService} from "./services/settings.service";
+import { ApplicationSettingsComponent } from './components/partials/application-settings/application-settings.component';
 
 @NgModule({
   declarations: [
@@ -38,8 +40,8 @@ import {NO_ERRORS_SCHEMA} from '@angular/core';
     SettingsComponent,
     ImageUploadComponent,
     CategoriesSettingsComponent,
-
     UnitsEditorComponent,
+    ApplicationSettingsComponent,
   ],
   imports: [
     BrowserModule,
@@ -57,7 +59,7 @@ import {NO_ERRORS_SCHEMA} from '@angular/core';
     MatMenuModule,
     MatTabsModule,
   ],
-  providers: [FireService, SearchService, ModalService, MDBSpinningPreloader],
+  providers: [FireService, SearchService, ModalService, MDBSpinningPreloader, SettingsService],
   bootstrap: [AppComponent],
   entryComponents: [ProfileComponent, SettingsComponent],
   schemas: [ NO_ERRORS_SCHEMA ]

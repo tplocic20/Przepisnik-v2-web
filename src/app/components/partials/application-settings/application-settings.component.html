@@ -1,0 +1,13 @@
+<table class="table">
+  <tr>
+    <td>
+      <div class="switch">
+        <label>
+          Ukryj nagłówki
+          <input type="checkbox" [(ngModel)]="settings.hideHeaders" (ngModelChange)="hideHeadersChanged($event)">
+          <span class="lever"></span>
+        </label>
+      </div>
+    </td>
+  </tr>
+</table>

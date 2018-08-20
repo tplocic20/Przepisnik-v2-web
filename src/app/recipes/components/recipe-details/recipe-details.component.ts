@@ -3,6 +3,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {Recipe} from "../../../models/Recipe";
 import {FireService} from "../../../services/fire.service";
 import {Collapse} from "../../../styles/animations";
+import {SettingsService} from "../../../services/settings.service";
 
 @Component({
   selector: 'app-recipe-details',
@@ -18,7 +19,7 @@ export class RecipeDetailsComponent implements OnInit {
 
   @ViewChild('tempTimeDiv') tempTimeDiv: ElementRef;
 
-  constructor(private route: ActivatedRoute, private router: Router, private srv: FireService) {
+  constructor(private route: ActivatedRoute, private router: Router, private srv: FireService, public settings: SettingsService) {
   }
 
   ngOnInit() {
