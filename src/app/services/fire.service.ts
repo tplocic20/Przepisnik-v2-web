@@ -86,6 +86,15 @@ export class FireService {
     return this.unitsLoaded;
   }
 
+  private unitsFlatLoaded: any;
+  get unitsFlat() {
+    if (!this.unitsFlatLoaded) {
+      this.getUnitsFlat();
+    }
+    console.log(this.unitsLoaded);
+    return this.unitsFlatLoaded;
+  }
+
   public register(email, pass) {
     return this.auth.auth.createUserWithEmailAndPassword(email, pass);
   }
@@ -117,6 +126,12 @@ export class FireService {
       map(actions =>
         actions.map(a => a)
       ));
+  }
+
+  private getUnitsFlat() {
+    this.unitsRef.valueChanges().subscribe(units => {
+      this.unitsLoaded = units.map(p => p.Name);
+    });
   }
 
   editUnit(unit) {

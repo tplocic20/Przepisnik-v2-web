@@ -13,13 +13,15 @@ import {MatDialog} from "@angular/material";
 export class RecipescontainerComponent implements OnInit {
 
   selectedCategory: string;
+  leftPanelOpen: boolean = false;
   constructor(private viewContainerRef: ViewContainerRef, private modalSrv: ModalService, private dialogSrv: MatDialog) { }
 
   ngOnInit() {
   }
 
-  test(ev) {
-    this.selectedCategory = ev;
+  categorySelected(ev) {
+    if (this.selectedCategory !== ev)
+      this.selectedCategory = ev;
   }
 
   addRecipe() {
@@ -28,6 +30,10 @@ export class RecipescontainerComponent implements OnInit {
       data: { mode: ModalModeEnum.Add }
     });
 
+  }
+
+  toggleLeftPanel() {
+    this.leftPanelOpen = !this.leftPanelOpen;
   }
 
 }

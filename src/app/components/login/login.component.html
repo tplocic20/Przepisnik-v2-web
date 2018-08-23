@@ -1,27 +1,22 @@
 <div class="card login-card"  *ngIf="needsToLogIn">
   <div class="card-body">
     <h3 class="raised-title default-color z-depth-2"><i class="fa fa-lock"></i> Zaloguj się:</h3>
-    <form>
+    <form [formGroup]="loginForm" >
       <div class="md-form">
         <i class="fa fa-envelope prefix grey-text"></i>
-        <input type="email" required id="form-email" class="form-control" mdbActive [(ngModel)]="email"
-               [ngModelOptions]="{standalone: true}" data-error="Błędny email" data-success="Poprawny email"
-               mdbInputValidate>
+        <input type="text" required id="form-email" class="form-control" formControlName="email" mdbInputDirective
+               data-error="Błędny email" data-success="Poprawny email">
         <label for="form-email">Email</label>
       </div>
       <br/>
       <div class="md-form">
         <i class="fa fa-lock prefix grey-text"></i>
-        <input type="password" required id="form-pass" class="form-control" mdbActive [(ngModel)]="password"
-               [ngModelOptions]="{standalone: true}" data-error="Podaj hasło" data-success="" mdbInputValidate>
+        <input type="password" required id="form-pass" class="form-control" formControlName="password" mdbInputDirective
+               data-error="Podaj hasło" data-success="No hasło niby jest">
         <label for="form-pass">Hasło</label>
       </div>
-      <!--<div class="md-checkbox">-->
-        <!--<input id="form-remember" type="checkbox" [(ngModel)]="rememberMe" [ngModelOptions]="{standalone: true}">-->
-        <!--<label for="form-remember">Zapamiętaj mnie</label>-->
-      <!--</div>-->
       <div class="text-center">
-        <button class="btn btn-default waves-light" (click)="login()" mdbRippleRadius>Zaloguj</button>
+        <button type="submit" class="btn btn-default waves-light" (click)="login()" mdbRippleRadius>Zaloguj</button>
       </div>
       <div class="text-center" *ngIf="failedAttempt">
         <p class="red-text"><i class="fa fa-warning"></i> Nie udało się zalogować, sprawdź email i hasło</p>

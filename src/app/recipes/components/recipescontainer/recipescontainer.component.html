@@ -1,7 +1,15 @@
 <div class="row " style="height: 100%">
-  <div class="col-xl-2 col-lg-3 col-md-3 col-sm-5 col-xs-12 div-column padding-o">
+  <div class="fixed-action-btn slide-in-btn">
+    <button mdbBtn type="button" color="default" class="waves-light" mdbWavesEffect (click)="toggleLeftPanel()">
+      <i class="fa"
+         [class.fa-minus]="leftPanelOpen === true"
+         [class.fa-bars]="leftPanelOpen === false"
+      ></i>
+    </button>
+  </div>
+  <div class="col slide-in-column div-column padding-o" [class.slide-in-open]="leftPanelOpen === true">
     <div class="sticky-top">
-      <app-categories (categorySelected)="test($event)"></app-categories>
+      <app-categories (categorySelected)="categorySelected($event)"></app-categories>
       <div class="btn-group btn-block">
         <a [routerLink]="['/recipes']" class="btn btn-secondary waves-light" mdbRippleRadius><i
           class="fa fa-home"></i>
@@ -14,9 +22,8 @@
     <div>
       <app-recipes-list [category]="selectedCategory"></app-recipes-list>
     </div>
-
   </div>
-  <div class="col-xl-10 col-lg-9 col-md-9 col-sm-7 col-xs-12 div-column">
+  <div class="col-xl-10 col-lg-9 col-md-8 col-sm-7 col-xs-12 div-column">
     <div class="inner-content">
       <router-outlet></router-outlet>
     </div>

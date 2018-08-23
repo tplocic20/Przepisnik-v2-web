@@ -1,23 +1,17 @@
-<mdb-navbar SideClass="navbar navbar-expand-lg navbar-dark bg-default ie-nav fixed-top" [containerInside]="false">
+<nav class="navbar navbar-dark bg-default ie-nav fixed-top" [containerInside]="false">
 
-  <logo>
     <a class="logo navbar-brand" href="#"><strong>Przepiśnik</strong></a>
-  </logo>
-  <links>    <!-- Links -->
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item" routerLinkActive="active"  *ngIf="isAuthenticated">
+    <ul class=" navbar-nav mr-auto row-nav">
+      <li class="nav-item" routerLinkActive="active" *ngIf="isAuthenticated">
         <a class="nav-link waves-light" routerLink="recipes" mdbRippleRadius>Przepisy</a>
       </li>
-      <!--<li class="nav-item" routerLinkActive="active"  *ngIf="isAuthenticated">-->
-        <!--<a class="nav-link waves-light" routerLink="notes" mdbRippleRadius>Notatki</a>-->
-      <!--</li>-->
+      <li>
+        <app-search class="d-none d-md-inline-block" *ngIf="isAuthenticated"></app-search>
+      </li>
     </ul>
+  <app-user-info *ngIf="isAuthenticated"></app-user-info>
 
-
-    <app-search  *ngIf="isAuthenticated"></app-search>
-    <app-user-info  *ngIf="isAuthenticated"></app-user-info>
-  </links>
-</mdb-navbar>
+</nav>
 <div class="content container-fluid">
   <router-outlet></router-outlet>
 </div>

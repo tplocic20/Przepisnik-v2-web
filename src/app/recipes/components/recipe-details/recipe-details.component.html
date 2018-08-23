@@ -6,22 +6,21 @@
     <div class="row">
       <div class="col-md-6 col-sm-12">
         <div class="sticky-offset-50 sticky-top">
-          <div *ngFor="let grp of recipe?.Engredients">
+          <div #grpElement *ngFor="let grp of recipe?.Engredients">
             <table class="table table-sm margin-0">
               <thead>
               <tr>
                 <td>
                   <strong>{{grp.Name}}</strong>
                   <button class="btn btn-clear btn-sm no-v-margin pull-right btn-no-focus"
-                          (click)="compressExpand(grp)"
-                          mdbRippleRadius><i class="fa" [class.fa-compress]="!grp.isCollapsed"
-                                             [class.fa-expand]="grp.isCollapsed"></i>
+                          (click)="compressExpand(grpElement)"
+                          mdbRippleRadius><i class="fa" [class.fa-compress]="!grpElement.isCollapsed" [class.fa-expand]="grpElement.isCollapsed"></i>
                   </button>
                 </td>
               </tr>
               </thead>
             </table>
-            <div [@collapse] *ngIf="!grp.isCollapsed">
+            <div [@collapse] *ngIf="!grpElement.isCollapsed">
               <table class="table table-sm margin-0">
                 <tr class="intend" *ngFor="let eng of grp?.Positions">
                   <td>{{eng.Name}}</td>
@@ -42,12 +41,15 @@
             </div>
           </div>
         </div>
-        <div class="sticky-top margin-divs">
+        <div class="sticky-top sticky-offset-50 margin-divs">
           <div class="card">
             <div class="card-header " *ngIf="!settings.hideHeaders">
               <h4 class="card-title ">Przepis</h4>
             </div>
             <div class="card-body pre-line">
+              {{recipe?.Recipe}}
+              {{recipe?.Recipe}}
+              {{recipe?.Recipe}}
               {{recipe?.Recipe}}
             </div>
           </div>

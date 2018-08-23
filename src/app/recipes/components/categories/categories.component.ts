@@ -10,7 +10,6 @@ import {Observable} from "rxjs/Observable";
 export class CategoriesComponent implements OnInit {
 
   categories: Observable<any[]>;
-  selectOptions: any;
   selectedCategory: any = '-';
   @Output() categorySelected = new EventEmitter<string>();
 
@@ -18,16 +17,10 @@ export class CategoriesComponent implements OnInit {
 
   ngOnInit() {
     this.categories = this.srv.categories;
-    this.categories.subscribe(cat => {
-      const categories = cat.map(i => {
-        return {value: i.$key, label: i.Name};
-      });
-      this.selectOptions = [{value: "-", label: "Wszystkie"}, ...categories];
-    });
   }
 
-  selectionChanged(ev) {
-    this.categorySelected.emit(ev !== '-' ? ev : null);
+  selectionChanged() {
+    this.categorySelected.emit(this.selectedCategory !== '-' ? this.selectedCategory : null);
   }
 
 

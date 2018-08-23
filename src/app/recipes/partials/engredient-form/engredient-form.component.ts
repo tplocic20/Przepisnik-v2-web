@@ -1,5 +1,7 @@
 import {Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FireService} from "../../../services/fire.service";
+import {CompleterData, CompleterService} from "ng-uikit-pro-standard";
 
 @Component({
   selector: 'app-engredient-form',
@@ -10,11 +12,12 @@ export class EngredientFormComponent implements OnInit {
 
   @ViewChild('nameInput') input: ElementRef;
   form: FormGroup;
+  units: CompleterData;
   @Input() data;
   @Output() submit: EventEmitter<any> = new EventEmitter<any>();
   @Output() cancel: EventEmitter<any> = new EventEmitter<any>();
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private srv: FireService, private completer: CompleterService) {
   }
 
   get canEditAnother() {
@@ -22,9 +25,14 @@ export class EngredientFormComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('form init');
+    this.prepareAutocomplete();
     this.createForm();
     this.focusInput();
+  }
+
+  prepareAutocomplete() {
+    this.units = this.completer.local(this.srv.units, 'Name', 'Name');
+    console.log(this.units);
   }
 
   focusInput() {

@@ -26,12 +26,14 @@ export class CategoriesSelectComponent implements OnChanges {
   }
 
   checkCategory(key) {
+    console.log(key);
     const idx = this.selectedCategories.indexOf(key);
     if (idx > -1) {
       this.selectedCategories.splice(idx, 1);
     } else {
       this.selectedCategories.push(key);
     }
+    console.log(this.selectedCategories);
   }
 
   ngOnChanges(changes: SimpleChanges): void {
