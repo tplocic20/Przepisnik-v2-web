@@ -3,9 +3,20 @@
     <td>
       <div class="switch">
         <label>
-          Ukryj nagłówki
-          <input type="checkbox" [(ngModel)]="settings.hideHeaders" (ngModelChange)="hideHeadersChanged($event)">
+          <input type="checkbox" [disabled]="settings.saving === true" [(ngModel)]="settings.hideHeaders" (ngModelChange)="update($event)">
           <span class="lever"></span>
+          Ukryj nagłówki
+        </label>
+      </div>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <div class="switch">
+        <label>
+          <input type="checkbox"  [disabled]="settings.saving === true" [(ngModel)]="settings.leftSearch" (ngModelChange)="update($event)">
+          <span class="lever"></span>
+          Szukaj po lewej stronie
         </label>
       </div>
     </td>

@@ -13,7 +13,7 @@ export class ApplicationSettingsComponent implements OnInit {
   ngOnInit() {
   }
 
-  hideHeadersChanged(ev) {
-    this.settings.update({hideHeaders: ev});
+  update(ev) {
+    this.settings.update();
   }
 }

@@ -43,18 +43,15 @@
         </div>
         <div class="sticky-top sticky-offset-50 margin-divs">
           <div class="card">
-            <div class="card-header " *ngIf="!settings.hideHeaders">
+            <div class="card-header " *ngIf="settings.hideHeaders === false">
               <h4 class="card-title ">Przepis</h4>
             </div>
             <div class="card-body pre-line">
               {{recipe?.Recipe}}
-              {{recipe?.Recipe}}
-              {{recipe?.Recipe}}
-              {{recipe?.Recipe}}
             </div>
           </div>
           <div class="card" *ngIf="recipe.Gallery">
-            <div class="card-header"  *ngIf="!settings.hideHeaders">
+            <div class="card-header"  *ngIf="settings.hideHeaders === false">
               <h4 class="card-title ">Galeria</h4>
             </div>
             <div class="card-body">

@@ -5,10 +5,12 @@
       <li class="nav-item" routerLinkActive="active" *ngIf="isAuthenticated">
         <a class="nav-link waves-light" routerLink="recipes" mdbRippleRadius>Przepisy</a>
       </li>
-      <li>
+      <li *ngIf="settings.leftSearch">
         <app-search class="d-none d-md-inline-block" *ngIf="isAuthenticated"></app-search>
       </li>
     </ul>
+
+  <app-search *ngIf="isAuthenticated && !settings.leftSearch" class="d-none d-md-inline-block"></app-search>
   <app-user-info *ngIf="isAuthenticated"></app-user-info>
 
 </nav>
