@@ -1,6 +1,6 @@
 <nav class="navbar navbar-dark bg-default ie-nav fixed-top" [containerInside]="false">
 
-    <a class="logo navbar-brand" href="#"><strong>Przepiśnik</strong></a>
+    <a class="logo navbar-brand" routerLink="/recipes"><strong>Przepiśnik</strong></a>
     <ul class=" navbar-nav mr-auto row-nav">
       <li class="nav-item" routerLinkActive="active" *ngIf="isAuthenticated">
         <a class="nav-link waves-light" routerLink="recipes" mdbRippleRadius>Przepisy</a>
