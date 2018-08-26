@@ -134,6 +134,10 @@ export class FireService {
     });
   }
 
+  addUnit(unit) {
+    return this.unitsRef.push(unit);
+  }
+
   editUnit(unit) {
     return this.unitsRef.update(unit.$key, {Name: unit.Name});
   }

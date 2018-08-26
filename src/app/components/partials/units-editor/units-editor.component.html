@@ -24,7 +24,7 @@
 
       </div>
       <div *ngIf="unitItem.isEdit">
-        <form [formGroup]="unitItem.form" (keyup.enter)="saveUnit(unit, unitItem)" (keyup.esc)="cancelEditUnit(unit)">
+        <form [formGroup]="unitItem.form" (keyup.enter)="saveUnit(unit, unitItem)" (keyup.esc)="cancelEditUnit(unitItem)">
           <div class="elastic-form-group no-v-margin md-form">
             <input #focusInput mdbActive type="text" id="editCategoryInput" formControlName="name"
                    class="form-control elastic-element" placeholder="Kategoria">
@@ -38,3 +38,16 @@
     </td>
   </tr>
 </table>
+<div *ngIf="addingNewUnit">
+  <form [formGroup]="newUnitForm"  (keyup.enter)="addUnit()" (keyup.esc)="cancelNewUnit()">
+    <div class="elastic-form-group md-form form-sm">
+      <input #focusInput  type="text" id="newCatInput" class="form-control elastic-element" formControlName="name"
+             mdbInputDirective data-error="Wypełnij nazwę" data-success="Ok">
+      <label for="newCatInput" class="">Nowa kategoria</label>
+      <button class="btn btn-default btn-sm pull-right" (click)="addUnit()">Dodaj</button>
+    </div>
+  </form>
+</div>
+<button *ngIf="!addingNewUnit" class="pull-right btn btn-primary" (click)="addUnit()">
+  Dodaj jednostkę
+</button>

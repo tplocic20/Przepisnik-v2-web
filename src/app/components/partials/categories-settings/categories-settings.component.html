@@ -45,10 +45,9 @@
 
 
 <div *ngIf="addingNewCat">
-  <form [formGroup]="categoryNewForm">
+  <form [formGroup]="categoryNewForm" (keyup.enter)="addCategory()" (keyup.esc)="cancelNewCategory()">
     <div class="elastic-form-group md-form">
-    <input #focusInput mdbActive type="text" id="newCatInput" class="form-control elastic-element" formControlName="name"
-             (keyup.enter)="addCategory()" (keyup.esc)="cancelNewCategory()">
+    <input #focusInput mdbInputDirective data-error="Wypełnij nazwę" data-success="Ok" type="text" id="newCatInput" class="form-control elastic-element" formControlName="name">
       <label for="newCatInput" class="">Nowa kategoria</label>
       <button class="btn btn-default btn-sm pull-right" (click)="addCategory()">Dodaj</button>
     </div>
