@@ -375,12 +375,16 @@ button:focus {
 //}
 
 @media all and (min-width: 577px) {
-  .slide-in-btn {
+  .xs-special-button {
     display: none;
   }
 }
 
 @media all and (max-width: 576px) {
+
+  .xs-display-none {
+    display: none !important;
+  }
 
   .slide-in-btn {
     left: 0;

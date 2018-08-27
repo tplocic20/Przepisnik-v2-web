@@ -1,4 +1,4 @@
-import {NgModule} from '@angular/core';
+import {NgModule, NO_ERRORS_SCHEMA} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {RecipesListComponent} from './components/recipes-list/recipes-list.component';
 import {RecipescontainerComponent} from './components/recipescontainer/recipescontainer.component';
@@ -31,7 +31,8 @@ import {MDBBootstrapModulesPro} from "ng-uikit-pro-standard";
   declarations: [RecipesListComponent, RecipescontainerComponent, CategoriesComponent, RecipeDetailsComponent, RecipesDashboardComponent, AddEditRecipeModalComponent,
     CategoriesSelectComponent, EngredientsEditorComponent, EngredientFormComponent],
   exports: [RecipesListComponent, RecipescontainerComponent, CategoriesComponent, RecipeDetailsComponent],
-  entryComponents: [AddEditRecipeModalComponent]
+  entryComponents: [AddEditRecipeModalComponent],
+  schemas: [NO_ERRORS_SCHEMA]
 })
 export class RecipesModule {
 }

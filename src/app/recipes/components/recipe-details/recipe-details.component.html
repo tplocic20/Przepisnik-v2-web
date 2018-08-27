@@ -74,8 +74,21 @@
         </div>
       </div>
     </div>
+    <div class="fixed-action-btn xs-special-button top-z-index" style="bottom: 45px; right: 24px;">
+
+      <a class="btn-floating btn-large blue waves-light" mdbWavesEffect (click)="fixed.toggle($event)">
+        <i class="fa fa-ellipsis-v"></i>
+      </a>
+
+      <div class="fixed_collapse" [mdbCollapse]="isCollapsed" #fixed="bs-collapse">
+        <a class="btn-floating btn-sm green waves-light" mdbWavesEffect><i class="fa fa-share-alt"></i></a>
+        <a class="btn-floating btn-sm blue  waves-light" mdbWavesEffect><i class="fa fa-pencil"></i></a>
+        <a class="btn-floating btn-sm red waves-light" mdbWavesEffect><i class="fa fa-trash-o"></i></a>
+      </div>
+
+    </div>
   </div>
   <div *ngIf="!recipe">
-    dupa
+    Nie udało się pobrac przepisu
   </div>
 </div>

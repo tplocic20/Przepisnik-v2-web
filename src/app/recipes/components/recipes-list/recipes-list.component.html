@@ -5,7 +5,7 @@
       [routerLink]="['/recipes', rec.$key]" routerLinkActive="table-info" [class.table-danger]="rowElement.toRemove">
     <td>
       <div class="row-data">{{rec.Name}}</div>
-      <div class="btn-group pull-right position-absolute hover-elements" *ngIf="!rowElement.toRemove">
+      <div class="btn-group pull-right position-absolute hover-elements xs-display-none" *ngIf="!rowElement.toRemove">
         <button type="button" [routerLink]="['/recipes', rec.$key]"
                 class="btn btn-sm btn-default dropdown-toggle dropdown-toggle-split px-3 waves-light"
                 mdbRippleRadius [matMenuTriggerFor]="appMenu"

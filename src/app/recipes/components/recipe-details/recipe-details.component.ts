@@ -16,6 +16,7 @@ export class RecipeDetailsComponent implements OnInit {
 
   recId: any;
   recipe: Recipe;
+  isCollapsed: any;
 
   @ViewChild('tempTimeDiv') tempTimeDiv: ElementRef;
 
