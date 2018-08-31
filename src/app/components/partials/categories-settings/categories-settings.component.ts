@@ -1,6 +1,7 @@
 import {AfterViewInit, Component, ElementRef, OnInit, QueryList, ViewChildren} from '@angular/core';
 import {FireService} from "../../../services/fire.service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {MessagesService} from "../../../services/messages.service";
 
 @Component({
   selector: 'app-categories-settings',
@@ -9,7 +10,7 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 })
 export class CategoriesSettingsComponent implements OnInit, AfterViewInit {
 
-  constructor(private srv: FireService, private fb: FormBuilder) {
+  constructor(private srv: FireService, private fb: FormBuilder, private toast: MessagesService) {
   }
 
   categories: any;
@@ -43,7 +44,10 @@ export class CategoriesSettingsComponent implements OnInit, AfterViewInit {
       this.addingNewCat = true;
     } else {
       if (this.categoryNewForm.touched && this.categoryNewForm.invalid) return;
-      this.srv.addCategory(this.categoryNewForm.get("name").value);
+      const name = this.categoryNewForm.get("name").value;
+      this.srv.addCategory(name).then(() => {
+        this.toast.success(`Dodano kategorię ${name}`);
+      });
       this.cancelNewCategory();
     }
   }
@@ -68,8 +72,11 @@ export class CategoriesSettingsComponent implements OnInit, AfterViewInit {
   saveCategory(cat, view) {
     if (this.categoryEditForm.touched && this.categoryEditForm.invalid) return;
     cat.Name = this.categoryEditForm.get('name').value;
-    delete view.isEdit;
-    this.srv.editCategory(cat).then(() => this.categoryEditForm = null);
+    delete view.inEdit;
+    this.srv.editCategory(cat).then(() => {
+      this.categoryEditForm = null;
+      this.toast.info("Edytowano kategorię");
+    });
   }
 
   cancelEditCategory(cat, view) {
@@ -86,7 +93,7 @@ export class CategoriesSettingsComponent implements OnInit, AfterViewInit {
       view.removeTimeout = setInterval(() => {
         view.removeTimer--;
         if (view.removeTimer === 0) {
-          this.srv.removeCategory(cat);
+          this.srv.removeCategory(cat).then(() => this.toast.warning(`Usunięto kategorię ${cat.Name}`));
           clearInterval(view.removeTimeout);
         }
       }, 1000);

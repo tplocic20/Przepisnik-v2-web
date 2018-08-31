@@ -6,6 +6,7 @@ import {FireService} from "../../../services/fire.service";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material";
 import {CategoriesSelectComponent} from "../../partials/categories-select/categories-select.component";
 import {EngredientsEditorComponent} from "../../partials/engredients-editor/engredients-editor.component";
+import {MessagesService} from "../../../services/messages.service";
 
 @Component({
   selector: 'app-add-edit-recipe-modal',
@@ -24,7 +25,7 @@ export class AddEditRecipeModalComponent implements OnInit {
 
   public recipe: Recipe = {Name: ""};
 
-  constructor(private srv: FireService, public dialogRef: MatDialogRef<AddEditRecipeModalComponent>, @Inject(MAT_DIALOG_DATA) public data: any) {
+  constructor(private srv: FireService, public dialogRef: MatDialogRef<AddEditRecipeModalComponent>, @Inject(MAT_DIALOG_DATA) public data: any, private toast: MessagesService) {
     this.config = data;
   }
 
@@ -62,9 +63,9 @@ export class AddEditRecipeModalComponent implements OnInit {
       this.recipe.Categories = this.categories.validCategories;
       this.recipe.Engredients = this.engredients.validEngredients;
       if (this.config.mode === ModalModeEnum.Add)
-        this.srv.addRecipe(this.recipe);
+        this.srv.addRecipe(this.recipe).then(() => this.toast.success(`Dodano przepis "${this.recipe.Name}"`));
       else
-        this.srv.updateRecipe(this.config.recId, this.recipe);
+        this.srv.updateRecipe(this.config.recId, this.recipe).then(() => this.toast.success(`Edytowano przepis "${this.recipe.Name}"`));
       this.close();
     }
   }

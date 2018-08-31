@@ -6,6 +6,9 @@ import {SearchService} from "../../../services/search.service";
 import {AddEditRecipeModalComponent} from "../../modals/add-edit-recipe-modal/add-edit-recipe-modal.component";
 import {ModalModeEnum} from "../../../models/enums/ModalModeEnum";
 import {MatDialog, MatDialogConfig} from "@angular/material";
+import {ClipboardService} from "ngx-clipboard";
+import {ToastService} from "ng-uikit-pro-standard";
+import {MessagesService} from "../../../services/messages.service";
 
 @Component({
   selector: 'app-recipes-list',
@@ -19,7 +22,7 @@ export class RecipesListComponent implements OnInit, OnChanges {
   selectedRecipe: any;
   loading = true;
 
-  constructor(private srv: FireService, public searchService: SearchService, private dialogSrv: MatDialog) {
+  constructor(private srv: FireService, public searchService: SearchService, private dialogSrv: MatDialog, private clipboard: ClipboardService, private toast: MessagesService) {
 
   }
 
@@ -60,7 +63,7 @@ export class RecipesListComponent implements OnInit, OnChanges {
     view.removeTimeout = setInterval(() => {
       view.removeTimer--;
       if (view.removeTimer === 0) {
-        this.srv.removeRecipe(recipe.$key);
+        this.srv.removeRecipe(recipe.$key).then(() => this.toast.warning(`Usunięto przepis "${recipe.Name}"`));
         clearInterval(view.removeTimeout);
       }
     }, 1000);
@@ -73,5 +76,42 @@ export class RecipesListComponent implements OnInit, OnChanges {
       clearInterval(view.removeTimeout);
       delete view.removeTimeout;
     }
+  }
+
+  shareClipboard(rec) {
+    const text = this.convertRecipeToText(rec);
+    this.clipboard.copyFromContent(text);
+    this.toast.info("Skopiowano do schowka");
+  }
+  private convertRecipeToText(recipe: Recipe): string {
+    let text: string[] = [];
+    text.push(`${recipe.Name}:`);
+    if (recipe.Temperature)
+      text.push(`Temperatura: ${recipe.Temperature}`);
+    if (recipe.Time)
+      text.push(`Czas: ${recipe.Time}`);
+    text = text.concat(this.engredientsToText(recipe.Engredients));
+    text.push("\n");
+    text.push(recipe.Recipe);
+
+    return text.join("\n");
+  }
+
+  private engredientsToText(groups: any[]): string[] {
+    const text: string[] = [];
+    for (let i = 0; i < groups.length; i++) {
+      text.push("\n");
+      text.push(`${(i + 1)}. ${groups[i].Name}`);
+      if (groups[i].Positions) {
+        for (let y = 0; y < groups[i].Positions.length; y++) {
+          const name = groups[i].Positions[y].Name;
+          const qty = groups[i].Positions[y].Qty ? groups[i].Positions[y].Qty : "";
+          const unit = groups[i].Positions[y].Unit ? groups[i].Positions[y].Unit : "";
+          const eng = `${name} ${qty} ${unit}`;
+          text.push(`- ${eng}`);
+        }
+      }
+    }
+    return text;
   }
 }

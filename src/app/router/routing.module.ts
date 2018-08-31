@@ -16,7 +16,7 @@ const routes: Routes = [
   imports: [
     RouterModule.forRoot(routes)
   ],
-  providers: [    AuthGuard
+  providers: [ AuthGuard
   ],
   exports: [RouterModule]
 })

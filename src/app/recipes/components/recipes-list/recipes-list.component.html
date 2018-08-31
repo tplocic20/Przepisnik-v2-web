@@ -30,7 +30,7 @@
 
 <mat-menu #appMenu="matMenu">
   <ng-template matMenuContent let-recipe="rec" let-rowElement="rowElement">
-    <button class="menu-success" mat-menu-item [matMenuTriggerFor]="shareMenu">
+    <button class="menu-success" mat-menu-item [matMenuTriggerFor]="shareMenu" [matMenuTriggerData]="{rec: recipe}">
       <i class="fa fa-share-alt"></i>
       Udostępnij
     </button>
@@ -45,20 +45,14 @@
   </ng-template>
 </mat-menu>
 <mat-menu #shareMenu="matMenu">
-  <button mat-menu-item>
-    <i class="fa fa-width-16 fa-facebook-f"></i>
-    Facebook
-  </button>
-  <button mat-menu-item>
-    <i class="fa fa-width-16 fa-envelope"></i>
-    Email
-  </button>
-  <button mat-menu-item>
-    <i class="fa fa-width-16 fa-copy"></i>
-    Schowek
-  </button>
-  <button mat-menu-item>
-    <i class="fa fa-width-16 fa-user"></i>
-    Inny użytkownik
-  </button>
+  <ng-template matMenuContent let-recipe="rec" >
+    <button mat-menu-item (click)="shareClipboard(recipe)">
+      <i class="fa fa-width-16 fa-copy"></i>
+      Schowek
+    </button>
+    <!--<button mat-menu-item>-->
+    <!--<i class="fa fa-width-16 fa-user"></i>-->
+    <!--Inny użytkownik-->
+    <!--</button>-->
+  </ng-template>
 </mat-menu>

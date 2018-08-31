@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import {AngularFireAuth} from "angularfire2/auth";
 import {AngularFireDatabase, AngularFireObject} from "angularfire2/database";
+import {ToastService} from "ng-uikit-pro-standard";
+import {MessagesService} from "./messages.service";
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +16,7 @@ export class SettingsService {
 
   private saveTimeout;
 
-  constructor(private auth: AngularFireAuth, private db: AngularFireDatabase) {
+  constructor(private auth: AngularFireAuth, private db: AngularFireDatabase, private toast: MessagesService) {
     this.auth.authState.subscribe(user => {
       if (user) {
         this.userRef = this.db.object(`Users/${user.uid}`);
@@ -38,9 +40,9 @@ export class SettingsService {
       console.log(item);
       this.userRef.update(item).then(() => {
         clearTimeout(this.saveTimeout);
+        this.toast.success("Zaaktualizowano ustawienia")
         setTimeout(() => {
           this.saving = false;
-
         }, 250);
       });
     }, 1000);

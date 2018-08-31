@@ -1,6 +1,7 @@
 import {AfterViewInit, Component, ElementRef, OnInit, QueryList, ViewChildren} from '@angular/core';
 import {FireService} from "../../../services/fire.service";
 import {FormBuilder, Validators} from "@angular/forms";
+import {MessagesService} from "../../../services/messages.service";
 
 @Component({
   selector: 'app-units-editor',
@@ -14,7 +15,7 @@ export class UnitsEditorComponent implements OnInit, AfterViewInit {
   newUnitForm: any;
   @ViewChildren('focusInput') focusInputs: QueryList<ElementRef>;
 
-  constructor(private srv: FireService, private fb: FormBuilder) {
+  constructor(private srv: FireService, private fb: FormBuilder, private toast: MessagesService) {
   }
 
   ngOnInit() {
@@ -29,6 +30,7 @@ export class UnitsEditorComponent implements OnInit, AfterViewInit {
       }
     });
   }
+
   editUnit(unit, vm) {
     vm.isEdit = true;
     vm.form = this.fb.group(
@@ -41,11 +43,14 @@ export class UnitsEditorComponent implements OnInit, AfterViewInit {
   saveUnit(unit, vm) {
     if (vm.form.invalid) return;
     unit.Name = vm.form.get('name').value;
-    this.srv.editUnit(unit).then(() => this.cancelEditUnit(vm));
+    this.srv.editUnit(unit).then(() => {
+      this.cancelEditUnit(vm);
+      this.toast.info("Zapisano jednostkę");
+    });
   }
 
   removeUnit(unit) {
-    this.srv.removeUnit(unit);
+    this.srv.removeUnit(unit).then(() => this.toast.warning(`Usunięto jednostkę ${unit.Name}`));
   }
 
   cancelEditUnit(vm) {
@@ -62,8 +67,10 @@ export class UnitsEditorComponent implements OnInit, AfterViewInit {
     if (this.addingNewUnit) {
       if (this.newUnitForm.valid) {
         this.addingNewUnit = false;
-        this.srv.addUnit({Name: this.newUnitForm.get("name").value}).then(() => {
+        const name = this.newUnitForm.get("name").value;
+        this.srv.addUnit({Name: name}).then(() => {
           this.cancelNewUnit();
+          this.toast.success(`Dodano jednostkę ${name}`);
         });
       }
     } else {

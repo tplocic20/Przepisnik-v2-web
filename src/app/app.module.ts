@@ -24,10 +24,12 @@ import {ImageUploadComponent} from './components/partials/image-upload/image-upl
 import {CategoriesSettingsComponent} from './components/partials/categories-settings/categories-settings.component';
 import {AngularFireStorageModule} from "angularfire2/storage";
 import {UnitsEditorComponent} from './components/partials/units-editor/units-editor.component';
-import {MDBBootstrapModulesPro, MDBSpinningPreloader} from "ng-uikit-pro-standard";
+import {MDBBootstrapModulesPro, MDBSpinningPreloader, ToastModule} from "ng-uikit-pro-standard";
 import {NO_ERRORS_SCHEMA} from '@angular/core';
 import {SettingsService} from "./services/settings.service";
 import {ApplicationSettingsComponent} from './components/partials/application-settings/application-settings.component';
+import {ClipboardModule} from "ngx-clipboard";
+import {MessagesService} from './services/messages.service';
 
 @NgModule({
   declarations: [
@@ -46,6 +48,11 @@ import {ApplicationSettingsComponent} from './components/partials/application-se
   imports: [
     BrowserModule,
     MDBBootstrapModulesPro.forRoot(),
+    ToastModule.forRoot({
+      maxOpened: 5,
+      autoDismiss: true,
+      preventDuplicates: true
+    }),
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
     AngularFireDatabaseModule,
@@ -58,8 +65,9 @@ import {ApplicationSettingsComponent} from './components/partials/application-se
     RoutingModule,
     MatMenuModule,
     MatTabsModule,
+    ClipboardModule
   ],
-  providers: [FireService, SearchService, ModalService, MDBSpinningPreloader, SettingsService],
+  providers: [FireService, SearchService, ModalService, MDBSpinningPreloader, SettingsService, MessagesService],
   bootstrap: [AppComponent],
   entryComponents: [ProfileComponent, SettingsComponent],
   schemas: [NO_ERRORS_SCHEMA]
