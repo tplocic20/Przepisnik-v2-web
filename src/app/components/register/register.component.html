@@ -1,35 +1,34 @@
-    <div class="card login-card" >
-      <div class="card-body">
-        <h3 class="raised-title default-color z-depth-2">Rejestracja</h3>
-        <form>
-          <div class="md-form">
-            <i class="fa fa-envelope prefix grey-text"></i>
-            <input type="email" required id="form-email" class="form-control" mdbActive [(ngModel)]="email"
-                   [ngModelOptions]="{standalone: true}" data-error="Błędny email" data-success="Poprawny email"
-                   mdbInputValidate>
-            <label for="form-email">Email</label>
-          </div>
-          <br/>
-          <div class="md-form">
-            <i class="fa fa-lock prefix grey-text"></i>
-            <input type="password" required id="form-pass" class="form-control" mdbActive [(ngModel)]="password"
-                   [ngModelOptions]="{standalone: true}" data-error="Podaj hasło" data-success=" " mdbInputValidate>
-            <label for="form-pass">Hasło</label>
-          </div>
-          <br/>
-          <div class="md-form">
-            <i class="fa fa-lock prefix grey-text"></i>
-            <input type="password" required id="form-pass2" class="form-control" mdbActive [(ngModel)]="password2"
-                   [ngModelOptions]="{standalone: true}" data-error="Podaj hasło" data-success=" " mdbInputValidate>
-            <label for="form-pass2">Powtórz hasło</label>
-          </div>
-          <div class="text-center">
-            <button class="btn btn-default waves-light" (click)="register()" mdbRippleRadius>Załóż konto</button>
-            <button class="btn btn-default waves-light" routerLink="/home" mdbRippleRadius>Anuluj</button>
-          </div>
-          <div class="text-center" *ngIf="errorMsg">
-            <p class="red-text"><i class="fa fa-warning"></i> {{errorMsg}}</p>
-          </div>
-        </form>
+<div class="card login-card">
+  <div class="card-body">
+    <h3 class="raised-title default-color z-depth-2">Rejestracja</h3>
+    <form [formGroup]="registerForm" (keyup.enter)="register()">
+      <div class="md-form">
+        <i class="fa fa-envelope prefix grey-text"></i>
+        <input type="email" required id="form-email" class="form-control" formControlName="email" mdbInputDirective
+               data-error="Błędny email" data-success="Poprawny email">
+        <label for="form-email">Email</label>
       </div>
-    </div>
+      <br/>
+      <div formGroupName="password">
+        <div class="md-form">
+          <i class="fa fa-lock prefix grey-text"></i>
+          <input type="password" required id="form-pass" class="form-control" formControlName="pw"  mdbInputDirective data-error="Podaj hasło" data-success=" " >
+          <label for="form-pass">Hasło</label>
+        </div>
+        <br/>
+        <div class="md-form">
+          <i class="fa fa-lock prefix grey-text"></i>
+          <input type="password" required id="form-pass2" class="form-control" formControlName="confirm"  mdbInputDirective data-error="Hasła muszą sie zgadzać" data-success=" " >
+          <label for="form-pass2">Powtórz hasło</label>
+        </div>
+      </div>
+      <div class="text-center">
+        <button class="btn btn-default waves-light" (click)="register()" mdbRippleRadius>Załóż konto</button>
+        <button class="btn btn-default waves-light" routerLink="/home" mdbRippleRadius>Anuluj</button>
+      </div>
+      <div class="text-center" *ngIf="errorMsg">
+        <p class="red-text"><i class="fa fa-warning"></i> {{errorMsg}}</p>
+      </div>
+    </form>
+  </div>
+</div>

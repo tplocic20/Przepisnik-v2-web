@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {AngularFireAuth} from "angularfire2/auth";
 import {AngularFireDatabase, AngularFireObject} from "angularfire2/database";
 import {ToastService} from "ng-uikit-pro-standard";
@@ -17,13 +17,25 @@ export class SettingsService {
   private saveTimeout;
 
   constructor(private auth: AngularFireAuth, private db: AngularFireDatabase, private toast: MessagesService) {
+    console.log("User service");
     this.auth.authState.subscribe(user => {
       if (user) {
-        this.userRef = this.db.object(`Users/${user.uid}`);
-        this.userRef.valueChanges().subscribe(val => {
-          this.hideHeaders = val.hideHeaders;
-          this.leftSearch = val.leftSearch;
-        });
+        if (!user.emailVerified) {
+          this.auth.auth.signOut();
+        } else {
+          this.userRef = this.db.object(`Users/${user.uid}`);
+          this.userRef.valueChanges().subscribe(val => {
+            if (!val) {
+              this.userRef.update({
+                hideHeaders: false,
+                leftSearch: false
+              });
+            } else {
+              this.hideHeaders = val.hideHeaders;
+              this.leftSearch = val.leftSearch;
+            }
+          });
+        }
       }
     });
   }

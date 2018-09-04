@@ -4,6 +4,7 @@ import {Router} from "@angular/router";
 import {MatDialog} from "@angular/material";
 import {ProfileComponent} from "../modals/profile/profile.component";
 import {SettingsComponent} from "../modals/settings/settings.component";
+import {MessagesService} from "../../services/messages.service";
 
 @Component({
   selector: 'app-user-info',
@@ -15,7 +16,7 @@ export class UserInfoComponent implements OnInit {
   userData: any;
   classes = "rounded-menu";
 
-  constructor(private srv: FireService, private router: Router, private dialogSrv: MatDialog) {
+  constructor(private srv: FireService, private router: Router, private dialogSrv: MatDialog, private toast: MessagesService) {
     this.userData = this.srv.userState;
   }
 
@@ -23,7 +24,10 @@ export class UserInfoComponent implements OnInit {
   }
 
   logout() {
-    this.srv.signOut().then(() => this.router.navigate(['home']));
+    this.srv.signOut().then(() => {
+      this.toast.info("Wylogowano");
+      this.router.navigate(['home']);
+    });
   }
 
   editProfile() {

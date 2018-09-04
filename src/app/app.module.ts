@@ -30,6 +30,7 @@ import {SettingsService} from "./services/settings.service";
 import {ApplicationSettingsComponent} from './components/partials/application-settings/application-settings.component';
 import {ClipboardModule} from "ngx-clipboard";
 import {MessagesService} from './services/messages.service';
+import { EmailInvalidModalComponent } from './components/modals/email-invalid-modal/email-invalid-modal.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import {MessagesService} from './services/messages.service';
     CategoriesSettingsComponent,
     UnitsEditorComponent,
     ApplicationSettingsComponent,
+    EmailInvalidModalComponent,
   ],
   imports: [
     BrowserModule,
@@ -69,7 +71,7 @@ import {MessagesService} from './services/messages.service';
   ],
   providers: [FireService, SearchService, ModalService, MDBSpinningPreloader, SettingsService, MessagesService],
   bootstrap: [AppComponent],
-  entryComponents: [ProfileComponent, SettingsComponent],
+  entryComponents: [ProfileComponent, SettingsComponent, EmailInvalidModalComponent],
   schemas: [NO_ERRORS_SCHEMA]
 })
 export class AppModule {

@@ -13,13 +13,17 @@ export class AppComponent implements OnInit {
   constructor(private srv: FireService, private router: Router, public settings: SettingsService) {
     this.srv.authCtx.subscribe(user => {
       if (user) {
-        this.router.navigate(['recipes']);
+        if (user.emailVerified) {
+          this.router.navigate(['recipes']);
+        } else {
+          this.srv.signOut();
+        }
       }
     });
   }
 
   get isAuthenticated() {
-    return this.srv.isSignedIn;
+    return this.srv.isSignedIn && this.srv.isEmailVerified;
   }
 
   ngOnInit(): void {

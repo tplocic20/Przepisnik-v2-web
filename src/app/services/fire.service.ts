@@ -7,6 +7,9 @@ import {Recipe} from "../models/Recipe";
 import {map} from "rxjs/internal/operators";
 import {AngularFireStorage} from "angularfire2/storage";
 import {Observable} from "rxjs/Rx";
+import {MessagesService} from "./messages.service";
+import {MatDialog} from "@angular/material";
+import {EmailInvalidModalComponent} from "../components/modals/email-invalid-modal/email-invalid-modal.component";
 
 @Injectable()
 export class FireService {
@@ -14,34 +17,38 @@ export class FireService {
   public userState: any = null;
   authCtx: any = null;
 
-  constructor(private auth: AngularFireAuth, private db: AngularFireDatabase, private storage: AngularFireStorage) {
+  constructor(private auth: AngularFireAuth, private db: AngularFireDatabase, private storage: AngularFireStorage, private toast: MessagesService, private dialogSrv: MatDialog) {
     this.authCtx = this.auth.authState;
     this.auth.authState.subscribe(user => {
       if (user) {
-        this.userState = user;
-        this.userRef = this.db.object("Users/" + this.userState.uid);
-        this.userObj = this.userRef.valueChanges();
+        if (!user.emailVerified) {
+          this.auth.auth.signOut();
+        } else {
+          this.userState = user;
+          this.userRef = this.db.object("Users/" + this.userState.uid);
+          this.userObj = this.userRef.valueChanges();
 
-        this.categoriesRef = this.db.list(`Categories/${user.uid}`);
-        this.categoriesList = this.categoriesRef.snapshotChanges().pipe(
-          map(actions => actions.map(a => ({$key: a.key, ...a.payload.val()}))));
+          this.categoriesRef = this.db.list(`Categories/${user.uid}`);
+          this.categoriesList = this.categoriesRef.snapshotChanges().pipe(
+            map(actions => actions.map(a => ({$key: a.key, ...a.payload.val()}))));
 
-        this.unitsRef = this.db.list(`Units/${user.uid}`);
-        this.unitsList = this.unitsRef.snapshotChanges().pipe(
-          map(actions => actions.map(a => ({$key: a.key, ...a.payload.val()}))));
+          this.unitsRef = this.db.list(`Units/${user.uid}`);
+          this.unitsList = this.unitsRef.snapshotChanges().pipe(
+            map(actions => actions.map(a => ({$key: a.key, ...a.payload.val()}))));
 
-        this.recipesRef = this.db.list(`Recipes/${user.uid}`);
-        this.recipesList = this.recipesRef.snapshotChanges().pipe(
-          map(actions => actions.map(a => ({$key: a.key, ...a.payload.val()}))));
+          this.recipesRef = this.db.list(`Recipes/${user.uid}`);
+          this.recipesList = this.recipesRef.snapshotChanges().pipe(
+            map(actions => actions.map(a => ({$key: a.key, ...a.payload.val()}))));
 
-        this.notesRef = this.db.list(`Notes/${user.uid}`);
-        this.notesList = this.notesRef.snapshotChanges().pipe(
-          map(actions => actions.map(a => ({$key: a.key, ...a.payload.val()}))));
+          this.notesRef = this.db.list(`Notes/${user.uid}`);
+          this.notesList = this.notesRef.snapshotChanges().pipe(
+            map(actions => actions.map(a => ({$key: a.key, ...a.payload.val()}))));
 
-        this.favouritesRef = this.db.list(`Recipes/${user.uid}`, query => query.orderByChild('Favourite').equalTo(true));
-        this.favouritesList = this.favouritesRef.snapshotChanges().pipe(
-          map(actions => actions.map(a => ({$key: a.key, ...a.payload.val()}))));
+          this.favouritesRef = this.db.list(`Recipes/${user.uid}`, query => query.orderByChild('Favourite').equalTo(true));
+          this.favouritesList = this.favouritesRef.snapshotChanges().pipe(
+            map(actions => actions.map(a => ({$key: a.key, ...a.payload.val()}))));
 
+        }
       }
     });
   }
@@ -68,6 +75,10 @@ export class FireService {
     return this.userState != null;
   }
 
+  get isEmailVerified() {
+    return this.userState && this.userState.emailVerified;
+  }
+
   private categoriesLoaded: any;
 
   get categories() {
@@ -87,6 +98,7 @@ export class FireService {
   }
 
   private unitsFlatLoaded: any;
+
   get unitsFlat() {
     if (!this.unitsFlatLoaded) {
       this.getUnitsFlat();
@@ -96,11 +108,16 @@ export class FireService {
   }
 
   public register(email, pass) {
-    return this.auth.auth.createUserWithEmailAndPassword(email, pass);
+    const promise = this.auth.auth.createUserWithEmailAndPassword(email, pass);
+    return promise;
+  }
+
+  public quietVerifyEmail() {
+    return this.userState.sendEmailVerification();
   }
 
   public verifyEmail() {
-    this.userState.sendEmailVerification();
+    this.userState.sendEmailVerification().then(() => this.toast.info("Wysłano link aktywacyjny, sprawdź skrzynkę."));
   }
 
   public signIn(email, pass) {
@@ -113,6 +130,7 @@ export class FireService {
   }
 
   private newGuid() {
+    if (!this.checkEmail()) return null;
     return this.db.createPushId();
   }
 
@@ -135,14 +153,17 @@ export class FireService {
   }
 
   addUnit(unit) {
+    if (!this.checkEmail()) return;
     return this.unitsRef.push(unit);
   }
 
   editUnit(unit) {
+    if (!this.checkEmail()) return;
     return this.unitsRef.update(unit.$key, {Name: unit.Name});
   }
 
   removeUnit(unit) {
+    if (!this.checkEmail()) return;
     return this.unitsRef.remove(unit.$key);
   }
 
@@ -152,14 +173,17 @@ export class FireService {
   }
 
   addCategory(data) {
+    if (!this.checkEmail()) return;
     return this.categoriesRef.push({Name: data, Owner: this.userState.uid});
   }
 
   removeCategory(data) {
+    if (!this.checkEmail()) return;
     return this.categoriesRef.remove(data.$key);
   }
 
   editCategory(data) {
+    if (!this.checkEmail()) return;
     return this.categoriesRef.update(data.$key, {Name: data.Name});
   }
 
@@ -176,16 +200,18 @@ export class FireService {
   }
 
   addNote(note: Note) {
+    if (!this.checkEmail()) return;
     return this.notesRef.push(note);
   }
 
   updateNote(key, note: Note) {
+    if (!this.checkEmail()) return;
     return this.notesRef.update(key, note);
   }
 
   removeNote(key) {
+    if (!this.checkEmail()) return;
     return this.notesRef.remove(key);
-
   }
 
   getFavourites() {
@@ -204,14 +230,17 @@ export class FireService {
   }
 
   addRecipe(recipe: Recipe) {
+    if (!this.checkEmail()) return;
     return this.recipesRef.push(recipe);
   }
 
   updateRecipe(key, recipe: Recipe) {
+    if (!this.checkEmail()) return;
     return this.recipesRef.update(key, recipe);
   }
 
   removeRecipe(key) {
+    if (!this.checkEmail()) return;
     return this.recipesRef.remove(key);
   }
 
@@ -220,6 +249,7 @@ export class FireService {
   }
 
   uploadImage(imageData, contentType = null) {
+    if (!this.checkEmail()) return;
     if (contentType) {
       return this.storage.ref(this.newGuid()).putString(imageData, 'base64', {contentType: contentType});
     } else {
@@ -229,6 +259,7 @@ export class FireService {
   }
 
   removeImage(imageKey: string) {
+    if (!this.checkEmail()) return;
     return this.storage.ref(imageKey).delete();
   }
 
@@ -266,6 +297,24 @@ export class FireService {
       this.userState.updateProfile(uploadData);
     } else {
       this.userState.updateProfile(uploadData);
+    }
+  }
+
+  public checkEmail() {
+    if (this.isEmailVerified) {
+      return true;
+    } else {
+      const config = {
+        data: {
+          sendEmail: () => {
+            this.verifyEmail();
+          }
+        }
+      };
+      Promise.resolve().then(() => {
+        this.dialogSrv.open(EmailInvalidModalComponent, config as any);
+      });
+      return false;
     }
   }
 }

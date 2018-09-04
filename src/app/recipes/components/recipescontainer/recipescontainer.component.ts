@@ -4,6 +4,7 @@ import {AddEditRecipeModalComponent} from "../../modals/add-edit-recipe-modal/ad
 import {ModalService} from "../../../services/modal.service";
 import {ModalModeEnum} from "../../../models/enums/ModalModeEnum";
 import {MatDialog} from "@angular/material";
+import {FireService} from "../../../services/fire.service";
 
 @Component({
   selector: 'app-recipescontainer',
@@ -14,9 +15,10 @@ export class RecipescontainerComponent implements OnInit {
 
   selectedCategory: string;
   leftPanelOpen: boolean = false;
-  constructor(private viewContainerRef: ViewContainerRef, private modalSrv: ModalService, private dialogSrv: MatDialog) { }
+  constructor(private dialogSrv: MatDialog, private srv: FireService) { }
 
   ngOnInit() {
+    this.srv.checkEmail();
   }
 
   categorySelected(ev) {
