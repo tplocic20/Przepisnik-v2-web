@@ -20,8 +20,12 @@ export class SettingsService {
     console.log("User service");
     this.auth.authState.subscribe(user => {
       if (user) {
+        console.log(user);
         if (!user.emailVerified) {
-          this.auth.auth.signOut();
+          this.toast.error('Proszę zweryfikować email, link został wysłany');
+          user.sendEmailVerification().then(() => {
+            this.auth.auth.signOut();
+          });
         } else {
           this.userRef = this.db.object(`Users/${user.uid}`);
           this.userRef.valueChanges().subscribe(val => {

@@ -25,7 +25,7 @@ export class FireService {
           this.auth.auth.signOut();
         } else {
           this.userState = user;
-          this.userRef = this.db.object("Users/" + this.userState.uid);
+          this.userRef = this.db.object("Users/" + user.uid);
           this.userObj = this.userRef.valueChanges();
 
           this.categoriesRef = this.db.list(`Categories/${user.uid}`);
@@ -103,7 +103,6 @@ export class FireService {
     if (!this.unitsFlatLoaded) {
       this.getUnitsFlat();
     }
-    console.log(this.unitsLoaded);
     return this.unitsFlatLoaded;
   }
 

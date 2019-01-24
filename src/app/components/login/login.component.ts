@@ -40,7 +40,6 @@ export class LoginComponent implements OnInit {
     this.failedAttempt = false;
     const cred = this.loginForm.value;
     this.srv.signIn(cred.email, cred.password).then(res => {
-      console.log(res);
     }, err => {
       this.failedAttempt = true;
     });
