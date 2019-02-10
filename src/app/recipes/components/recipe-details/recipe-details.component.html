@@ -14,7 +14,7 @@
                   <strong>{{grp.Name}}</strong>
                   <button class="btn btn-clear btn-sm no-v-margin pull-right btn-no-focus"
                           (click)="compressExpand(grpElement)"
-                          mdbRippleRadius><i class="fa" [class.fa-compress]="!grpElement.isCollapsed" [class.fa-expand]="grpElement.isCollapsed"></i>
+                          mdbWavesEffect><i class="fa" [class.fa-compress]="!grpElement.isCollapsed" [class.fa-expand]="grpElement.isCollapsed"></i>
                   </button>
                 </td>
               </tr>
@@ -80,7 +80,7 @@
         <i class="fa fa-ellipsis-v"></i>
       </a>
 
-      <div class="fixed_collapse" [mdbCollapse]="isCollapsed" #fixed="bs-collapse">
+      <div class="fixed_collapse" [mdbCollapse]="isCollapsed" #fixed="bs-collapse">mdbWavesEffect
         <a class="btn-floating btn-sm green waves-light" mdbWavesEffect><i class="fa fa-share-alt"></i></a>
         <a class="btn-floating btn-sm blue  waves-light" mdbWavesEffect><i class="fa fa-pencil"></i></a>
         <a class="btn-floating btn-sm red waves-light" mdbWavesEffect><i class="fa fa-trash-o"></i></a>

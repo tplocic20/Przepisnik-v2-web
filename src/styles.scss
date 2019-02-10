@@ -257,8 +257,17 @@ select:focus {
   transform: translateY(-25px);
 }
 
-.buttons-row:hover .hover-elements {
-  opacity: 1;
+.buttons-row:hover {
+  .hover-elements {
+    opacity: 1;
+  }
+}
+
+.table-info {
+  .hover-elements {
+    opacity: 1 !important;
+  }
+
 }
 
 .buttons-row .table-info .hover-elements {
@@ -451,4 +460,8 @@ button:focus {
       font-weight: 300;
     }
   }
+}
+
+.font-size_1-5-em {
+  font-size: 1.5em;
 }

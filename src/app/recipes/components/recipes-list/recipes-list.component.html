@@ -7,9 +7,11 @@
       <div class="row-data">{{rec.Name}}</div>
       <div class="btn-group pull-right position-absolute hover-elements xs-display-none" *ngIf="!rowElement.toRemove">
         <button type="button" [routerLink]="['/recipes', rec.$key]"
-                class="btn btn-sm btn-default dropdown-toggle dropdown-toggle-split px-3 waves-light"
-                mdbRippleRadius [matMenuTriggerFor]="appMenu"
-                [matMenuTriggerData]="{rec: rec, rowElement: rowElement}"></button>
+                class="btn btn-sm btn-clear btn-no-focus dropdown-toggle-split px-3 waves-light"
+                mdbWavesEffect [matMenuTriggerFor]="appMenu"
+                [matMenuTriggerData]="{rec: rec, rowElement: rowElement}">
+          <i class="fa font-size_1-5-em fa-ellipsis-v"></i>
+        </button>
       </div>
       <div class="btn-group pull-right position-absolute " *ngIf="rowElement.toRemove && !rowElement.isRemoving">
         <button type="button" (click)="removeConfirm(rec, rowElement)"
