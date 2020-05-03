@@ -20,7 +20,6 @@ import {ModalService} from "./services/modal.service";
 import {
   MatMenuModule,
   MatTabsModule,
-  MatSpi
 } from "@angular/material";
 import {ProfileComponent} from './components/modals/profile/profile.component';
 import {SettingsComponent} from './components/modals/settings/settings.component';
