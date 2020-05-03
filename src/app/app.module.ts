@@ -17,10 +17,8 @@ import {SearchService} from "./services/search.service";
 import {SearchComponent} from './components/search/search.component';
 import {UserInfoComponent} from './components/user-info/user-info.component';
 import {ModalService} from "./services/modal.service";
-import {
-  MatMenuModule,
-  MatTabsModule,
-} from "@angular/material";
+import { MatMenuModule } from "@angular/material/menu";
+import { MatTabsModule } from "@angular/material/tabs";
 import {ProfileComponent} from './components/modals/profile/profile.component';
 import {SettingsComponent} from './components/modals/settings/settings.component';
 import {ImageUploadComponent} from './components/partials/image-upload/image-upload.component';

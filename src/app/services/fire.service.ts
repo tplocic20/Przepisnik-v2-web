@@ -8,7 +8,7 @@ import {map} from "rxjs/internal/operators";
 import {AngularFireStorage} from "angularfire2/storage";
 import {Observable} from "rxjs/Rx";
 import {MessagesService} from "./messages.service";
-import {MatDialog} from "@angular/material";
+import { MatDialog } from "@angular/material/dialog";
 import {EmailInvalidModalComponent} from "../components/modals/email-invalid-modal/email-invalid-modal.component";
 
 @Injectable()

@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FireService} from "../../services/fire.service";
 import {Router} from "@angular/router";
-import {MatDialog} from "@angular/material";
+import { MatDialog } from "@angular/material/dialog";
 import {ProfileComponent} from "../modals/profile/profile.component";
 import {SettingsComponent} from "../modals/settings/settings.component";
 import {MessagesService} from "../../services/messages.service";
