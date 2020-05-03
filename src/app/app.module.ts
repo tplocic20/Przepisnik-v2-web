@@ -30,6 +30,11 @@ import {ApplicationSettingsComponent} from './components/partials/application-se
 import {ClipboardModule} from "ngx-clipboard";
 import {MessagesService} from './services/messages.service';
 import { EmailInvalidModalComponent } from './components/modals/email-invalid-modal/email-invalid-modal.component';
+import {MatButtonModule} from "@angular/material/button";
+import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
+import {MatCardModule} from "@angular/material/card";
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatInputModule} from "@angular/material/input";
 
 @NgModule({
   declarations: [
@@ -55,12 +60,17 @@ import { EmailInvalidModalComponent } from './components/modals/email-invalid-mo
     FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
+    MatMenuModule,
+    MatTabsModule,
+    MatButtonModule,
+    MatProgressSpinnerModule,
+    MatCardModule,
     NotesModule,
     RecipesModule,
     RoutingModule,
-    MatMenuModule,
-    MatTabsModule,
-    ClipboardModule
+    ClipboardModule,
+    MatFormFieldModule,
+    MatInputModule
   ],
   providers: [FireService, SearchService, ModalService, SettingsService, MessagesService],
   bootstrap: [AppComponent],

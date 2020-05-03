@@ -1,32 +1,35 @@
-<div class="card login-card"  *ngIf="needsToLogIn">
-  <div class="card-body">
-    <h3 class="raised-title default-color z-depth-2"><i class="fa fa-lock"></i> Zaloguj się:</h3>
+<mat-card  *ngIf="needsToLogIn">
+  <mat-card-header>
+    <h3 class="raised-title"><i class="fa fa-lock"></i> Zaloguj się:</h3>
+  </mat-card-header>
+  <mat-card-content>
     <form [formGroup]="loginForm" >
-      <div class="md-form">
-        <i class="fa fa-envelope prefix grey-text"></i>
-        <input type="text" required id="form-email" class="form-control" formControlName="email" mdbInputDirective
+      <mat-form-field>
+        <mat-label>
+          Email
+        </mat-label>
+        <input matInput type="text" required class="form-control" formControlName="email"
                data-error="Błędny email" data-success="Poprawny email">
-        <label for="form-email">Email</label>
-      </div>
-      <br/>
-      <div class="md-form">
-        <i class="fa fa-lock prefix grey-text"></i>
-        <input type="password" required id="form-pass" class="form-control" formControlName="password" mdbInputDirective
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>
+          Hasło
+        </mat-label>
+        <input type="password" required class="form-control" formControlName="password"
                data-error="Podaj hasło" data-success="No hasło niby jest">
-        <label for="form-pass">Hasło</label>
-      </div>
+      </mat-form-field>
       <div class="text-center">
-        <button type="submit" class="btn btn-default waves-light" (click)="login()" mdbRippleRadius>Zaloguj</button>
+        <button mat-flat-button color="primary" (click)="login()">Zaloguj</button>
       </div>
       <div class="text-center" *ngIf="failedAttempt">
         <p class="red-text"><i class="fa fa-warning"></i> Nie udało się zalogować, sprawdź email i hasło</p>
       </div>
     </form>
-  </div>
-  <div class="modal-footer">
-   Nie masz konta?<a routerLink="/register"> Zarejestruj się</a>
-  </div>
-</div>
+  </mat-card-content>
+  <mat-card-actions>
+    Nie masz konta?<a routerLink="/register"> Zarejestruj się</a>
+  </mat-card-actions>
+</mat-card>
 
 
 
