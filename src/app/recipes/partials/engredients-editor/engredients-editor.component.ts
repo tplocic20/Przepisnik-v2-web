@@ -19,7 +19,7 @@ export class EngredientsEditorComponent implements OnChanges, AfterViewInit {
   @Input() engredients: EngredientGroup[];
   @Input() showErrorMessage: boolean;
 
-  @ViewChild('focusInput') focusInput: ElementRef;
+  @ViewChild('focusInput', /* TODO: add static flag */ {}) focusInput: ElementRef;
   @ViewChildren('engredientForm') engredientForm: QueryList<EngredientFormComponent>;
   @ViewChildren('nameInput') nameInput: QueryList<ElementRef>;
 

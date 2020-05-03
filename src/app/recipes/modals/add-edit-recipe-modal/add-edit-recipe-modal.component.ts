@@ -15,8 +15,8 @@ import {MessagesService} from "../../../services/messages.service";
 })
 export class AddEditRecipeModalComponent implements OnInit {
 
-  @ViewChild('categories') categories: CategoriesSelectComponent;
-  @ViewChild('engredients') engredients: EngredientsEditorComponent;
+  @ViewChild('categories', /* TODO: add static flag */ {}) categories: CategoriesSelectComponent;
+  @ViewChild('engredients', /* TODO: add static flag */ {}) engredients: EngredientsEditorComponent;
   firstTabValid: boolean = true;
   secondTabValid: boolean = true;
   thirdTabValid: boolean = true;

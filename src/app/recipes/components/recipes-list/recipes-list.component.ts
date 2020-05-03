@@ -7,7 +7,6 @@ import {AddEditRecipeModalComponent} from "../../modals/add-edit-recipe-modal/ad
 import {ModalModeEnum} from "../../../models/enums/ModalModeEnum";
 import {MatDialog, MatDialogConfig} from "@angular/material";
 import {ClipboardService} from "ngx-clipboard";
-import {ToastService} from "ng-uikit-pro-standard";
 import {MessagesService} from "../../../services/messages.service";
 
 @Component({

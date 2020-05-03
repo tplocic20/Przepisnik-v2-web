@@ -1,7 +1,6 @@
 import {Injectable} from '@angular/core';
 import {AngularFireAuth} from "angularfire2/auth";
 import {AngularFireDatabase, AngularFireObject} from "angularfire2/database";
-import {ToastService} from "ng-uikit-pro-standard";
 import {MessagesService} from "./messages.service";
 
 @Injectable({

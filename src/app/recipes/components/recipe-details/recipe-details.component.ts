@@ -18,7 +18,7 @@ export class RecipeDetailsComponent implements OnInit {
   recipe: Recipe;
   isCollapsed: any;
 
-  @ViewChild('tempTimeDiv') tempTimeDiv: ElementRef;
+  @ViewChild('tempTimeDiv', /* TODO: add static flag */ {}) tempTimeDiv: ElementRef;
 
   constructor(private route: ActivatedRoute, private router: Router, private srv: FireService, public settings: SettingsService) {
   }
