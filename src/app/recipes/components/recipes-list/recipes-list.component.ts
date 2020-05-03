@@ -5,7 +5,7 @@ import {FireService} from "../../../services/fire.service";
 import {SearchService} from "../../../services/search.service";
 import {AddEditRecipeModalComponent} from "../../modals/add-edit-recipe-modal/add-edit-recipe-modal.component";
 import {ModalModeEnum} from "../../../models/enums/ModalModeEnum";
-import {MatDialog, MatDialogConfig} from "@angular/material";
+import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
 import {ClipboardService} from "ngx-clipboard";
 import {MessagesService} from "../../../services/messages.service";
 

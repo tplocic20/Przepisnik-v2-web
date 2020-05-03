@@ -3,7 +3,7 @@ import {Observable} from "rxjs/Observable";
 import {AddEditRecipeModalComponent} from "../../modals/add-edit-recipe-modal/add-edit-recipe-modal.component";
 import {ModalService} from "../../../services/modal.service";
 import {ModalModeEnum} from "../../../models/enums/ModalModeEnum";
-import {MatDialog} from "@angular/material";
+import { MatDialog } from "@angular/material/dialog";
 import {FireService} from "../../../services/fire.service";
 
 @Component({

@@ -3,7 +3,7 @@ import {ModalModeEnum} from "../../../models/enums/ModalModeEnum";
 import {Observable} from "rxjs/Observable";
 import {Recipe} from "../../../models/Recipe";
 import {FireService} from "../../../services/fire.service";
-import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material";
+import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import {CategoriesSelectComponent} from "../../partials/categories-select/categories-select.component";
 import {EngredientsEditorComponent} from "../../partials/engredients-editor/engredients-editor.component";
 import {MessagesService} from "../../../services/messages.service";

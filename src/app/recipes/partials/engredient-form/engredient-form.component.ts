@@ -9,7 +9,7 @@ import {FireService} from "../../../services/fire.service";
 })
 export class EngredientFormComponent implements OnInit {
 
-  @ViewChild('nameInput', {static: false}) input: ElementRef;
+  @ViewChild('nameInput') input: ElementRef;
   form: FormGroup;
   @Input() data;
   @Output() submit: EventEmitter<any> = new EventEmitter<any>();
